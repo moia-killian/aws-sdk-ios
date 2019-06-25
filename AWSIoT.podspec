@@ -14,5 +14,4 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.dependency 'AWSCore', '2.9.9'
   s.source_files = 'AWSIoT/*.{h,m}', 'AWSIoT/**/*.{h,m}'
-  s.private_header_files = 'AWSIoT/Internal/*.h'
 end
