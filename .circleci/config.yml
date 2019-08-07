@@ -397,9 +397,15 @@ jobs:
       - restore_cache:
           key: test_result-{{ .Revision }}-Pinpoint
       - restore_cache:
+          key: test_result-{{ .Revision }}-Textract
+      - restore_cache:
           key: test_result-{{ .Revision }}-S3
       - restore_cache:
           key: test_result-{{ .Revision }}-DynamoDB
+      - restore_cache:
+          key: test_result-{{ .Revision }}-SageMakerRuntime
+      - restore_cache:
+          key: test_result-{{ .Revision }}-Connect  
       - store_artifacts:
           path: integration_test_result
       - run:
@@ -513,7 +519,7 @@ jobs:
           no_output_timeout: 100m
       - run:
           name: Create Carthage Archive
-          command: bash CreateCarthageArchive.sh
+          command: bash ./CircleciScripts/CreateCarthageArchive.sh
       - run:
           name: upload file to git release
           command: github-release upload -s ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME}  -t ${CIRCLE_TAG} -f aws-sdk-ios-carthage.framework.zip -n aws-sdk-ios-carthage.framework.zip
@@ -527,7 +533,7 @@ jobs:
       - checkout
       - run:
           name: Release cocoapods
-          command : python3    cocoapods_release.py
+          command: python3 ./CircleciScripts/cocoapods_release.py
 
   release_appledoc:
     # Specify the Xcode version to use
@@ -565,7 +571,7 @@ jobs:
   release_jazzydoc:
     # Specify the Xcode version to use
     macos:
-      xcode: "10.2.0"
+      xcode: "10.2.1"
     steps:
       - skip_job_unless_required
       - checkout
@@ -634,7 +640,7 @@ jobs:
 
   bump_ios_sampleapp_version:
     macos:
-      xcode: "10.1.0"
+      xcode: "10.2.1"
     steps:
       - skip_job_unless_required
       - set_environment_variables
@@ -716,9 +722,9 @@ jobs:
       - set_environment_variables
       - configure_aws
       - run:
-          name: build libarary
+          name: Build library
           command: |
-            bash Scripts/package.sh
+            bash CircleciScripts/package.sh
       - run:
           name: Copy frameworks
           command: |
@@ -730,24 +736,24 @@ jobs:
             mkdir -p "$sdkNameWithVersion"
             python3 CircleciScripts/copy_resourcefiles.py "$(pwd)"  "$(pwd)/$sdkNameWithVersion"
       - run:
-          name: zip sdk folder
+          name: Zip SDK folder
           command: |
             zip -r "$sdkNameWithVersion.zip" "$sdkNameWithVersion"
 
       - run:
-          name: copy zip file
+          name: Copy zip file
           command: |
             mkdir -p sdkfiles
             cp "$sdkNameWithVersion.zip" "sdkfiles/$sdkNameWithVersion.zip"
       - store_artifacts:
           path: sdkfiles
       - run:
-          name: upload to s3
+          name: Upload to S3
           command: |
             aws s3api put-object --bucket "$release_bucket" --key "$sdkNameWithVersion.zip" --body "$sdkNameWithVersion.zip" --content-disposition "attachment;filename=$sdkNameWithVersion.zip" --acl public-read  --profile sdk_s3_release
             aws s3api put-object --bucket "$release_bucket" --key "latest/$sdkName.zip" --body "$sdkNameWithVersion.zip" --content-disposition "attachment;filename=$sdkNameWithVersion.zip" --acl public-read  --profile sdk_s3_release
       - run:
-          name: invalidate cloudfront
+          name: Invalidate cloudfront
           command: |
             python3 CircleciScripts/cloudfront_invalidate.py sdk_s3_release  "${S3_RELEASE_DISTRIBUTION_ID}" "latest/$sdkName.zip"
   bump_sdk_version:
@@ -1170,6 +1176,36 @@ workflows:
               only:
                 - master
                 - develop
+      - integrationtest:
+          name: Textract
+          groupname: Textract
+          requires:
+            - pre_integrationtest
+          filters:
+            branches:
+              only:
+                - master
+                - develop
+      - integrationtest:
+          name: SageMakerRuntime
+          groupname: SageMakerRuntime
+          requires:
+            - pre_integrationtest
+          filters:
+            branches:
+              only:
+                - master
+                - develop
+      - integrationtest:
+          name: Connect
+          groupname: Connect
+          requires:
+            - pre_integrationtest
+          filters:
+            branches:
+              only:
+                - master
+                - develop
       - post_integrationtest:
           requires:
             - AWSMobileClient
@@ -1198,6 +1234,9 @@ workflows:
             - Pinpoint
             - S3
             - DynamoDB
+            - Textract
+            - SageMakerRuntime
+            - Connect
           filters:
             branches:
               only:
@@ -1512,6 +1551,36 @@ workflows:
               ignore: /.*/
             tags:
               only: /^[0-9]+.[0-9]+.[0-9]+$/
+      - integrationtest:
+          name: Textract
+          groupname: Textract
+          requires:
+            - pre_integrationtest
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+.[0-9]+.[0-9]+$/
+      - integrationtest:
+          name: SageMakerRuntime
+          groupname: SageMakerRuntime
+          requires:
+            - pre_integrationtest
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+.[0-9]+.[0-9]+$/
+      - integrationtest:
+          name: Connect
+          groupname: Connect
+          requires:
+            - pre_integrationtest
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+.[0-9]+.[0-9]+$/
       - post_integrationtest:
           requires:
             - AWSMobileClient
@@ -1540,6 +1609,9 @@ workflows:
             - Pinpoint
             - S3
             - DynamoDB
+            - Textract
+            - SageMakerRuntime
+            - Connect
           filters:
             branches:
               ignore: /.*/
@@ -1623,3 +1695,4 @@ workflows:
               ignore: /.*/
             tags:
               only: /^[0-9]+.[0-9]+.[0-9]+$/
+
