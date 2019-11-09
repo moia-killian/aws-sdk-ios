@@ -14,7 +14,6 @@
 //
 
 #import "AWSLexService.h"
-#import <AWSCore/AWSNetworking.h>
 #import <AWSCore/AWSCategory.h>
 #import <AWSCore/AWSNetworking.h>
 #import <AWSCore/AWSSignature.h>
@@ -28,7 +27,7 @@
 #import "AWSLexSignature.h"
 
 static NSString *const AWSInfoLex = @"Lex";
-NSString *const AWSLexSDKVersion = @"2.11.0";
+NSString *const AWSLexSDKVersion = @"2.12.1";
 
 
 @interface AWSLexResponseSerializer : AWSJSONResponseSerializer
@@ -309,7 +308,7 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
 - (AWSTask<AWSLexGetSessionResponse *> *)getSession:(AWSLexGetSessionRequest *)request {
     return [self invokeRequest:request
                     HTTPMethod:AWSHTTPMethodGET
-                     URLString:@"/bot/{botName}/alias/{botAlias}/user/{userId}/session"
+                     URLString:@"/bot/{botName}/alias/{botAlias}/user/{userId}/session/"
                   targetPrefix:@""
                  operationName:@"GetSession"
                    outputClass:[AWSLexGetSessionResponse class]];

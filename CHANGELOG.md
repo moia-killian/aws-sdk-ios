@@ -1,5 +1,103 @@
 # AWS Mobile SDK for iOS CHANGELOG
 
+## Unreleased
+
+### New Features
+
+### Bug Fixes
+
+### Misc. Updates
+
+- Model updates for the following services
+
+ - Amazon Connect
+ - Amazon EC2
+ - Amazon Polly
+ - Amazon Security Token Service (STS)
+
+## 2.12.1
+
+### New Features
+
+- **Amazon Polly**
+  - `AWSPollySynthesizeSpeechURLBuilder` now supports the ability to specify the engine (standard or neural) for a request.
+    See [the Amazon Polly documentation](https://docs.aws.amazon.com/polly/latest/dg/API_SynthesizeSpeech.html#polly-SynthesizeSpeech-request-Engine)
+    for a discussion of the Engine. See [Issue #1973](https://github.com/aws-amplify/aws-sdk-ios/issues/1973).
+
+- **AWS AuthUI**
+  - `AWSMobileClient` now supports the ability to hide sign up flow in the Drop-In UI. See [#1324](https://github.com/aws-amplify/aws-sdk-ios/pull/1324) for more details. Thanks @jamesingham!
+
+### Bug Fixes
+- **AWS AuthUI**
+  - Present sign-in modal fullscreen to avoid undesirable gap. See issue [#1963](https://github.com/aws-amplify/aws-sdk-ios/issues/1963). Thanks @BillBunting!
+- **AWS S3 TransferUtility**
+  - Fix a bug where the SDK crashes during uploading data to S3. See iseeu [#1994](https://github.com/aws-amplify/aws-sdk-ios/issues/1994).
+- **AWSFacebookSignIn**
+  - Fixes issues[#1516](https://github.com/aws-amplify/aws-sdk-ios/issues/1516) and [#1974](https://github.com/aws-amplify/aws-sdk-ios/issues/1974) from deprecated and old FBSDK. FBSDK has been updated to 5.8
+- **AWS IoT**
+  - IoT now propagates errors properly if it encounters a situation where the MQTT header is malformed
+
+
+### Misc. Updates
+
+- Model updates for the following services
+
+  - Amazon Cognito Identity Provider
+  - Amazon EC2
+  - Amazon Kinesis Firehose
+  - Amazon Lex
+  - Amazon Pinpoint
+
+## 2.12.0
+
+### New Features
+
+- **AWSMobileClient**
+  - DropIn UI now supports `FORCE_CHANGE_PASSWORD` UI flow. See issue [#1711](https://github.com/aws-amplify/aws-sdk-ios/issues/1711) for more details.
+  - AWSMobileClient now supports Cognito Custom Authentication flow. See relevant [cognito docs](https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html#amazon-cognito-user-pools-custom-authentication-flow) and [amplify docs](https://aws-amplify.github.io/docs/ios/authentication#customizing-authentication-flow) for details
+- **Amazon Transcribe Streaming**
+  - Amazon Transcribe streaming transcription enables you to send an audio stream and receive a stream of text in real time using WebSockets.
+    See [AWS Documentation](https://docs.aws.amazon.com/transcribe/latest/dg/websocket.html) for more information, and the
+    [integration test](https://github.com/aws-amplify/aws-sdk-ios/blob/master/AWSTranscribeStreamingTests/AWSTranscribeStreamingSwiftTests.swift)
+    for an example of usage.
+
+### Misc. Updates
+
+- **General SDK improvements**
+  - **Breaking Build Change** The AWS SDK for iOS now requires Xcode 11 or above to build
+
+### Bug Fixes
+
+- **AWSCognito**
+  - Fix an issue where token is not refreshed after update attribute is invoked. See [Issue #1733](https://github.com/aws-amplify/aws-sdk-ios/issues/1733) and [PR #1734](https://github.com/aws-amplify/aws-sdk-ios/pull/1734) for details. Thanks @JesusMartinAlonso!
+
+- **AWSMobileClient**
+  - Fixed an issue where the DropIn UI styles are inconsistent when dark mode is enabled on iOS 13. See [Issue #1953](https://github.com/aws-amplify/aws-sdk-ios/issues/1953) and [PR #1962](https://github.com/aws-amplify/aws-sdk-ios/pull/1962) for details. 
+
+- **Model updates for the following services**
+  - Amazon EC2
+  - Amazon Transcribe
+
+## 2.11.1
+
+### Bug Fixes
+
+- **AWSPinpoint**
+  - Fixed a bug retrieving APNS device tokens on iOS 13. See [Issue #1926](https://github.com/aws-amplify/aws-sdk-ios/pull/1926)
+
+### Misc. Updates
+
+- Model updates for the following services
+  - Amazon EC2
+    - NOTE: This model update includes a change to the mapping of certain service-emitted enum values. The symbols to which these values map
+      remains the same, but customers using older versions of the AWSEC2 SDK may wish to upgrade. Enum values affected:
+      - "deleted-running" is now "deleted_running"
+      - "deleted-terminating" is now "deleted_terminating"
+      - "pending-fulfillment" is now "pending_fulfillment"
+      - "pending-termination" is now "pending_termination"
+  - Amazon Simple Email Service
+- Removed redundant import of `AWSNetworking.h` from model service files. See [PR #1855](https://github.com/aws-amplify/aws-sdk-ios/pull/1855). Thanks @thii!
+
 ## 2.11.0
 
 ### New Features

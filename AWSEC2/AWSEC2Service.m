@@ -14,7 +14,6 @@
 //
 
 #import "AWSEC2Service.h"
-#import <AWSCore/AWSNetworking.h>
 #import <AWSCore/AWSCategory.h>
 #import <AWSCore/AWSNetworking.h>
 #import <AWSCore/AWSSignature.h>
@@ -27,7 +26,7 @@
 #import "AWSEC2Serializer.h"
 
 static NSString *const AWSInfoEC2 = @"EC2";
-NSString *const AWSEC2SDKVersion = @"2.11.0";
+NSString *const AWSEC2SDKVersion = @"2.12.1";
 
 
 @interface AWSEC2ResponseSerializer : AWSXMLResponseSerializer
@@ -2686,6 +2685,29 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
 
         if (completionHandler) {
             completionHandler(error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSEC2DeleteQueuedReservedInstancesResult *> *)deleteQueuedReservedInstances:(AWSEC2DeleteQueuedReservedInstancesRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodPOST
+                     URLString:@""
+                  targetPrefix:@""
+                 operationName:@"DeleteQueuedReservedInstances"
+                   outputClass:[AWSEC2DeleteQueuedReservedInstancesResult class]];
+}
+
+- (void)deleteQueuedReservedInstances:(AWSEC2DeleteQueuedReservedInstancesRequest *)request
+     completionHandler:(void (^)(AWSEC2DeleteQueuedReservedInstancesResult *response, NSError *error))completionHandler {
+    [[self deleteQueuedReservedInstances:request] continueWithBlock:^id _Nullable(AWSTask<AWSEC2DeleteQueuedReservedInstancesResult *> * _Nonnull task) {
+        AWSEC2DeleteQueuedReservedInstancesResult *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
         }
 
         return nil;
@@ -7367,6 +7389,29 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
      completionHandler:(void (^)(AWSEC2ModifyVpnTunnelCertificateResult *response, NSError *error))completionHandler {
     [[self modifyVpnTunnelCertificate:request] continueWithBlock:^id _Nullable(AWSTask<AWSEC2ModifyVpnTunnelCertificateResult *> * _Nonnull task) {
         AWSEC2ModifyVpnTunnelCertificateResult *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSEC2ModifyVpnTunnelOptionsResult *> *)modifyVpnTunnelOptions:(AWSEC2ModifyVpnTunnelOptionsRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodPOST
+                     URLString:@""
+                  targetPrefix:@""
+                 operationName:@"ModifyVpnTunnelOptions"
+                   outputClass:[AWSEC2ModifyVpnTunnelOptionsResult class]];
+}
+
+- (void)modifyVpnTunnelOptions:(AWSEC2ModifyVpnTunnelOptionsRequest *)request
+     completionHandler:(void (^)(AWSEC2ModifyVpnTunnelOptionsResult *response, NSError *error))completionHandler {
+    [[self modifyVpnTunnelOptions:request] continueWithBlock:^id _Nullable(AWSTask<AWSEC2ModifyVpnTunnelOptionsResult *> * _Nonnull task) {
+        AWSEC2ModifyVpnTunnelOptionsResult *result = task.result;
         NSError *error = task.error;
 
         if (completionHandler) {

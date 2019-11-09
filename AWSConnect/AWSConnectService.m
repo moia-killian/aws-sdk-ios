@@ -14,7 +14,6 @@
 //
 
 #import "AWSConnectService.h"
-#import <AWSCore/AWSNetworking.h>
 #import <AWSCore/AWSCategory.h>
 #import <AWSCore/AWSNetworking.h>
 #import <AWSCore/AWSSignature.h>
@@ -26,7 +25,7 @@
 #import "AWSConnectResources.h"
 
 static NSString *const AWSInfoConnect = @"Connect";
-NSString *const AWSConnectSDKVersion = @"2.11.0";
+NSString *const AWSConnectSDKVersion = @"2.12.1";
 
 
 @interface AWSConnectResponseSerializer : AWSJSONResponseSerializer
@@ -483,6 +482,98 @@ static AWSSynchronizedMutableDictionary *_serviceClients = nil;
      completionHandler:(void (^)(AWSConnectGetMetricDataResponse *response, NSError *error))completionHandler {
     [[self getMetricData:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectGetMetricDataResponse *> * _Nonnull task) {
         AWSConnectGetMetricDataResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSConnectListContactFlowsResponse *> *)listContactFlows:(AWSConnectListContactFlowsRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodGET
+                     URLString:@"/contact-flows-summary/{InstanceId}"
+                  targetPrefix:@""
+                 operationName:@"ListContactFlows"
+                   outputClass:[AWSConnectListContactFlowsResponse class]];
+}
+
+- (void)listContactFlows:(AWSConnectListContactFlowsRequest *)request
+     completionHandler:(void (^)(AWSConnectListContactFlowsResponse *response, NSError *error))completionHandler {
+    [[self listContactFlows:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectListContactFlowsResponse *> * _Nonnull task) {
+        AWSConnectListContactFlowsResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSConnectListHoursOfOperationsResponse *> *)listHoursOfOperations:(AWSConnectListHoursOfOperationsRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodGET
+                     URLString:@"/hours-of-operations-summary/{InstanceId}"
+                  targetPrefix:@""
+                 operationName:@"ListHoursOfOperations"
+                   outputClass:[AWSConnectListHoursOfOperationsResponse class]];
+}
+
+- (void)listHoursOfOperations:(AWSConnectListHoursOfOperationsRequest *)request
+     completionHandler:(void (^)(AWSConnectListHoursOfOperationsResponse *response, NSError *error))completionHandler {
+    [[self listHoursOfOperations:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectListHoursOfOperationsResponse *> * _Nonnull task) {
+        AWSConnectListHoursOfOperationsResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSConnectListPhoneNumbersResponse *> *)listPhoneNumbers:(AWSConnectListPhoneNumbersRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodGET
+                     URLString:@"/phone-numbers-summary/{InstanceId}"
+                  targetPrefix:@""
+                 operationName:@"ListPhoneNumbers"
+                   outputClass:[AWSConnectListPhoneNumbersResponse class]];
+}
+
+- (void)listPhoneNumbers:(AWSConnectListPhoneNumbersRequest *)request
+     completionHandler:(void (^)(AWSConnectListPhoneNumbersResponse *response, NSError *error))completionHandler {
+    [[self listPhoneNumbers:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectListPhoneNumbersResponse *> * _Nonnull task) {
+        AWSConnectListPhoneNumbersResponse *result = task.result;
+        NSError *error = task.error;
+
+        if (completionHandler) {
+            completionHandler(result, error);
+        }
+
+        return nil;
+    }];
+}
+
+- (AWSTask<AWSConnectListQueuesResponse *> *)listQueues:(AWSConnectListQueuesRequest *)request {
+    return [self invokeRequest:request
+                    HTTPMethod:AWSHTTPMethodGET
+                     URLString:@"/queues-summary/{InstanceId}"
+                  targetPrefix:@""
+                 operationName:@"ListQueues"
+                   outputClass:[AWSConnectListQueuesResponse class]];
+}
+
+- (void)listQueues:(AWSConnectListQueuesRequest *)request
+     completionHandler:(void (^)(AWSConnectListQueuesResponse *response, NSError *error))completionHandler {
+    [[self listQueues:request] continueWithBlock:^id _Nullable(AWSTask<AWSConnectListQueuesResponse *> * _Nonnull task) {
+        AWSConnectListQueuesResponse *result = task.result;
         NSError *error = task.error;
 
         if (completionHandler) {

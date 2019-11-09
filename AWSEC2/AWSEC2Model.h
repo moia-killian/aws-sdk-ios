@@ -307,6 +307,13 @@ typedef NS_ENUM(NSInteger, AWSEC2DeleteFleetErrorCode) {
     AWSEC2DeleteFleetErrorCodeUnexpectedError,
 };
 
+typedef NS_ENUM(NSInteger, AWSEC2DeleteQueuedReservedInstancesErrorCode) {
+    AWSEC2DeleteQueuedReservedInstancesErrorCodeUnknown,
+    AWSEC2DeleteQueuedReservedInstancesErrorCodeReservedInstancesIdInvalid,
+    AWSEC2DeleteQueuedReservedInstancesErrorCodeReservedInstancesNotInQueuedState,
+    AWSEC2DeleteQueuedReservedInstancesErrorCodeUnexpectedError,
+};
+
 typedef NS_ENUM(NSInteger, AWSEC2DeviceType) {
     AWSEC2DeviceTypeUnknown,
     AWSEC2DeviceTypeEBS,
@@ -731,6 +738,12 @@ typedef NS_ENUM(NSInteger, AWSEC2InstanceType) {
     AWSEC2InstanceTypeG3_8xlarge,
     AWSEC2InstanceTypeG3_16xlarge,
     AWSEC2InstanceTypeG3S_xlarge,
+    AWSEC2InstanceTypeG4Dn_xlarge,
+    AWSEC2InstanceTypeG4Dn_2xlarge,
+    AWSEC2InstanceTypeG4Dn_4xlarge,
+    AWSEC2InstanceTypeG4Dn_8xlarge,
+    AWSEC2InstanceTypeG4Dn_12xlarge,
+    AWSEC2InstanceTypeG4Dn_16xlarge,
     AWSEC2InstanceTypeCG1_4xlarge,
     AWSEC2InstanceTypeP2_xlarge,
     AWSEC2InstanceTypeP2_8xlarge,
@@ -794,11 +807,46 @@ typedef NS_ENUM(NSInteger, AWSEC2InstanceType) {
     AWSEC2InstanceTypeU_6tb1_metal,
     AWSEC2InstanceTypeU_9tb1_metal,
     AWSEC2InstanceTypeU_12tb1_metal,
+    AWSEC2InstanceTypeU_18tb1_metal,
+    AWSEC2InstanceTypeU_24tb1_metal,
     AWSEC2InstanceTypeA1_medium,
     AWSEC2InstanceTypeA1_large,
     AWSEC2InstanceTypeA1_xlarge,
     AWSEC2InstanceTypeA1_2xlarge,
     AWSEC2InstanceTypeA1_4xlarge,
+    AWSEC2InstanceTypeA1_metal,
+    AWSEC2InstanceTypeM5Dn_large,
+    AWSEC2InstanceTypeM5Dn_xlarge,
+    AWSEC2InstanceTypeM5Dn_2xlarge,
+    AWSEC2InstanceTypeM5Dn_4xlarge,
+    AWSEC2InstanceTypeM5Dn_8xlarge,
+    AWSEC2InstanceTypeM5Dn_12xlarge,
+    AWSEC2InstanceTypeM5Dn_16xlarge,
+    AWSEC2InstanceTypeM5Dn_24xlarge,
+    AWSEC2InstanceTypeM5N_large,
+    AWSEC2InstanceTypeM5N_xlarge,
+    AWSEC2InstanceTypeM5N_2xlarge,
+    AWSEC2InstanceTypeM5N_4xlarge,
+    AWSEC2InstanceTypeM5N_8xlarge,
+    AWSEC2InstanceTypeM5N_12xlarge,
+    AWSEC2InstanceTypeM5N_16xlarge,
+    AWSEC2InstanceTypeM5N_24xlarge,
+    AWSEC2InstanceTypeR5Dn_large,
+    AWSEC2InstanceTypeR5Dn_xlarge,
+    AWSEC2InstanceTypeR5Dn_2xlarge,
+    AWSEC2InstanceTypeR5Dn_4xlarge,
+    AWSEC2InstanceTypeR5Dn_8xlarge,
+    AWSEC2InstanceTypeR5Dn_12xlarge,
+    AWSEC2InstanceTypeR5Dn_16xlarge,
+    AWSEC2InstanceTypeR5Dn_24xlarge,
+    AWSEC2InstanceTypeR5N_large,
+    AWSEC2InstanceTypeR5N_xlarge,
+    AWSEC2InstanceTypeR5N_2xlarge,
+    AWSEC2InstanceTypeR5N_4xlarge,
+    AWSEC2InstanceTypeR5N_8xlarge,
+    AWSEC2InstanceTypeR5N_12xlarge,
+    AWSEC2InstanceTypeR5N_16xlarge,
+    AWSEC2InstanceTypeR5N_24xlarge,
 };
 
 typedef NS_ENUM(NSInteger, AWSEC2InterfacePermissionType) {
@@ -1032,6 +1080,8 @@ typedef NS_ENUM(NSInteger, AWSEC2ReservedInstanceState) {
     AWSEC2ReservedInstanceStateActive,
     AWSEC2ReservedInstanceStatePaymentFailed,
     AWSEC2ReservedInstanceStateRetired,
+    AWSEC2ReservedInstanceStateQueued,
+    AWSEC2ReservedInstanceStateQueuedDeleted,
 };
 
 typedef NS_ENUM(NSInteger, AWSEC2ResetFpgaImageAttributeName) {
@@ -1754,6 +1804,9 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2DeleteNetworkInterfacePermissionResult;
 @class AWSEC2DeleteNetworkInterfaceRequest;
 @class AWSEC2DeletePlacementGroupRequest;
+@class AWSEC2DeleteQueuedReservedInstancesError;
+@class AWSEC2DeleteQueuedReservedInstancesRequest;
+@class AWSEC2DeleteQueuedReservedInstancesResult;
 @class AWSEC2DeleteRouteRequest;
 @class AWSEC2DeleteRouteTableRequest;
 @class AWSEC2DeleteSecurityGroupRequest;
@@ -2064,6 +2117,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2ExportToS3TaskSpecification;
 @class AWSEC2ExportTransitGatewayRoutesRequest;
 @class AWSEC2ExportTransitGatewayRoutesResult;
+@class AWSEC2FailedQueuedPurchaseDeletion;
 @class AWSEC2Filter;
 @class AWSEC2FleetData;
 @class AWSEC2FleetLaunchTemplateConfig;
@@ -2110,6 +2164,8 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2HostOffering;
 @class AWSEC2HostProperties;
 @class AWSEC2HostReservation;
+@class AWSEC2IKEVersionsListValue;
+@class AWSEC2IKEVersionsRequestListValue;
 @class AWSEC2IamInstanceProfile;
 @class AWSEC2IamInstanceProfileAssociation;
 @class AWSEC2IamInstanceProfileSpecification;
@@ -2275,6 +2331,9 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2ModifyVpnConnectionResult;
 @class AWSEC2ModifyVpnTunnelCertificateRequest;
 @class AWSEC2ModifyVpnTunnelCertificateResult;
+@class AWSEC2ModifyVpnTunnelOptionsRequest;
+@class AWSEC2ModifyVpnTunnelOptionsResult;
+@class AWSEC2ModifyVpnTunnelOptionsSpecification;
 @class AWSEC2MonitorInstancesRequest;
 @class AWSEC2MonitorInstancesResult;
 @class AWSEC2Monitoring;
@@ -2300,6 +2359,18 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2PciId;
 @class AWSEC2PeeringConnectionOptions;
 @class AWSEC2PeeringConnectionOptionsRequest;
+@class AWSEC2Phase1DHGroupNumbersListValue;
+@class AWSEC2Phase1DHGroupNumbersRequestListValue;
+@class AWSEC2Phase1EncryptionAlgorithmsListValue;
+@class AWSEC2Phase1EncryptionAlgorithmsRequestListValue;
+@class AWSEC2Phase1IntegrityAlgorithmsListValue;
+@class AWSEC2Phase1IntegrityAlgorithmsRequestListValue;
+@class AWSEC2Phase2DHGroupNumbersListValue;
+@class AWSEC2Phase2DHGroupNumbersRequestListValue;
+@class AWSEC2Phase2EncryptionAlgorithmsListValue;
+@class AWSEC2Phase2EncryptionAlgorithmsRequestListValue;
+@class AWSEC2Phase2IntegrityAlgorithmsListValue;
+@class AWSEC2Phase2IntegrityAlgorithmsRequestListValue;
 @class AWSEC2Placement;
 @class AWSEC2PlacementGroup;
 @class AWSEC2PlacementResponse;
@@ -2448,6 +2519,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2SubnetCidrBlockState;
 @class AWSEC2SubnetIpv6CidrBlockAssociation;
 @class AWSEC2SuccessfulInstanceCreditSpecificationItem;
+@class AWSEC2SuccessfulQueuedPurchaseDeletion;
 @class AWSEC2Tag;
 @class AWSEC2TagDescription;
 @class AWSEC2TagSpecification;
@@ -2485,6 +2557,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2TransitGatewayRouteTablePropagation;
 @class AWSEC2TransitGatewayVpcAttachment;
 @class AWSEC2TransitGatewayVpcAttachmentOptions;
+@class AWSEC2TunnelOption;
 @class AWSEC2UnassignIpv6AddressesRequest;
 @class AWSEC2UnassignIpv6AddressesResult;
 @class AWSEC2UnassignPrivateIpAddressesRequest;
@@ -6031,6 +6104,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, assign) AWSEC2LogDestinationType logDestinationType;
 
 /**
+ <p>The fields to include in the flow log record, in the order in which they should appear. For a list of available fields, see <a href="https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html#flow-log-records">Flow Log Records</a>. If you omit this parameter, the flow log is created using the default format. If you specify this parameter, you must specify at least one field.</p><p>Specify the fields using the <code>${field-id}</code> format, separated by spaces. For the AWS CLI, use single quotation marks (' ') to surround the parameter value.</p><p>Only applicable to flow logs that are published to an Amazon S3 bucket.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable logFormat;
+
+/**
  <p>The name of a new or existing CloudWatch Logs log group where Amazon EC2 publishes your flow logs.</p><p>If you specify <code>LogDestinationType</code> as <code>s3</code>, do not specify <code>DeliverLogsPermissionArn</code> or <code>LogGroupName</code>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable logGroupName;
@@ -6110,6 +6188,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>A name for the AFI.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable name;
+
+/**
+ <p>The tags to apply to the FPGA image during creation.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2TagSpecification *> * _Nullable tagSpecifications;
 
 @end
 
@@ -7186,7 +7269,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSString * _Nullable networkInterfaceId;
 
 /**
- <p>The number of bytes in each packet to mirror. These are bytes after the VXLAN header. Do not specify this parameter when you want to mirror the entire packet. To mirror a subset of the packet, set this to the length (in bytes) that you want to mirror. For example, if you set this value to 1network0, then the first 100 bytes that meet the filter criteria are copied to the target.</p><p>If you do not want to mirror the entire packet, use the <code>PacketLength</code> parameter to specify the number of bytes in each packet to mirror.</p>
+ <p>The number of bytes in each packet to mirror. These are bytes after the VXLAN header. Do not specify this parameter when you want to mirror the entire packet. To mirror a subset of the packet, set this to the length (in bytes) that you want to mirror. For example, if you set this value to 100, then the first 100 bytes that meet the filter criteria are copied to the target.</p><p>If you do not want to mirror the entire packet, use the <code>PacketLength</code> parameter to specify the number of bytes in each packet to mirror.</p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable packetLength;
 
@@ -8636,6 +8719,60 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>The name of the placement group.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable groupName;
+
+@end
+
+/**
+ <p>Describes the error for a Reserved Instance whose queued purchase could not be deleted.</p>
+ */
+@interface AWSEC2DeleteQueuedReservedInstancesError : AWSModel
+
+
+/**
+ <p>The error code.</p>
+ */
+@property (nonatomic, assign) AWSEC2DeleteQueuedReservedInstancesErrorCode code;
+
+/**
+ <p>The error message.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable message;
+
+@end
+
+/**
+ 
+ */
+@interface AWSEC2DeleteQueuedReservedInstancesRequest : AWSRequest
+
+
+/**
+ <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable dryRun;
+
+/**
+ <p>The IDs of the Reserved Instances.</p>
+ */
+@property (nonatomic, strong) NSArray<NSString *> * _Nullable reservedInstancesIds;
+
+@end
+
+/**
+ 
+ */
+@interface AWSEC2DeleteQueuedReservedInstancesResult : AWSModel
+
+
+/**
+ <p>Information about the queued purchases that could not be deleted.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2FailedQueuedPurchaseDeletion *> * _Nullable failedQueuedPurchaseDeletions;
+
+/**
+ <p>Information about the queued purchases that were successfully deleted.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2SuccessfulQueuedPurchaseDeletion *> * _Nullable successfulQueuedPurchaseDeletions;
 
 @end
 
@@ -13901,7 +14038,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSNumber * _Nullable dryRun;
 
 /**
- <p>One or more filters.</p><ul><li><p><code>service-name</code>: The name of the service.</p></li><li><p><code>vpc-id</code>: The ID of the VPC in which the endpoint resides.</p></li><li><p><code>vpc-endpoint-id</code>: The ID of the endpoint.</p></li><li><p><code>vpc-endpoint-state</code>: The state of the endpoint. (<code>pending</code> | <code>available</code> | <code>deleting</code> | <code>deleted</code>)</p></li><li><p><code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p></li><li><p><code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p></li></ul>
+ <p>One or more filters.</p><ul><li><p><code>service-name</code>: The name of the service.</p></li><li><p><code>vpc-id</code>: The ID of the VPC in which the endpoint resides.</p></li><li><p><code>vpc-endpoint-id</code>: The ID of the endpoint.</p></li><li><p><code>vpc-endpoint-state</code> - The state of the endpoint (<code>pendingAcceptance</code> | <code>pending</code> | <code>available</code> | <code>deleting</code> | <code>deleted</code> | <code>rejected</code> | <code>failed</code>).</p></li><li><p><code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p></li><li><p><code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p></li></ul>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Filter *> * _Nullable filters;
 
@@ -14812,7 +14949,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>Indicates whether the EBS volume is deleted on instance termination.</p>
+ <p>Indicates whether the EBS volume is deleted on instance termination. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html#preserving-volumes-on-termination">Preserving Amazon EBS Volumes on Instance Termination</a> in the Amazon Elastic Compute Cloud User Guide.</p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable deleteOnTermination;
 
@@ -15619,6 +15756,24 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @end
 
 /**
+ <p>Describes a Reserved Instance whose queued purchase was not deleted.</p>
+ */
+@interface AWSEC2FailedQueuedPurchaseDeletion : AWSModel
+
+
+/**
+ <p>The error.</p>
+ */
+@property (nonatomic, strong) AWSEC2DeleteQueuedReservedInstancesError * _Nullable error;
+
+/**
+ <p>The ID of the Reserved Instance.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable reservedInstancesId;
+
+@end
+
+/**
  <p>A filter name and value pair that is used to return a more specific list of results from a describe operation. Filters can be used to match a set of resources by specific criteria, such as tags, attributes, or IDs. The filters supported by a describe operation are documented with the describe operation. For example:</p><ul><li><p><a>DescribeAvailabilityZones</a></p></li><li><p><a>DescribeImages</a></p></li><li><p><a>DescribeInstances</a></p></li><li><p><a>DescribeKeyPairs</a></p></li><li><p><a>DescribeSecurityGroups</a></p></li><li><p><a>DescribeSnapshots</a></p></li><li><p><a>DescribeSubnets</a></p></li><li><p><a>DescribeTags</a></p></li><li><p><a>DescribeVolumes</a></p></li><li><p><a>DescribeVpcs</a></p></li></ul>
  */
 @interface AWSEC2Filter : AWSModel
@@ -15957,6 +16112,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>Specifies the type of destination to which the flow log data is published. Flow log data can be published to CloudWatch Logs or Amazon S3.</p>
  */
 @property (nonatomic, assign) AWSEC2LogDestinationType logDestinationType;
+
+/**
+ <p>The format of the flow log record.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable logFormat;
 
 /**
  <p>The name of the flow log group.</p>
@@ -16686,7 +16846,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @end
 
 /**
- <p>Indicates whether your instance is configured for hibernation. This parameter is valid only if the instance meets the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a>. Hibernation is currently supported only for Amazon Linux. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Indicates whether your instance is configured for hibernation. This parameter is valid only if the instance meets the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a>. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  */
 @interface AWSEC2HibernationOptions : AWSModel
 
@@ -16699,7 +16859,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @end
 
 /**
- <p>Indicates whether your instance is configured for hibernation. This parameter is valid only if the instance meets the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a>. Hibernation is currently supported only for Amazon Linux. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Indicates whether your instance is configured for hibernation. This parameter is valid only if the instance meets the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a>. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  */
 @interface AWSEC2HibernationOptionsRequest : AWSModel
 
@@ -16994,6 +17154,32 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>The upfront price of the reservation.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable upfrontPrice;
+
+@end
+
+/**
+ <p>The internet key exchange (IKE) version permitted for the VPN tunnel.</p>
+ */
+@interface AWSEC2IKEVersionsListValue : AWSModel
+
+
+/**
+ <p>The IKE version.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable value;
+
+@end
+
+/**
+ <p>The IKE version that is permitted for the VPN tunnel.</p>
+ */
+@interface AWSEC2IKEVersionsRequestListValue : AWSModel
+
+
+/**
+ <p>The IKE version.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable value;
 
 @end
 
@@ -19555,7 +19741,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @end
 
 /**
- <p>Indicates whether the instance is configured for hibernation. This parameter is valid only if the instance meets the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a>. Hibernation is currently supported only for Amazon Linux.</p>
+ <p>Indicates whether the instance is configured for hibernation. This parameter is valid only if the instance meets the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a>.</p>
  */
 @interface AWSEC2LaunchTemplateHibernationOptionsRequest : AWSModel
 
@@ -21813,6 +21999,130 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 /**
  
  */
+@interface AWSEC2ModifyVpnTunnelOptionsRequest : AWSRequest
+
+
+/**
+ <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable dryRun;
+
+/**
+ <p>The tunnel options to modify.</p>
+ */
+@property (nonatomic, strong) AWSEC2ModifyVpnTunnelOptionsSpecification * _Nullable tunnelOptions;
+
+/**
+ <p>The ID of the AWS Site-to-Site VPN connection.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable vpnConnectionId;
+
+/**
+ <p>The external IP address of the VPN tunnel.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable vpnTunnelOutsideIpAddress;
+
+@end
+
+/**
+ 
+ */
+@interface AWSEC2ModifyVpnTunnelOptionsResult : AWSModel
+
+
+/**
+ <p>Describes a VPN connection.</p>
+ */
+@property (nonatomic, strong) AWSEC2VpnConnection * _Nullable vpnConnection;
+
+@end
+
+/**
+ <p>The AWS Site-to-Site VPN tunnel options to modify.</p>
+ */
+@interface AWSEC2ModifyVpnTunnelOptionsSpecification : AWSModel
+
+
+/**
+ <p>The number of seconds after which a DPD timeout occurs.</p><p>Constraints: A value between 0 and 30.</p><p>Default: <code>30</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable DPDTimeoutSeconds;
+
+/**
+ <p>The IKE versions that are permitted for the VPN tunnel.</p><p>Valid values: <code>ikev1</code> | <code>ikev2</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2IKEVersionsRequestListValue *> * _Nullable IKEVersions;
+
+/**
+ <p>One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 1 IKE negotiations.</p><p>Valid values: <code>2</code> | <code>14</code> | <code>15</code> | <code>16</code> | <code>17</code> | <code>18</code> | <code>22</code> | <code>23</code> | <code>24</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase1DHGroupNumbersRequestListValue *> * _Nullable phase1DHGroupNumbers;
+
+/**
+ <p>One or more encryption algorithms that are permitted for the VPN tunnel for phase 1 IKE negotiations.</p><p>Valid values: <code>AES128</code> | <code>AES256</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase1EncryptionAlgorithmsRequestListValue *> * _Nullable phase1EncryptionAlgorithms;
+
+/**
+ <p>One or more integrity algorithms that are permitted for the VPN tunnel for phase 1 IKE negotiations.</p><p>Valid values: <code>SHA1</code> | <code>SHA2-256</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase1IntegrityAlgorithmsRequestListValue *> * _Nullable phase1IntegrityAlgorithms;
+
+/**
+ <p>The lifetime for phase 1 of the IKE negotiation, in seconds.</p><p>Constraints: A value between 900 and 28,800.</p><p>Default: <code>28800</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable phase1LifetimeSeconds;
+
+/**
+ <p>One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 2 IKE negotiations.</p><p>Valid values: <code>2</code> | <code>5</code> | <code>14</code> | <code>15</code> | <code>16</code> | <code>17</code> | <code>18</code> | <code>22</code> | <code>23</code> | <code>24</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase2DHGroupNumbersRequestListValue *> * _Nullable phase2DHGroupNumbers;
+
+/**
+ <p>One or more encryption algorithms that are permitted for the VPN tunnel for phase 2 IKE negotiations.</p><p>Valid values: <code>AES128</code> | <code>AES256</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase2EncryptionAlgorithmsRequestListValue *> * _Nullable phase2EncryptionAlgorithms;
+
+/**
+ <p>One or more integrity algorithms that are permitted for the VPN tunnel for phase 2 IKE negotiations.</p><p>Valid values: <code>SHA1</code> | <code>SHA2-256</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase2IntegrityAlgorithmsRequestListValue *> * _Nullable phase2IntegrityAlgorithms;
+
+/**
+ <p>The lifetime for phase 2 of the IKE negotiation, in seconds.</p><p>Constraints: A value between 900 and 3,600. The value must be less than the value for <code>Phase1LifetimeSeconds</code>.</p><p>Default: <code>3600</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable phase2LifetimeSeconds;
+
+/**
+ <p>The pre-shared key (PSK) to establish initial authentication between the virtual private gateway and the customer gateway.</p><p>Constraints: Allowed characters are alphanumeric characters, periods (.), and underscores (_). Must be between 8 and 64 characters in length and cannot start with zero (0).</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable preSharedKey;
+
+/**
+ <p>The percentage of the rekey window (determined by <code>RekeyMarginTimeSeconds</code>) during which the rekey time is randomly selected.</p><p>Constraints: A value between 0 and 100.</p><p>Default: <code>100</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable rekeyFuzzPercentage;
+
+/**
+ <p>The margin time, in seconds, before the phase 2 lifetime expires, during which the AWS side of the VPN connection performs an IKE rekey. The exact time of the rekey is randomly selected based on the value for <code>RekeyFuzzPercentage</code>.</p><p>Constraints: A value between 60 and half of <code>Phase2LifetimeSeconds</code>.</p><p>Default: <code>540</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable rekeyMarginTimeSeconds;
+
+/**
+ <p>The number of packets in an IKE replay window.</p><p>Constraints: A value between 64 and 2048.</p><p>Default: <code>1024</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable replayWindowSize;
+
+/**
+ <p>The range of inside IP addresses for the tunnel. Any specified CIDR blocks must be unique across all VPN connections that use the same virtual private gateway. </p><p>Constraints: A size /30 CIDR block from the <code>169.254.0.0/16</code> range. The following CIDR blocks are reserved and cannot be used:</p><ul><li><p><code>169.254.0.0/30</code></p></li><li><p><code>169.254.1.0/30</code></p></li><li><p><code>169.254.2.0/30</code></p></li><li><p><code>169.254.3.0/30</code></p></li><li><p><code>169.254.4.0/30</code></p></li><li><p><code>169.254.5.0/30</code></p></li><li><p><code>169.254.169.252/30</code></p></li></ul>
+ */
+@property (nonatomic, strong) NSString * _Nullable tunnelInsideCidr;
+
+@end
+
+/**
+ 
+ */
 @interface AWSEC2MonitorInstancesRequest : AWSRequest
 
 
@@ -22571,6 +22881,162 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @end
 
 /**
+ <p>The Diffie-Hellmann group number for phase 1 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase1DHGroupNumbersListValue : AWSModel
+
+
+/**
+ <p>The Diffie-Hellmann group number.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable value;
+
+@end
+
+/**
+ <p>Specifies a Diffie-Hellman group number for the VPN tunnel for phase 1 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase1DHGroupNumbersRequestListValue : AWSModel
+
+
+/**
+ <p>The Diffie-Hellmann group number.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable value;
+
+@end
+
+/**
+ <p>The encryption algorithm for phase 1 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase1EncryptionAlgorithmsListValue : AWSModel
+
+
+/**
+ <p>The value for the encryption algorithm.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable value;
+
+@end
+
+/**
+ <p>Specifies the encryption algorithm for the VPN tunnel for phase 1 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase1EncryptionAlgorithmsRequestListValue : AWSModel
+
+
+/**
+ <p>The value for the encryption algorithm.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable value;
+
+@end
+
+/**
+ <p>The integrity algorithm for phase 1 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase1IntegrityAlgorithmsListValue : AWSModel
+
+
+/**
+ <p>The value for the integrity algorithm.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable value;
+
+@end
+
+/**
+ <p>Specifies the integrity algorithm for the VPN tunnel for phase 1 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase1IntegrityAlgorithmsRequestListValue : AWSModel
+
+
+/**
+ <p>The value for the integrity algorithm.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable value;
+
+@end
+
+/**
+ <p>The Diffie-Hellmann group number for phase 2 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase2DHGroupNumbersListValue : AWSModel
+
+
+/**
+ <p>The Diffie-Hellmann group number.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable value;
+
+@end
+
+/**
+ <p>Specifies a Diffie-Hellman group number for the VPN tunnel for phase 2 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase2DHGroupNumbersRequestListValue : AWSModel
+
+
+/**
+ <p>The Diffie-Hellmann group number.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable value;
+
+@end
+
+/**
+ <p>The encryption algorithm for phase 2 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase2EncryptionAlgorithmsListValue : AWSModel
+
+
+/**
+ <p>The encryption algorithm.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable value;
+
+@end
+
+/**
+ <p>Specifies the encryption algorithm for the VPN tunnel for phase 2 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase2EncryptionAlgorithmsRequestListValue : AWSModel
+
+
+/**
+ <p>The encryption algorithm.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable value;
+
+@end
+
+/**
+ <p>The integrity algorithm for phase 2 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase2IntegrityAlgorithmsListValue : AWSModel
+
+
+/**
+ <p>The integrity algorithm.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable value;
+
+@end
+
+/**
+ <p>Specifies the integrity algorithm for the VPN tunnel for phase 2 IKE negotiations.</p>
+ */
+@interface AWSEC2Phase2IntegrityAlgorithmsRequestListValue : AWSModel
+
+
+/**
+ <p>The integrity algorithm.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable value;
+
+@end
+
+/**
  <p>Describes the placement of an instance.</p>
  */
 @interface AWSEC2Placement : AWSModel
@@ -23138,6 +23604,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>Specified for Reserved Instance Marketplace offerings to limit the total order and ensure that the Reserved Instances are not purchased at unexpected prices.</p>
  */
 @property (nonatomic, strong) AWSEC2ReservedInstanceLimitPrice * _Nullable limitPrice;
+
+/**
+ <p>The time at which to purchase the Reserved Instance, in UTC format (for example, <i>YYYY</i>-<i>MM</i>-<i>DD</i>T<i>HH</i>:<i>MM</i>:<i>SS</i>Z).</p>
+ */
+@property (nonatomic, strong) NSDate * _Nullable purchaseTime;
 
 /**
  <p>The ID of the Reserved Instance offering to purchase.</p>
@@ -23854,7 +24325,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSArray<AWSEC2LaunchTemplateElasticInferenceAccelerator *> * _Nullable elasticInferenceAccelerators;
 
 /**
- <p>Indicates whether an instance is enabled for hibernation. This parameter is valid only if the instance meets the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a>. Hibernation is currently supported only for Amazon Linux. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ <p>Indicates whether an instance is enabled for hibernation. This parameter is valid only if the instance meets the <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites">hibernation prerequisites</a>. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html">Hibernate Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
  */
 @property (nonatomic, strong) AWSEC2LaunchTemplateHibernationOptionsRequest * _Nullable hibernationOptions;
 
@@ -24029,7 +24500,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, assign) AWSEC2SpotInstanceType types;
 
 /**
- <p>The start date of the request. If this is a one-time request, the request becomes active at this date and time and remains active until all instances launch, the request expires, or the request is canceled. If the request is persistent, the request becomes active at this date and time and remains active until it expires or is canceled.</p>
+ <p>The start date of the request. If this is a one-time request, the request becomes active at this date and time and remains active until all instances launch, the request expires, or the request is canceled. If the request is persistent, the request becomes active at this date and time and remains active until it expires or is canceled.</p><p>The specified start date and time cannot be equal to the current date and time. You must specify a start date and time that occurs after the current date and time.</p>
  */
 @property (nonatomic, strong) NSDate * _Nullable validFrom;
 
@@ -27138,7 +27609,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>Indicates how to allocate the target Spot Instance capacity across the Spot Instance pools specified by the EC2 Fleet.</p><p>If the allocation strategy is <code>lowestPrice</code>, EC2 Fleet launches instances from the Spot Instance pools with the lowest price. This is the default allocation strategy.</p><p>If the allocation strategy is <code>diversified</code>, EC2 Fleet launches instances from all the Spot Instance pools that you specify.</p><p>If the allocation strategy is <code>capacityOptimized</code>, EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.</p>
+ <p>Indicates how to allocate the target Spot Instance capacity across the Spot Instance pools specified by the EC2 Fleet.</p><p>If the allocation strategy is <code>lowest-price</code>, EC2 Fleet launches instances from the Spot Instance pools with the lowest price. This is the default allocation strategy.</p><p>If the allocation strategy is <code>diversified</code>, EC2 Fleet launches instances from all the Spot Instance pools that you specify.</p><p>If the allocation strategy is <code>capacity-optimized</code>, EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.</p>
  */
 @property (nonatomic, assign) AWSEC2SpotAllocationStrategy allocationStrategy;
 
@@ -27148,7 +27619,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, assign) AWSEC2SpotInstanceInterruptionBehavior instanceInterruptionBehavior;
 
 /**
- <p>The number of Spot pools across which to allocate your target Spot capacity. Valid only when <b>AllocationStrategy</b> is set to <code>lowestPrice</code>. EC2 Fleet selects the cheapest Spot pools and evenly allocates your target Spot capacity across the number of Spot pools that you specify.</p>
+ <p>The number of Spot pools across which to allocate your target Spot capacity. Valid only when <b>AllocationStrategy</b> is set to <code>lowest-price</code>. EC2 Fleet selects the cheapest Spot pools and evenly allocates your target Spot capacity across the number of Spot pools that you specify.</p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable instancePoolsToUseCount;
 
@@ -27181,7 +27652,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>Indicates how to allocate the target Spot Instance capacity across the Spot Instance pools specified by the EC2 Fleet.</p><p>If the allocation strategy is <code>lowestPrice</code>, EC2 Fleet launches instances from the Spot Instance pools with the lowest price. This is the default allocation strategy.</p><p>If the allocation strategy is <code>diversified</code>, EC2 Fleet launches instances from all the Spot Instance pools that you specify.</p><p>If the allocation strategy is <code>capacityOptimized</code>, EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.</p>
+ <p>Indicates how to allocate the target Spot Instance capacity across the Spot Instance pools specified by the EC2 Fleet.</p><p>If the allocation strategy is <code>lowest-price</code>, EC2 Fleet launches instances from the Spot Instance pools with the lowest price. This is the default allocation strategy.</p><p>If the allocation strategy is <code>diversified</code>, EC2 Fleet launches instances from all the Spot Instance pools that you specify.</p><p>If the allocation strategy is <code>capacity-optimized</code>, EC2 Fleet launches instances from Spot Instance pools with optimal capacity for the number of instances that are launching.</p>
  */
 @property (nonatomic, assign) AWSEC2SpotAllocationStrategy allocationStrategy;
 
@@ -27608,6 +28079,19 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @end
 
 /**
+ <p>Describes a Reserved Instance whose queued purchase was successfully deleted.</p>
+ */
+@interface AWSEC2SuccessfulQueuedPurchaseDeletion : AWSModel
+
+
+/**
+ <p>The ID of the Reserved Instance.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable reservedInstancesId;
+
+@end
+
+/**
  <p>Describes a tag.</p>
  */
 @interface AWSEC2Tag : AWSModel
@@ -27660,7 +28144,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>The type of resource to tag. Currently, the resource types that support tagging on creation are: <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> | <code>fleet</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> | <code>transit-gateway</code> | <code>transit-gateway-attachment</code> | <code>transit-gateway-route-table</code> | <code>volume</code>.</p><p>To tag a resource after it has been created, see <a>CreateTags</a>.</p>
+ <p>The type of resource to tag. Currently, the resource types that support tagging on creation are: <code>capacity-reservation</code> | <code>client-vpn-endpoint</code> | <code>dedicated-host</code> | <code>fleet</code> | <code>fpga-image</code> | <code>instance</code> | <code>launch-template</code> | <code>snapshot</code> | <code>traffic-mirror-filter</code> | <code>traffic-mirror-session</code> | <code>traffic-mirror-target</code> | <code>transit-gateway</code> | <code>transit-gateway-attachment</code> | <code>transit-gateway-route-table</code> | <code>volume</code>.</p><p>To tag a resource after it has been created, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html">CreateTags</a>.</p>
  */
 @property (nonatomic, assign) AWSEC2ResourceType resourceType;
 
@@ -28702,6 +29186,94 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>Indicates whether IPv6 support is enabled.</p>
  */
 @property (nonatomic, assign) AWSEC2Ipv6SupportValue ipv6Support;
+
+@end
+
+/**
+ <p>The VPN tunnel options.</p>
+ */
+@interface AWSEC2TunnelOption : AWSModel
+
+
+/**
+ <p>The number of seconds after which a DPD timeout occurs.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable dpdTimeoutSeconds;
+
+/**
+ <p>The IKE versions that are permitted for the VPN tunnel.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2IKEVersionsListValue *> * _Nullable ikeVersions;
+
+/**
+ <p>The external IP address of the VPN tunnel.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable outsideIpAddress;
+
+/**
+ <p>The permitted Diffie-Hellman group numbers for the VPN tunnel for phase 1 IKE negotiations.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase1DHGroupNumbersListValue *> * _Nullable phase1DHGroupNumbers;
+
+/**
+ <p>The permitted encryption algorithms for the VPN tunnel for phase 1 IKE negotiations.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase1EncryptionAlgorithmsListValue *> * _Nullable phase1EncryptionAlgorithms;
+
+/**
+ <p>The permitted integrity algorithms for the VPN tunnel for phase 1 IKE negotiations.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase1IntegrityAlgorithmsListValue *> * _Nullable phase1IntegrityAlgorithms;
+
+/**
+ <p>The lifetime for phase 1 of the IKE negotiation, in seconds.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable phase1LifetimeSeconds;
+
+/**
+ <p>The permitted Diffie-Hellman group numbers for the VPN tunnel for phase 2 IKE negotiations.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase2DHGroupNumbersListValue *> * _Nullable phase2DHGroupNumbers;
+
+/**
+ <p>The permitted encryption algorithms for the VPN tunnel for phase 2 IKE negotiations.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase2EncryptionAlgorithmsListValue *> * _Nullable phase2EncryptionAlgorithms;
+
+/**
+ <p>The permitted integrity algorithms for the VPN tunnel for phase 2 IKE negotiations.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase2IntegrityAlgorithmsListValue *> * _Nullable phase2IntegrityAlgorithms;
+
+/**
+ <p>The lifetime for phase 2 of the IKE negotiation, in seconds.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable phase2LifetimeSeconds;
+
+/**
+ <p>The pre-shared key (PSK) to establish initial authentication between the virtual private gateway and the customer gateway.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable preSharedKey;
+
+/**
+ <p>The percentage of the rekey window determined by <code>RekeyMarginTimeSeconds</code> during which the rekey time is randomly selected.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable rekeyFuzzPercentage;
+
+/**
+ <p>The margin time, in seconds, before the phase 2 lifetime expires, during which the AWS side of the VPN connection performs an IKE rekey.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable rekeyMarginTimeSeconds;
+
+/**
+ <p>The number of packets in an IKE replay window.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable replayWindowSize;
+
+/**
+ <p>The range of inside IP addresses for the tunnel.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable tunnelInsideCidr;
 
 @end
 
@@ -29888,6 +30460,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  */
 @property (nonatomic, strong) NSNumber * _Nullable staticRoutesOnly;
 
+/**
+ <p>Indicates the VPN tunnel options.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2TunnelOption *> * _Nullable tunnelOptions;
+
 @end
 
 /**
@@ -29981,9 +30558,74 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>The pre-shared key (PSK) to establish initial authentication between the virtual private gateway and customer gateway.</p><p>Constraints: Allowed characters are alphanumeric characters and ._. Must be between 8 and 64 characters in length and cannot start with zero (0).</p>
+ <p>The number of seconds after which a DPD timeout occurs.</p><p>Constraints: A value between 0 and 30.</p><p>Default: <code>30</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable DPDTimeoutSeconds;
+
+/**
+ <p>The IKE versions that are permitted for the VPN tunnel.</p><p>Valid values: <code>ikev1</code> | <code>ikev2</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2IKEVersionsRequestListValue *> * _Nullable IKEVersions;
+
+/**
+ <p>One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 1 IKE negotiations.</p><p>Valid values: <code>2</code> | <code>14</code> | <code>15</code> | <code>16</code> | <code>17</code> | <code>18</code> | <code>22</code> | <code>23</code> | <code>24</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase1DHGroupNumbersRequestListValue *> * _Nullable phase1DHGroupNumbers;
+
+/**
+ <p>One or more encryption algorithms that are permitted for the VPN tunnel for phase 1 IKE negotiations.</p><p>Valid values: <code>AES128</code> | <code>AES256</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase1EncryptionAlgorithmsRequestListValue *> * _Nullable phase1EncryptionAlgorithms;
+
+/**
+ <p>One or more integrity algorithms that are permitted for the VPN tunnel for phase 1 IKE negotiations.</p><p>Valid values: <code>SHA1</code> | <code>SHA2-256</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase1IntegrityAlgorithmsRequestListValue *> * _Nullable phase1IntegrityAlgorithms;
+
+/**
+ <p>The lifetime for phase 1 of the IKE negotiation, in seconds.</p><p>Constraints: A value between 900 and 28,800.</p><p>Default: <code>28800</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable phase1LifetimeSeconds;
+
+/**
+ <p>One or more Diffie-Hellman group numbers that are permitted for the VPN tunnel for phase 2 IKE negotiations.</p><p>Valid values: <code>2</code> | <code>5</code> | <code>14</code> | <code>15</code> | <code>16</code> | <code>17</code> | <code>18</code> | <code>22</code> | <code>23</code> | <code>24</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase2DHGroupNumbersRequestListValue *> * _Nullable phase2DHGroupNumbers;
+
+/**
+ <p>One or more encryption algorithms that are permitted for the VPN tunnel for phase 2 IKE negotiations.</p><p>Valid values: <code>AES128</code> | <code>AES256</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase2EncryptionAlgorithmsRequestListValue *> * _Nullable phase2EncryptionAlgorithms;
+
+/**
+ <p>One or more integrity algorithms that are permitted for the VPN tunnel for phase 2 IKE negotiations.</p><p>Valid values: <code>SHA1</code> | <code>SHA2-256</code></p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Phase2IntegrityAlgorithmsRequestListValue *> * _Nullable phase2IntegrityAlgorithms;
+
+/**
+ <p>The lifetime for phase 2 of the IKE negotiation, in seconds.</p><p>Constraints: A value between 900 and 3,600. The value must be less than the value for <code>Phase1LifetimeSeconds</code>.</p><p>Default: <code>3600</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable phase2LifetimeSeconds;
+
+/**
+ <p>The pre-shared key (PSK) to establish initial authentication between the virtual private gateway and customer gateway.</p><p>Constraints: Allowed characters are alphanumeric characters, periods (.), and underscores (_). Must be between 8 and 64 characters in length and cannot start with zero (0).</p>
  */
 @property (nonatomic, strong) NSString * _Nullable preSharedKey;
+
+/**
+ <p>The percentage of the rekey window (determined by <code>RekeyMarginTimeSeconds</code>) during which the rekey time is randomly selected.</p><p>Constraints: A value between 0 and 100.</p><p>Default: <code>100</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable rekeyFuzzPercentage;
+
+/**
+ <p>The margin time, in seconds, before the phase 2 lifetime expires, during which the AWS side of the VPN connection performs an IKE rekey. The exact time of the rekey is randomly selected based on the value for <code>RekeyFuzzPercentage</code>.</p><p>Constraints: A value between 60 and half of <code>Phase2LifetimeSeconds</code>.</p><p>Default: <code>540</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable rekeyMarginTimeSeconds;
+
+/**
+ <p>The number of packets in an IKE replay window.</p><p>Constraints: A value between 64 and 2048.</p><p>Default: <code>1024</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable replayWindowSize;
 
 /**
  <p>The range of inside IP addresses for the tunnel. Any specified CIDR blocks must be unique across all VPN connections that use the same virtual private gateway. </p><p>Constraints: A size /30 CIDR block from the <code>169.254.0.0/16</code> range. The following CIDR blocks are reserved and cannot be used:</p><ul><li><p><code>169.254.0.0/30</code></p></li><li><p><code>169.254.1.0/30</code></p></li><li><p><code>169.254.2.0/30</code></p></li><li><p><code>169.254.3.0/30</code></p></li><li><p><code>169.254.4.0/30</code></p></li><li><p><code>169.254.5.0/30</code></p></li><li><p><code>169.254.169.252/30</code></p></li></ul>
