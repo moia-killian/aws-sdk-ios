@@ -348,6 +348,8 @@
 		18F938D21DE5148E00034221 /* AWSLexVoiceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F938C11DE5148E00034221 /* AWSLexVoiceButton.m */; };
 		18F938D41DE5193F00034221 /* AWSGeneralLexTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F938D31DE5193F00034221 /* AWSGeneralLexTests.m */; };
 		18F938D71DE520C500034221 /* AWSLexClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F938D61DE520C500034221 /* AWSLexClientTests.m */; };
+		900409E0237DA41D005E534A /* AWSIoTDataManager+RaceConditionWorkaround.h in Headers */ = {isa = PBXBuildFile; fileRef = 900409DE237DA41C005E534A /* AWSIoTDataManager+RaceConditionWorkaround.h */; };
+		900409E1237DA41D005E534A /* AWSIoTDataManager+RaceConditionWorkaround.m in Sources */ = {isa = PBXBuildFile; fileRef = 900409DF237DA41C005E534A /* AWSIoTDataManager+RaceConditionWorkaround.m */; };
 		9A2562EC20E2E0D100D2451E /* AWSS3TransferUtility+HeaderHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 9A2562EA20E2E0D100D2451E /* AWSS3TransferUtility+HeaderHelper.h */; };
 		9A2562ED20E2E0D100D2451E /* AWSS3TransferUtility+HeaderHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2562EB20E2E0D100D2451E /* AWSS3TransferUtility+HeaderHelper.m */; };
 		9A2562F320E2E4D400D2451E /* AWSS3TransferUtilityTasks.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A2562F220E2E4D400D2451E /* AWSS3TransferUtilityTasks.m */; };
@@ -3604,6 +3606,8 @@
 		18F938C11DE5148E00034221 /* AWSLexVoiceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSLexVoiceButton.m; sourceTree = "<group>"; };
 		18F938D31DE5193F00034221 /* AWSGeneralLexTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSGeneralLexTests.m; sourceTree = "<group>"; };
 		18F938D61DE520C500034221 /* AWSLexClientTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AWSLexClientTests.m; sourceTree = "<group>"; };
+		900409DE237DA41C005E534A /* AWSIoTDataManager+RaceConditionWorkaround.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AWSIoTDataManager+RaceConditionWorkaround.h"; sourceTree = "<group>"; };
+		900409DF237DA41C005E534A /* AWSIoTDataManager+RaceConditionWorkaround.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AWSIoTDataManager+RaceConditionWorkaround.m"; sourceTree = "<group>"; };
 		9A2562EA20E2E0D100D2451E /* AWSS3TransferUtility+HeaderHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AWSS3TransferUtility+HeaderHelper.h"; sourceTree = "<group>"; };
 		9A2562EB20E2E0D100D2451E /* AWSS3TransferUtility+HeaderHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "AWSS3TransferUtility+HeaderHelper.m"; sourceTree = "<group>"; };
 		9A2562F220E2E4D400D2451E /* AWSS3TransferUtilityTasks.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AWSS3TransferUtilityTasks.m; sourceTree = "<group>"; };
@@ -6954,6 +6958,8 @@
 		CE9DE60D1C6A78A60060793F /* AWSIoT */ = {
 			isa = PBXGroup;
 			children = (
+				900409DE237DA41C005E534A /* AWSIoTDataManager+RaceConditionWorkaround.h */,
+				900409DF237DA41C005E534A /* AWSIoTDataManager+RaceConditionWorkaround.m */,
 				CE9DE60E1C6A78A60060793F /* AWSIoT.h */,
 				CE9DE6241C6A78D70060793F /* AWSIoTData.h */,
 				CE9DE6251C6A78D70060793F /* AWSIoTDataManager.h */,
@@ -8417,6 +8423,7 @@
 				CE9DE6541C6A78D70060793F /* AWSIoTDataService.h in Headers */,
 				CE9DE64D1C6A78D70060793F /* AWSIoTData.h in Headers */,
 				CE9DE64E1C6A78D70060793F /* AWSIoTDataManager.h in Headers */,
+				900409E0237DA41D005E534A /* AWSIoTDataManager+RaceConditionWorkaround.h in Headers */,
 				CE9DE66E1C6A78D70060793F /* AWSMQttTxFlow.h in Headers */,
 				CE9DE6601C6A78D70060793F /* AWSIoTKeychain.h in Headers */,
 				CE9DE66C1C6A78D70060793F /* AWSMQTTSession.h in Headers */,
@@ -13028,6 +13035,7 @@
 				CE9DE6551C6A78D70060793F /* AWSIoTDataService.m in Sources */,
 				CE9DE66B1C6A78D70060793F /* AWSMQTTMessage.m in Sources */,
 				CE9DE65D1C6A78D70060793F /* AWSIoTService.m in Sources */,
+				900409E1237DA41D005E534A /* AWSIoTDataManager+RaceConditionWorkaround.m in Sources */,
 				CE9DE6571C6A78D70060793F /* AWSIoTManager.m in Sources */,
 				CE9DE6591C6A78D70060793F /* AWSIoTModel.m in Sources */,
 				CE9DE6691C6A78D70060793F /* AWSMQTTEncoder.m in Sources */,
