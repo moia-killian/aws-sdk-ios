@@ -62,6 +62,7 @@ modulelist = [
     "AWSCognitoIdentityProvider",
     "AWSComprehend",
     "AWSConnect",
+    "AWSConnectParticipant",
     "AWSCore",
     "AWSDynamoDB",
     "AWSEC2",
@@ -71,6 +72,7 @@ modulelist = [
     "AWSKinesis",
     "AWSKinesisVideo",
     "AWSKinesisVideoArchivedMedia",
+    "AWSKinesisVideoSignaling",
     "AWSLambda",
     "AWSLex",
     "AWSLogs",
@@ -157,7 +159,7 @@ replaces = [
         "match" : r'VERSION="[0-9]+\.[0-9]+\.[0-9]+"', 
         "replace" : r'VERSION="[version]"',
         "files" : [
-            'Scripts/GenerateAppleDocs.sh'
+            'CircleciScripts/generate_documentation.sh'
         ]
     }
 ]
