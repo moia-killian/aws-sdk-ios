@@ -1,5 +1,5 @@
 //
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License.
@@ -1086,6 +1086,9 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
         if ([value caseInsensitiveCompare:@"ap-east-1"] == NSOrderedSame) {
             return @(AWSS3BucketLocationConstraintAPEast1);
         }
+        if ([value caseInsensitiveCompare:@"me-south-1"] == NSOrderedSame) {
+            return @(AWSS3BucketLocationConstraintMESouth1);
+        }
         return @(AWSS3BucketLocationConstraintUnknown);
     } reverseBlock:^NSString *(NSNumber *value) {
         switch ([value integerValue]) {
@@ -1133,6 +1136,8 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
                 return @"eu-north-1";
             case AWSS3BucketLocationConstraintAPEast1:
                 return @"ap-east-1";
+            case AWSS3BucketLocationConstraintMESouth1:
+                return @"me-south-1";
             default:
                 return nil;
         }
@@ -2334,6 +2339,9 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
         if ([value caseInsensitiveCompare:@"ap-east-1"] == NSOrderedSame) {
             return @(AWSS3BucketLocationConstraintAPEast1);
         }
+        if ([value caseInsensitiveCompare:@"me-south-1"] == NSOrderedSame) {
+            return @(AWSS3BucketLocationConstraintMESouth1);
+        }
         return @(AWSS3BucketLocationConstraintUnknown);
     } reverseBlock:^NSString *(NSNumber *value) {
         switch ([value integerValue]) {
@@ -2381,6 +2389,8 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
                 return @"eu-north-1";
             case AWSS3BucketLocationConstraintAPEast1:
                 return @"ap-east-1";
+            case AWSS3BucketLocationConstraintMESouth1:
+                return @"me-south-1";
             default:
                 return nil;
         }

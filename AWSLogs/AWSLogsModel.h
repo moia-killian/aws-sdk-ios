@@ -1,5 +1,5 @@
 //
-// Copyright 2010-2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+// Copyright 2010-2020 Amazon.com, Inc. or its affiliates. All Rights Reserved.
 //
 // Licensed under the Apache License, Version 2.0 (the "License").
 // You may not use this file except in compliance with the License.
@@ -157,7 +157,7 @@ typedef NS_ENUM(NSInteger, AWSLogsQueryStatus) {
 
 
 /**
- <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log data. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon Resource Names - AWS Key Management Service (AWS KMS)</a>.</p>
+ <p>The Amazon Resource Name (ARN) of the CMK to use when encrypting log data. This must be a symmetric CMK. For more information, see <a href="https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kms">Amazon Resource Names - AWS Key Management Service (AWS KMS)</a> and <a href="https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html">Using Symmetric and Asymmetric Keys</a>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable kmsKeyId;
 
@@ -1028,12 +1028,12 @@ typedef NS_ENUM(NSInteger, AWSLogsQueryStatus) {
 @property (nonatomic, strong) NSString * _Nullable logStreamName;
 
 /**
- <p>The token for the next set of items to return. (You received this token from a previous call.)</p>
+ <p>The token for the next set of items to return. (You received this token from a previous call.)</p><p>Using this token works only when you specify <code>true</code> for <code>startFromHead</code>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable nextToken;
 
 /**
- <p>If the value is true, the earliest log events are returned first. If the value is false, the latest log events are returned first. The default value is false.</p>
+ <p>If the value is true, the earliest log events are returned first. If the value is false, the latest log events are returned first. The default value is false.</p><p>If you are using <code>nextToken</code> in this operation, you must specify <code>true</code> for <code>startFromHead</code>.</p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable startFromHead;
 
@@ -1303,7 +1303,7 @@ typedef NS_ENUM(NSInteger, AWSLogsQueryStatus) {
 @property (nonatomic, strong) NSString * _Nullable logStreamName;
 
 /**
- <p>The number of bytes stored.</p><p><b>IMPORTANT:</b> Starting on June 17, 2019, this parameter will be deprecated for log streams, and will be reported as zero. This change applies only to log streams. The <code>storedBytes</code> parameter for log groups is not affected.</p>
+ <p>The number of bytes stored.</p><p><b>IMPORTANT:</b>On June 17, 2019, this parameter was deprecated for log streams, and is always reported as zero. This change applies only to log streams. The <code>storedBytes</code> parameter for log groups is not affected.</p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable storedBytes;
 
@@ -1823,14 +1823,19 @@ typedef NS_ENUM(NSInteger, AWSLogsQueryStatus) {
 @property (nonatomic, strong) NSNumber * _Nullable endTime;
 
 /**
- <p>The maximum number of log events to return in the query. If the query string uses the <code>fields</code> command, only the specified fields and their values are returned.</p>
+ <p>The maximum number of log events to return in the query. If the query string uses the <code>fields</code> command, only the specified fields and their values are returned. The default is 1000.</p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable limit;
 
 /**
- <p>The log group on which to perform the query.</p>
+ <p>The log group on which to perform the query.</p><p>A <code>StartQuery</code> operation must include a <code>logGroupNames</code> or a <code>logGroupName</code> parameter, but not both.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable logGroupName;
+
+/**
+ <p>The list of log groups to be queried. You can include up to 20 log groups.</p><p>A <code>StartQuery</code> operation must include a <code>logGroupNames</code> or a <code>logGroupName</code> parameter, but not both.</p>
+ */
+@property (nonatomic, strong) NSArray<NSString *> * _Nullable logGroupNames;
 
 /**
  <p>The query string to use. For more information, see <a href="https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html">CloudWatch Logs Insights Query Syntax</a>.</p>
