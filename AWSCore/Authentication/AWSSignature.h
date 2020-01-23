@@ -16,6 +16,8 @@
 #import <Foundation/Foundation.h>
 #import "AWSNetworking.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 FOUNDATION_EXPORT NSString *const AWSSignatureV4Algorithm;
 FOUNDATION_EXPORT NSString *const AWSSignatureV4Terminator;
 
@@ -143,4 +145,5 @@ FOUNDATION_EXPORT NSString *const AWSSignatureV4Terminator;
  **/
 + (NSUInteger)computeContentLengthForChunkedData:(NSUInteger)dataLength;
 
+NS_ASSUME_NONNULL_END
 @end
