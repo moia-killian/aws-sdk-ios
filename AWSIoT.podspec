@@ -12,6 +12,6 @@ Pod::Spec.new do |s|
   s.source       = { :git => 'git@github.com:moia-killian/aws-sdk-ios.git',
                      :tag => s.version}
   s.requires_arc = true
-  s.dependency 'AWSCore', '2.12.6'
+  s.dependency 'MOIAAWSCore', '2.12.6'
   s.source_files = 'AWSIoT/*.{h,m}', 'AWSIoT/**/*.{h,m}'
 end

@@ -1,5 +1,6 @@
 Pod::Spec.new do |s|
-  s.name         = 'AWSS3'
+
+  s.name         = 'MOIAAWSCore'
   s.version      = '2.12.6'
   s.summary      = 'Amazon Web Services SDK for iOS.'
 
@@ -9,9 +10,14 @@ Pod::Spec.new do |s|
   s.license      = 'Apache License, Version 2.0'
   s.author       = { 'Amazon Web Services' => 'amazonwebservices' }
   s.platform     = :ios, '8.0'
+
   s.source       = { :git => 'git@github.com:moia-killian/aws-sdk-ios.git',
                      :tag => s.version}
+
+  s.frameworks   = 'CoreGraphics', 'UIKit', 'Foundation', 'SystemConfiguration', 'Security'
+  s.libraries    = 'z', 'sqlite3'
   s.requires_arc = true
-  s.dependency 'MOIAAWSCore', '2.12.6'
-  s.source_files = 'AWSS3/*.{h,m}'
+
+  s.source_files = 'AWSCore/*.{h,m}', 'AWSCore/**/*.{h,m}'
+  s.private_header_files = 'AWSCore/XMLWriter/**/*.h', 'AWSCore/FMDB/AWSFMDatabase+Private.h', 'AWSCore/Fabric/*.h', 'AWSCore/Mantle/extobjc/*.h', 'AWSCore/CognitoIdentity/AWSCognitoIdentity+Fabric.h'
 end
