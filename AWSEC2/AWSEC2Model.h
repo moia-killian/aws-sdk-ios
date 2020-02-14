@@ -162,6 +162,7 @@ typedef NS_ENUM(NSInteger, AWSEC2ByoipCidrState) {
     AWSEC2ByoipCidrStatePendingDeprovision,
     AWSEC2ByoipCidrStatePendingProvision,
     AWSEC2ByoipCidrStateProvisioned,
+    AWSEC2ByoipCidrStateProvisionedNotPubliclyAdvertisable,
 };
 
 typedef NS_ENUM(NSInteger, AWSEC2CancelBatchErrorCode) {
@@ -967,6 +968,24 @@ typedef NS_ENUM(NSInteger, AWSEC2LaunchTemplateErrorCode) {
     AWSEC2LaunchTemplateErrorCodeLaunchTemplateNameMalformed,
     AWSEC2LaunchTemplateErrorCodeLaunchTemplateVersionDoesNotExist,
     AWSEC2LaunchTemplateErrorCodeUnexpectedError,
+};
+
+typedef NS_ENUM(NSInteger, AWSEC2LaunchTemplateHttpTokensState) {
+    AWSEC2LaunchTemplateHttpTokensStateUnknown,
+    AWSEC2LaunchTemplateHttpTokensStateOptional,
+    AWSEC2LaunchTemplateHttpTokensStateRequired,
+};
+
+typedef NS_ENUM(NSInteger, AWSEC2LaunchTemplateInstanceMetadataEndpointState) {
+    AWSEC2LaunchTemplateInstanceMetadataEndpointStateUnknown,
+    AWSEC2LaunchTemplateInstanceMetadataEndpointStateDisabled,
+    AWSEC2LaunchTemplateInstanceMetadataEndpointStateEnabled,
+};
+
+typedef NS_ENUM(NSInteger, AWSEC2LaunchTemplateInstanceMetadataOptionsState) {
+    AWSEC2LaunchTemplateInstanceMetadataOptionsStateUnknown,
+    AWSEC2LaunchTemplateInstanceMetadataOptionsStatePending,
+    AWSEC2LaunchTemplateInstanceMetadataOptionsStateApplied,
 };
 
 typedef NS_ENUM(NSInteger, AWSEC2ListingState) {
@@ -2154,6 +2173,8 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2DescribeInstancesResult;
 @class AWSEC2DescribeInternetGatewaysRequest;
 @class AWSEC2DescribeInternetGatewaysResult;
+@class AWSEC2DescribeIpv6PoolsRequest;
+@class AWSEC2DescribeIpv6PoolsResult;
 @class AWSEC2DescribeKeyPairsRequest;
 @class AWSEC2DescribeKeyPairsResult;
 @class AWSEC2DescribeLaunchTemplateVersionsRequest;
@@ -2391,6 +2412,8 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2FpgaImageAttribute;
 @class AWSEC2FpgaImageState;
 @class AWSEC2FpgaInfo;
+@class AWSEC2GetAssociatedIpv6PoolCidrsRequest;
+@class AWSEC2GetAssociatedIpv6PoolCidrsResult;
 @class AWSEC2GetCapacityReservationUsageRequest;
 @class AWSEC2GetCapacityReservationUsageResult;
 @class AWSEC2GetCoipPoolUsageRequest;
@@ -2502,7 +2525,9 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2InternetGatewayAttachment;
 @class AWSEC2IpPermission;
 @class AWSEC2IpRange;
+@class AWSEC2Ipv6CidrAssociation;
 @class AWSEC2Ipv6CidrBlock;
+@class AWSEC2Ipv6Pool;
 @class AWSEC2Ipv6Range;
 @class AWSEC2KeyPair;
 @class AWSEC2KeyPairInfo;
@@ -2529,6 +2554,8 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2LaunchTemplateIamInstanceProfileSpecificationRequest;
 @class AWSEC2LaunchTemplateInstanceMarketOptions;
 @class AWSEC2LaunchTemplateInstanceMarketOptionsRequest;
+@class AWSEC2LaunchTemplateInstanceMetadataOptions;
+@class AWSEC2LaunchTemplateInstanceMetadataOptionsRequest;
 @class AWSEC2LaunchTemplateInstanceNetworkInterfaceSpecification;
 @class AWSEC2LaunchTemplateInstanceNetworkInterfaceSpecificationRequest;
 @class AWSEC2LaunchTemplateLicenseConfiguration;
@@ -2671,6 +2698,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @class AWSEC2PlacementGroup;
 @class AWSEC2PlacementGroupInfo;
 @class AWSEC2PlacementResponse;
+@class AWSEC2PoolCidrBlock;
 @class AWSEC2PortRange;
 @class AWSEC2PrefixList;
 @class AWSEC2PrefixListId;
@@ -3234,7 +3262,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>The IPv4 address range, in CIDR notation. This must be the exact range that you provisioned. You can't advertise only a portion of the provisioned range.</p>
+ <p>The address range, in CIDR notation. This must be the exact range that you provisioned. You can't advertise only a portion of the provisioned range.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable cidr;
 
@@ -3892,9 +3920,19 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSString * _Nullable cidrBlock;
 
 /**
+ <p>An IPv6 CIDR block from the IPv6 address pool. You must also specify <code>Ipv6Pool</code> in the request.</p><p>To let Amazon choose the IPv6 CIDR block for you, omit this parameter.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable ipv6CidrBlock;
+
+/**
  <p>The name of the location from which we advertise the IPV6 CIDR block. Use this parameter to limit the CiDR block to this location.</p><p> You must set <code>AmazonProvidedIpv6CidrBlock</code> to <code>true</code> to use this parameter.</p><p> You can have one IPv6 CIDR block association per network border group.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable ipv6CidrBlockNetworkBorderGroup;
+
+/**
+ <p>The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable ipv6Pool;
 
 /**
  <p>The ID of the VPC.</p>
@@ -4594,7 +4632,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>The public IPv4 address range, in CIDR notation.</p>
+ <p>The address range, in CIDR notation.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable cidr;
 
@@ -5537,6 +5575,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, assign) AWSEC2TransportProtocol transportProtocol;
 
 /**
+ <p>The port number for the Client VPN endpoint.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable vpnPort;
+
+/**
  <p>The protocol used by the VPN session.</p>
  */
 @property (nonatomic, assign) AWSEC2VpnProtocol vpnProtocol;
@@ -6223,6 +6266,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  */
 @property (nonatomic, assign) AWSEC2TransportProtocol transportProtocol;
 
+/**
+ <p>The port number to assign to the Client VPN endpoint for TCP and UDP traffic.</p><p>Valid Values: <code>443</code> | <code>1194</code></p><p>Default Value: <code>443</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable vpnPort;
+
 @end
 
 /**
@@ -6677,6 +6725,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>The name of a new or existing CloudWatch Logs log group where Amazon EC2 publishes your flow logs.</p><p>If you specify <code>LogDestinationType</code> as <code>s3</code>, do not specify <code>DeliverLogsPermissionArn</code> or <code>LogGroupName</code>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable logGroupName;
+
+/**
+ <p>The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. You can specify 60 seconds (1 minute) or 600 seconds (10 minutes).</p><p>For network interfaces attached to <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based instances</a>, the aggregation interval is always 60 seconds, regardless of the value that you specify.</p><p>Default: 600</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable maxAggregationInterval;
 
 /**
  <p>The ID of the subnet, network interface, or VPC for which you want to create a flow log.</p><p>Constraints: Maximum of 1000 resources</p>
@@ -8502,6 +8555,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSArray<NSString *> * _Nullable subnetIds;
 
 /**
+ <p>The tags to associate with the endpoint.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2TagSpecification *> * _Nullable tagSpecifications;
+
+/**
  <p>The type of endpoint.</p><p>Default: Gateway</p>
  */
 @property (nonatomic, assign) AWSEC2VpcEndpointType vpcEndpointType;
@@ -8561,6 +8619,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>The private DNS name to assign to the VPC endpoint service.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable privateDnsName;
+
+/**
+ <p>The tags to associate with the service.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2TagSpecification *> * _Nullable tagSpecifications;
 
 @end
 
@@ -8655,9 +8718,19 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, assign) AWSEC2Tenancy instanceTenancy;
 
 /**
+ <p>The IPv6 CIDR block from the IPv6 address pool. You must also specify <code>Ipv6Pool</code> in the request.</p><p>To let Amazon choose the IPv6 CIDR block for you, omit this parameter.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable ipv6CidrBlock;
+
+/**
  <p>The name of the location from which we advertise the IPV6 CIDR block. Use this parameter to limit the address to this location.</p><p> You must set <code>AmazonProvidedIpv6CidrBlock</code> to <code>true</code> to use this parameter.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable ipv6CidrBlockNetworkBorderGroup;
+
+/**
+ <p>The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable ipv6Pool;
 
 @end
 
@@ -10281,7 +10354,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>The public IPv4 address range, in CIDR notation. The prefix must be the same prefix that you specified when you provisioned the address range.</p>
+ <p>The address range, in CIDR notation. The prefix must be the same prefix that you specified when you provisioned the address range.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable cidr;
 
@@ -10751,7 +10824,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSNumber * _Nullable dryRun;
 
 /**
- <p>One or more filters. Filter names and values are case-sensitive.</p>
+ <p>One or more filters. Filter names and values are case-sensitive.</p><ul><li><p><code>description</code> - The description of the authorization rule.</p></li><li><p><code>destination-cidr</code> - The CIDR of the network to which the authorization rule applies.</p></li><li><p><code>group-id</code> - The ID of the Active Directory group to which the authorization rule grants access.</p></li></ul>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Filter *> * _Nullable filters;
 
@@ -10802,7 +10875,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSNumber * _Nullable dryRun;
 
 /**
- <p>One or more filters. Filter names and values are case-sensitive.</p>
+ <p>One or more filters. Filter names and values are case-sensitive.</p><ul><li><p><code>connection-id</code> - The ID of the connection.</p></li><li><p><code>username</code> - For Active Directory client authentication, the user name of the client who established the client connection.</p></li></ul>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Filter *> * _Nullable filters;
 
@@ -10853,7 +10926,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSNumber * _Nullable dryRun;
 
 /**
- <p>One or more filters. Filter names and values are case-sensitive.</p>
+ <p>One or more filters. Filter names and values are case-sensitive.</p><ul><li><p><code>endpoint-id</code> - The ID of the Client VPN endpoint.</p></li><li><p><code>transport-protocol</code> - The transport protocol (<code>tcp</code> | <code>udp</code>).</p></li></ul>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Filter *> * _Nullable filters;
 
@@ -10904,7 +10977,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSNumber * _Nullable dryRun;
 
 /**
- <p>One or more filters. Filter names and values are case-sensitive.</p>
+ <p>One or more filters. Filter names and values are case-sensitive.</p><ul><li><p><code>destination-cidr</code> - The CIDR of the route destination.</p></li><li><p><code>origin</code> - How the route was associated with the Client VPN endpoint (<code>associate</code> | <code>add-route</code>).</p></li><li><p><code>target-subnet</code> - The ID of the subnet through which traffic is routed.</p></li></ul>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Filter *> * _Nullable filters;
 
@@ -10960,7 +11033,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSNumber * _Nullable dryRun;
 
 /**
- <p>One or more filters. Filter names and values are case-sensitive.</p>
+ <p>One or more filters. Filter names and values are case-sensitive.</p><ul><li><p><code>association-id</code> - The ID of the association.</p></li><li><p><code>target-network-id</code> - The ID of the subnet specified as the target network.</p></li><li><p><code>vpc-id</code> - The ID of the VPC in which the target network is located.</p></li></ul>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Filter *> * _Nullable filters;
 
@@ -11333,7 +11406,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSArray<NSString *> * _Nullable exportTaskIds;
 
 /**
- 
+ <p>the filters for the export tasks.</p>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Filter *> * _Nullable filters;
 
@@ -12459,7 +12532,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSNumber * _Nullable dryRun;
 
 /**
- <p>One or more filters. Filter names and values are case-sensitive.</p><ul><li><p><code>auto-recovery-supported</code> - Indicates whether auto recovery is supported. (<code>true</code> | <code>false</code>)</p></li><li><p><code>bare-metal</code> - Indicates whether it is a bare metal instance type. (<code>true</code> | <code>false</code>)</p></li><li><p><code>burstable-performance-supported</code> - Indicates whether it is a burstable performance instance type. (<code>true</code> | <code>false</code>)</p></li><li><p><code>current-generation</code> - Indicates whether this instance type is the latest generation instance type of an instance family. (<code>true</code> | <code>false</code>)</p></li><li><p><code>ebs-info.ebs-optimized-support</code> - Indicates whether the instance type is EBS-optimized. (<code>true</code> | <code>false</code>)</p></li><li><p><code>ebs-info.encryption-support</code> - Indicates whether EBS encryption is supported. (<code>true</code> | <code>false</code>)</p></li><li><p><code>free-tier-eligible</code> - Indicates whether the instance type is eligible to use in the free tier. (<code>true</code> | <code>false</code>)</p></li><li><p><code>hibernation-supported</code> - Indicates whether On-Demand hibernation is supported. (<code>true</code> | <code>false</code>)</p></li><li><p><code>hypervisor</code> - The hypervisor used. (<code>nitro</code> | <code>xen</code>)</p></li><li><p><code>instance-storage-info.disk.count</code> - The number of local disks.</p></li><li><p><code>instance-storage-info.disk.size-in-gb</code> - The storage size of each instance storage disk, in GB.</p></li><li><p><code>instance-storage-info.disk.type</code> - The storage technology for the local instance storage disks. (<code>hdd</code> | <code>ssd</code>)</p></li><li><p><code>instance-storage-info.total-size-in-gb</code> - The total amount of storage available from all local instance storage, in GB.</p></li><li><p><code>instance-storage-supported</code> - Indicates whether the instance type has local instance storage. (<code>true</code> | <code>false</code>)</p></li><li><p><code>memory-info.size-in-mib</code> - The memory size.</p></li><li><p><code>network-info.ena-support</code> - Indicates whether Elastic Network Adapter (ENA) is supported or required. (<code>required</code> | <code>supported</code> | <code>unsupported</code>)</p></li><li><p><code>network-info.ipv4-addresses-per-interface</code> - The maximum number of private IPv4 addresses per network interface.</p></li><li><p><code>network-info.ipv6-addresses-per-interface</code> - The maximum number of private IPv6 addresses per network interface.</p></li><li><p><code>network-info.ipv6-supported</code> - Indicates whether the instance type supports IPv6. (<code>true</code> | <code>false</code>)</p></li><li><p><code>network-info.maximum-network-interfaces</code> - The maximum number of network interfaces per instance.</p></li><li><p><code>network-info.network-performance</code> - Describes the network performance.</p></li><li><p><code>processor-info.sustained-clock-speed-in-ghz</code> - The CPU clock speed, in GHz.</p></li><li><p><code>vcpu-info.default-cores</code> - The default number of cores for the instance type.</p></li><li><p><code>vcpu-info.default-threads-per-core</code> - The default number of threads per cores for the instance type.</p></li><li><p><code>vcpu-info.default-vcpus</code> - The default number of vCPUs for the instance type.</p></li></ul>
+ <p>One or more filters. Filter names and values are case-sensitive.</p><ul><li><p><code>auto-recovery-supported</code> - Indicates whether auto recovery is supported. (<code>true</code> | <code>false</code>)</p></li><li><p><code>bare-metal</code> - Indicates whether it is a bare metal instance type. (<code>true</code> | <code>false</code>)</p></li><li><p><code>burstable-performance-supported</code> - Indicates whether it is a burstable performance instance type. (<code>true</code> | <code>false</code>)</p></li><li><p><code>current-generation</code> - Indicates whether this instance type is the latest generation instance type of an instance family. (<code>true</code> | <code>false</code>)</p></li><li><p><code>ebs-info.ebs-optimized-support</code> - Indicates whether the instance type is EBS-optimized. (<code>true</code> | <code>false</code>)</p></li><li><p><code>ebs-info.encryption-support</code> - Indicates whether EBS encryption is supported. (<code>true</code> | <code>false</code>)</p></li><li><p><code>free-tier-eligible</code> - Indicates whether the instance type is eligible to use in the free tier. (<code>true</code> | <code>false</code>)</p></li><li><p><code>hibernation-supported</code> - Indicates whether On-Demand hibernation is supported. (<code>true</code> | <code>false</code>)</p></li><li><p><code>hypervisor</code> - The hypervisor used. (<code>nitro</code> | <code>xen</code>)</p></li><li><p><code>instance-storage-info.disk.count</code> - The number of local disks.</p></li><li><p><code>instance-storage-info.disk.size-in-gb</code> - The storage size of each instance storage disk, in GB.</p></li><li><p><code>instance-storage-info.disk.type</code> - The storage technology for the local instance storage disks. (<code>hdd</code> | <code>ssd</code>)</p></li><li><p><code>instance-storage-info.total-size-in-gb</code> - The total amount of storage available from all local instance storage, in GB.</p></li><li><p><code>instance-storage-supported</code> - Indicates whether the instance type has local instance storage. (<code>true</code> | <code>false</code>)</p></li><li><p><code>memory-info.size-in-mib</code> - The memory size.</p></li><li><p><code>network-info.ena-support</code> - Indicates whether Elastic Network Adapter (ENA) is supported or required. (<code>required</code> | <code>supported</code> | <code>unsupported</code>)</p></li><li><p><code>network-info.ipv4-addresses-per-interface</code> - The maximum number of private IPv4 addresses per network interface.</p></li><li><p><code>network-info.ipv6-addresses-per-interface</code> - The maximum number of private IPv6 addresses per network interface.</p></li><li><p><code>network-info.ipv6-supported</code> - Indicates whether the instance type supports IPv6. (<code>true</code> | <code>false</code>)</p></li><li><p><code>network-info.maximum-network-interfaces</code> - The maximum number of network interfaces per instance.</p></li><li><p><code>network-info.network-performance</code> - Describes the network performance.</p></li><li><p><code>processor-info.sustained-clock-speed-in-ghz</code> - The CPU clock speed, in GHz.</p></li><li><p><code>vcpu-info.default-cores</code> - The default number of cores for the instance type.</p></li><li><p><code>vcpu-info.default-threads-per-core</code> - The default number of threads per core for the instance type.</p></li><li><p><code>vcpu-info.default-vcpus</code> - The default number of vCPUs for the instance type.</p></li></ul>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Filter *> * _Nullable filters;
 
@@ -12592,6 +12665,57 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>Information about one or more internet gateways.</p>
  */
 @property (nonatomic, strong) NSArray<AWSEC2InternetGateway *> * _Nullable internetGateways;
+
+/**
+ <p>The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more results to return.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable nextToken;
+
+@end
+
+/**
+ 
+ */
+@interface AWSEC2DescribeIpv6PoolsRequest : AWSRequest
+
+
+/**
+ <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable dryRun;
+
+/**
+ <p>One or more filters.</p><ul><li><p><code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p></li><li><p><code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p></li></ul>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Filter *> * _Nullable filters;
+
+/**
+ <p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable maxResults;
+
+/**
+ <p>The token for the next page of results.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable nextToken;
+
+/**
+ <p>The IDs of the IPv6 address pools.</p>
+ */
+@property (nonatomic, strong) NSArray<NSString *> * _Nullable poolIds;
+
+@end
+
+/**
+ 
+ */
+@interface AWSEC2DescribeIpv6PoolsResult : AWSModel
+
+
+/**
+ <p>Information about the IPv6 address pools.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Ipv6Pool *> * _Nullable ipv6Pools;
 
 /**
  <p>The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more results to return.</p>
@@ -15799,7 +15923,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSNumber * _Nullable dryRun;
 
 /**
- <p>One or more filters.</p><ul><li><p><code>cidr</code> - The primary IPv4 CIDR block of the VPC. The CIDR block you specify must exactly match the VPC's CIDR block for information to be returned for the VPC. Must contain the slash followed by one or two digits (for example, <code>/28</code>).</p></li><li><p><code>cidr-block-association.cidr-block</code> - An IPv4 CIDR block associated with the VPC.</p></li><li><p><code>cidr-block-association.association-id</code> - The association ID for an IPv4 CIDR block associated with the VPC.</p></li><li><p><code>cidr-block-association.state</code> - The state of an IPv4 CIDR block associated with the VPC.</p></li><li><p><code>dhcp-options-id</code> - The ID of a set of DHCP options.</p></li><li><p><code>ipv6-cidr-block-association.ipv6-cidr-block</code> - An IPv6 CIDR block associated with the VPC.</p></li><li><p><code>ipv6-cidr-block-association.association-id</code> - The association ID for an IPv6 CIDR block associated with the VPC.</p></li><li><p><code>ipv6-cidr-block-association.state</code> - The state of an IPv6 CIDR block associated with the VPC.</p></li><li><p><code>isDefault</code> - Indicates whether the VPC is the default VPC.</p></li><li><p><code>owner-id</code> - The ID of the AWS account that owns the VPC.</p></li><li><p><code>state</code> - The state of the VPC (<code>pending</code> | <code>available</code>).</p></li><li><p><code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p></li><li><p><code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p></li><li><p><code>vpc-id</code> - The ID of the VPC.</p></li></ul>
+ <p>One or more filters.</p><ul><li><p><code>cidr</code> - The primary IPv4 CIDR block of the VPC. The CIDR block you specify must exactly match the VPC's CIDR block for information to be returned for the VPC. Must contain the slash followed by one or two digits (for example, <code>/28</code>).</p></li><li><p><code>cidr-block-association.cidr-block</code> - An IPv4 CIDR block associated with the VPC.</p></li><li><p><code>cidr-block-association.association-id</code> - The association ID for an IPv4 CIDR block associated with the VPC.</p></li><li><p><code>cidr-block-association.state</code> - The state of an IPv4 CIDR block associated with the VPC.</p></li><li><p><code>dhcp-options-id</code> - The ID of a set of DHCP options.</p></li><li><p><code>ipv6-cidr-block-association.ipv6-cidr-block</code> - An IPv6 CIDR block associated with the VPC.</p></li><li><p><code>ipv6-cidr-block-association.ipv6-pool</code> - The ID of the IPv6 address pool from which the IPv6 CIDR block is allocated.</p></li><li><p><code>ipv6-cidr-block-association.association-id</code> - The association ID for an IPv6 CIDR block associated with the VPC.</p></li><li><p><code>ipv6-cidr-block-association.state</code> - The state of an IPv6 CIDR block associated with the VPC.</p></li><li><p><code>isDefault</code> - Indicates whether the VPC is the default VPC.</p></li><li><p><code>owner-id</code> - The ID of the AWS account that owns the VPC.</p></li><li><p><code>state</code> - The state of the VPC (<code>pending</code> | <code>available</code>).</p></li><li><p><code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p></li><li><p><code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p></li><li><p><code>vpc-id</code> - The ID of the VPC.</p></li></ul>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Filter *> * _Nullable filters;
 
@@ -17690,7 +17814,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSString * _Nullable statusMessage;
 
 /**
- 
+ <p>The tags for the export task.</p>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Tag *> * _Nullable tags;
 
@@ -18199,6 +18323,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSString * _Nullable logGroupName;
 
 /**
+ <p>The maximum interval of time, in seconds, during which a flow of packets is captured and aggregated into a flow log record.</p><p>For network interfaces attached to <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances">Nitro-based instances</a>, the aggregation interval is always 60 seconds (1 minute), regardless of the specified value.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable maxAggregationInterval;
+
+/**
  <p>The ID of the resource on which the flow log was created.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable resourceId;
@@ -18400,6 +18529,52 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>The total memory of all FPGA accelerators for the instance type.</p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable totalFpgaMemoryInMiB;
+
+@end
+
+/**
+ 
+ */
+@interface AWSEC2GetAssociatedIpv6PoolCidrsRequest : AWSRequest
+
+
+/**
+ <p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable dryRun;
+
+/**
+ <p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable maxResults;
+
+/**
+ <p>The token for the next page of results.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable nextToken;
+
+/**
+ <p>The ID of the IPv6 address pool.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable poolId;
+
+@end
+
+/**
+ 
+ */
+@interface AWSEC2GetAssociatedIpv6PoolCidrsResult : AWSModel
+
+
+/**
+ <p>Information about the IPv6 CIDR block associations.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Ipv6CidrAssociation *> * _Nullable ipv6CidrAssociations;
+
+/**
+ <p>The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more results to return.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable nextToken;
 
 @end
 
@@ -19731,6 +19906,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, assign) AWSEC2PlatformValues platform;
 
 /**
+ <p>The platform details associated with the billing code of the AMI. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info.html">AMI Billing Information</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable platformDetails;
+
+/**
  <p>Any product codes associated with the AMI.</p>
  */
 @property (nonatomic, strong) NSArray<AWSEC2ProductCode *> * _Nullable productCodes;
@@ -19774,6 +19954,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>Any tags assigned to the image.</p>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Tag *> * _Nullable tags;
+
+/**
+ <p>The operation of the Amazon EC2 instance and the billing code associated with the AMI. <code>usageOperation</code> corresponds to the <a href="https://docs.aws.amazon.com/cur/latest/userguide/Lineitem-columns.html#Lineitem-details-O-Operation">lineitem/Operation</a> column on your AWS Cost and Usage Report. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info.html">AMI Billing Information</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable usageOperation;
 
 /**
  <p>The type of virtualization of the AMI.</p>
@@ -20158,7 +20343,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSString * _Nullable statusMessage;
 
 /**
- <p>Any tags applied to the import image task.</p>
+ <p>The tags for the import image task.</p>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Tag *> * _Nullable tags;
 
@@ -20478,7 +20663,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) AWSEC2SnapshotTaskDetail * _Nullable snapshotTaskDetail;
 
 /**
- <p>Any tags applied to the import snapshot task.</p>
+ <p>The tags for the import snapshot task.</p>
  */
 @property (nonatomic, strong) NSArray<AWSEC2Tag *> * _Nullable tags;
 
@@ -21908,6 +22093,24 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @end
 
 /**
+ <p>Describes an IPv6 CIDR block association.</p>
+ */
+@interface AWSEC2Ipv6CidrAssociation : AWSModel
+
+
+/**
+ <p>The resource that's associated with the IPv6 CIDR block.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable associatedResource;
+
+/**
+ <p>The IPv6 CIDR block.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable ipv6Cidr;
+
+@end
+
+/**
  <p>Describes an IPv6 CIDR block.</p>
  */
 @interface AWSEC2Ipv6CidrBlock : AWSModel
@@ -21917,6 +22120,34 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>The IPv6 CIDR block.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable ipv6CidrBlock;
+
+@end
+
+/**
+ <p>Describes an IPv6 address pool.</p>
+ */
+@interface AWSEC2Ipv6Pool : AWSModel
+
+
+/**
+ <p>The description for the address pool.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable detail;
+
+/**
+ <p>The CIDR blocks for the address pool.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2PoolCidrBlock *> * _Nullable poolCidrBlocks;
+
+/**
+ <p>The ID of the address pool.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable poolId;
+
+/**
+ <p>Any tags for the address pool.</p>
+ */
+@property (nonatomic, strong) NSArray<AWSEC2Tag *> * _Nullable tags;
 
 @end
 
@@ -22560,6 +22791,57 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @end
 
 /**
+ <p>The metadata options for the instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ */
+@interface AWSEC2LaunchTemplateInstanceMetadataOptions : AWSModel
+
+
+/**
+ <p>This parameter enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the default state is <code>enabled</code>.</p><note><p>If you specify a value of <code>disabled</code>, you will not be able to access your instance metadata. </p></note>
+ */
+@property (nonatomic, assign) AWSEC2LaunchTemplateInstanceMetadataEndpointState httpEndpoint;
+
+/**
+ <p>The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel.</p><p>Default: 1</p><p>Possible values: Integers from 1 to 64</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable httpPutResponseHopLimit;
+
+/**
+ <p>The state of token usage for your instance metadata requests. If the parameter is not specified in the request, the default state is <code>optional</code>.</p><p>If the state is <code>optional</code>, you can choose to retrieve instance metadata with or without a signed token header on your request. If you retrieve the IAM role credentials without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role credentials using a valid signed token, the version 2.0 role credentials are returned.</p><p>If the state is <code>required</code>, you must send a signed token header with any instance metadata retrieval requests. In this state, retrieving the IAM role credentials always returns the version 2.0 credentials; the version 1.0 credentials are not available.</p>
+ */
+@property (nonatomic, assign) AWSEC2LaunchTemplateHttpTokensState httpTokens;
+
+/**
+ <p>The state of the metadata option changes.</p><p><code>pending</code> - The metadata options are being updated and the instance is not ready to process metadata traffic with the new selection.</p><p><code>applied</code> - The metadata options have been successfully applied on the instance.</p>
+ */
+@property (nonatomic, assign) AWSEC2LaunchTemplateInstanceMetadataOptionsState state;
+
+@end
+
+/**
+ <p>The metadata options for the instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ */
+@interface AWSEC2LaunchTemplateInstanceMetadataOptionsRequest : AWSModel
+
+
+/**
+ <p>This parameter enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the default state is <code>enabled</code>.</p><note><p>If you specify a value of <code>disabled</code>, you will not be able to access your instance metadata. </p></note>
+ */
+@property (nonatomic, assign) AWSEC2LaunchTemplateInstanceMetadataEndpointState httpEndpoint;
+
+/**
+ <p>The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel.</p><p>Default: 1</p><p>Possible values: Integers from 1 to 64</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable httpPutResponseHopLimit;
+
+/**
+ <p>The state of token usage for your instance metadata requests. If the parameter is not specified in the request, the default state is <code>optional</code>.</p><p>If the state is <code>optional</code>, you can choose to retrieve instance metadata with or without a signed token header on your request. If you retrieve the IAM role credentials without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role credentials using a valid signed token, the version 2.0 role credentials are returned.</p><p>If the state is <code>required</code>, you must send a signed token header with any instance metadata retrieval requests. In this state, retrieving the IAM role credentials always returns the version 2.0 credentials; the version 1.0 credentials are not available.</p>
+ */
+@property (nonatomic, assign) AWSEC2LaunchTemplateHttpTokensState httpTokens;
+
+@end
+
+/**
  <p>Describes a network interface.</p>
  */
 @interface AWSEC2LaunchTemplateInstanceNetworkInterfaceSpecification : AWSModel
@@ -22796,9 +23078,14 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSString * _Nullable hostId;
 
 /**
- <p>The ARN of the host resource group in which to launch the instances.</p>
+ <p>The ARN of the host resource group in which to launch the instances. </p>
  */
 @property (nonatomic, strong) NSString * _Nullable hostResourceGroupArn;
+
+/**
+ <p>The number of the partition the instance should launch in. Valid only if the placement group strategy is set to <code>partition</code>.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable partitionNumber;
 
 /**
  <p>Reserved for future use.</p>
@@ -22842,6 +23129,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>The ARN of the host resource group in which to launch the instances. If you specify a host resource group ARN, omit the <b>Tenancy</b> parameter or set it to <code>host</code>.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable hostResourceGroupArn;
+
+/**
+ <p>The number of the partition the instance should launch in. Valid only if the placement group strategy is set to <code>partition</code>.</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable partitionNumber;
 
 /**
  <p>Reserved for future use.</p>
@@ -23502,6 +23794,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>Indicates whether the VPN is split-tunnel.</p><p>For information about split-tunnel VPN endpoints, see <a href="https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/split-tunnel-vpn.html">Split-Tunnel AWS Client VPN Endpoint</a> in the <i>AWS Client VPN Administrator Guide</i>.</p>
  */
 @property (nonatomic, strong) NSNumber * _Nullable splitTunnel;
+
+/**
+ <p>The port number to assign to the Client VPN endpoint for TCP and UDP traffic.</p><p>Valid Values: <code>443</code> | <code>1194</code></p><p>Default Value: <code>443</code></p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable vpnPort;
 
 @end
 
@@ -26361,6 +26658,19 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @end
 
 /**
+ <p>Describes a CIDR block for an address pool.</p>
+ */
+@interface AWSEC2PoolCidrBlock : AWSModel
+
+
+/**
+ <p>The CIDR block.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable cidr;
+
+@end
+
+/**
  <p>Describes a range of ports.</p>
  */
 @interface AWSEC2PortRange : AWSModel
@@ -26608,7 +26918,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>The public IPv4 address range, in CIDR notation. The most specific prefix that you can specify is /24. The address range cannot overlap with another address range that you've brought to this or another Region.</p>
+ <p>The public IPv4 or IPv6 address range, in CIDR notation. The most specific IPv4 prefix that you can specify is /24. The most specific IPv6 prefix you can specify is /56. The address range cannot overlap with another address range that you've brought to this or another Region.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable cidr;
 
@@ -26627,6 +26937,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  */
 @property (nonatomic, strong) NSNumber * _Nullable dryRun;
 
+/**
+ <p>(IPv6 only) Indicate whether the address range will be publicly advertised to the internet.</p><p>Default: true</p>
+ */
+@property (nonatomic, strong) NSNumber * _Nullable publiclyAdvertisable;
+
 @end
 
 /**
@@ -26636,7 +26951,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>Information about the address pool.</p>
+ <p>Information about the address range.</p>
  */
 @property (nonatomic, strong) AWSEC2ByoipCidr * _Nullable byoipCidr;
 
@@ -26676,7 +26991,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @end
 
 /**
- <p>Describes an address pool.</p>
+ <p>Describes an IPv4 address pool.</p>
  */
 @interface AWSEC2PublicIpv4Pool : AWSModel
 
@@ -26692,7 +27007,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) NSArray<AWSEC2PublicIpv4PoolRange *> * _Nullable poolAddressRanges;
 
 /**
- <p>The ID of the IPv4 address pool.</p>
+ <p>The ID of the address pool.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable poolId;
 
@@ -27704,7 +28019,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>The block device mapping.</p><important><p>Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an error. This is because only blank volumes can be encrypted on start, and these are not created from a snapshot. If a snapshot is the basis for the volume, it contains data by definition and its encryption status cannot be changed using this action.</p></important>
+ <p>The block device mapping.</p>
  */
 @property (nonatomic, strong) NSArray<AWSEC2LaunchTemplateBlockDeviceMappingRequest *> * _Nullable blockDeviceMappings;
 
@@ -27787,6 +28102,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>The license configurations.</p>
  */
 @property (nonatomic, strong) NSArray<AWSEC2LaunchTemplateLicenseConfigurationRequest *> * _Nullable licenseSpecifications;
+
+/**
+ <p>The metadata options for the instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ */
+@property (nonatomic, strong) AWSEC2LaunchTemplateInstanceMetadataOptionsRequest * _Nullable metadataOptions;
 
 /**
  <p>The monitoring for the instance.</p>
@@ -28743,6 +29063,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
  <p>The license configurations.</p>
  */
 @property (nonatomic, strong) NSArray<AWSEC2LaunchTemplateLicenseConfiguration *> * _Nullable licenseSpecifications;
+
+/**
+ <p>The metadata options for the instance. For more information, see <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html">Instance Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>
+ */
+@property (nonatomic, strong) AWSEC2LaunchTemplateInstanceMetadataOptions * _Nullable metadataOptions;
 
 /**
  <p>The monitoring for the instance.</p>
@@ -34230,6 +34555,11 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 @property (nonatomic, strong) AWSEC2VpcCidrBlockState * _Nullable ipv6CidrBlockState;
 
 /**
+ <p>The ID of the IPv6 address pool from which the IPv6 CIDR block is allocated.</p>
+ */
+@property (nonatomic, strong) NSString * _Nullable ipv6Pool;
+
+/**
  <p>The name of the location from which we advertise the IPV6 CIDR block.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable networkBorderGroup;
@@ -34628,7 +34958,7 @@ typedef NS_ENUM(NSInteger, AWSEC2scope) {
 
 
 /**
- <p>The public IPv4 address range, in CIDR notation.</p>
+ <p>The address range, in CIDR notation.</p>
  */
 @property (nonatomic, strong) NSString * _Nullable cidr;
 

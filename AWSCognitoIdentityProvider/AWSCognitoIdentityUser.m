@@ -358,12 +358,9 @@ static const NSString * AWSCognitoIdentityUserUserAttributePrefix = @"userAttrib
         id<AWSCognitoIdentityNewPasswordRequired> newPasswordRequiredDelegate = [self.pool.delegate startNewPasswordRequired];
         NSString * userAttributes = lastChallenge.challengeParameters[@"userAttributes"];
         NSString * requiredAttributes = lastChallenge.challengeParameters[@"requiredAttributes"];
-        NSMutableDictionary<NSString*, NSString *> *userAttributesDict = [NSMutableDictionary new];
+        NSDictionary<NSString*, NSString *> *userAttributesDict = [NSMutableDictionary new];
         NSMutableSet<NSString*> *requiredAttributesSet = [NSMutableSet new];
         
-        if(userAttributes){
-            [userAttributesDict addEntriesFromDictionary:[NSJSONSerialization JSONObjectWithData:[userAttributes dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil]];
-        }
         if(requiredAttributes) {
             NSArray * requiredAttributesArray = [NSJSONSerialization JSONObjectWithData:[requiredAttributes dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingAllowFragments error:nil];
             for (NSString * requiredAttribute in requiredAttributesArray) {

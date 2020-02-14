@@ -128,7 +128,7 @@
       },\
       \"input\":{\"shape\":\"AdvertiseByoipCidrRequest\"},\
       \"output\":{\"shape\":\"AdvertiseByoipCidrResult\"},\
-      \"documentation\":\"<p>Advertises an IPv4 address range that is provisioned for use with your AWS resources through bring your own IP addresses (BYOIP).</p> <p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p> <p>We recommend that you stop advertising the BYOIP CIDR from other locations when you advertise it from AWS. To minimize down time, you can configure your AWS resources to use an address from a BYOIP CIDR before it is advertised, and then simultaneously stop advertising it from the current location and start advertising it through AWS.</p> <p>It can take a few minutes before traffic to the specified addresses starts routing to AWS because of BGP propagation delays.</p> <p>To stop advertising the BYOIP CIDR, use <a>WithdrawByoipCidr</a>.</p>\"\
+      \"documentation\":\"<p>Advertises an IPv4 or IPv6 address range that is provisioned for use with your AWS resources through bring your own IP addresses (BYOIP).</p> <p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p> <p>We recommend that you stop advertising the BYOIP CIDR from other locations when you advertise it from AWS. To minimize down time, you can configure your AWS resources to use an address from a BYOIP CIDR before it is advertised, and then simultaneously stop advertising it from the current location and start advertising it through AWS.</p> <p>It can take a few minutes before traffic to the specified addresses starts routing to AWS because of BGP propagation delays.</p> <p>To stop advertising the BYOIP CIDR, use <a>WithdrawByoipCidr</a>.</p>\"\
     },\
     \"AllocateAddress\":{\
       \"name\":\"AllocateAddress\",\
@@ -267,7 +267,7 @@
       },\
       \"input\":{\"shape\":\"AssociateVpcCidrBlockRequest\"},\
       \"output\":{\"shape\":\"AssociateVpcCidrBlockResult\"},\
-      \"documentation\":\"<p>Associates a CIDR block with your VPC. You can associate a secondary IPv4 CIDR block, or you can associate an Amazon-provided IPv6 CIDR block. The IPv6 CIDR block size is fixed at /56.</p> <p>For more information about associating CIDR blocks with your VPC and applicable restrictions, see <a href=\\\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#VPC_Sizing\\\">VPC and Subnet Sizing</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>\"\
+      \"documentation\":\"<p>Associates a CIDR block with your VPC. You can associate a secondary IPv4 CIDR block, an Amazon-provided IPv6 CIDR block, or an IPv6 CIDR block from an IPv6 address pool that you provisioned through bring your own IP addresses (<a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html\\\">BYOIP</a>). The IPv6 CIDR block size is fixed at /56.</p> <p>For more information about associating CIDR blocks with your VPC and applicable restrictions, see <a href=\\\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#VPC_Sizing\\\">VPC and Subnet Sizing</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p>\"\
     },\
     \"AttachClassicLinkVpc\":{\
       \"name\":\"AttachClassicLinkVpc\",\
@@ -929,7 +929,7 @@
       },\
       \"input\":{\"shape\":\"CreateVpcRequest\"},\
       \"output\":{\"shape\":\"CreateVpcResult\"},\
-      \"documentation\":\"<p>Creates a VPC with the specified IPv4 CIDR block. The smallest VPC you can create uses a /28 netmask (16 IPv4 addresses), and the largest uses a /16 netmask (65,536 IPv4 addresses). For more information about how large to make your VPC, see <a href=\\\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html\\\">Your VPC and Subnets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p> <p>You can optionally request an Amazon-provided IPv6 CIDR block for the VPC. The IPv6 CIDR block uses a /56 prefix length, and is allocated from Amazon's pool of IPv6 addresses. You cannot choose the IPv6 range for your VPC.</p> <p>By default, each instance you launch in the VPC has the default DHCP options, which include only a default DNS server that we provide (AmazonProvidedDNS). For more information, see <a href=\\\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html\\\">DHCP Options Sets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p> <p>You can specify the instance tenancy value for the VPC when you create it. You can't change this value for the VPC after you create it. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html\\\">Dedicated Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>\"\
+      \"documentation\":\"<p>Creates a VPC with the specified IPv4 CIDR block. The smallest VPC you can create uses a /28 netmask (16 IPv4 addresses), and the largest uses a /16 netmask (65,536 IPv4 addresses). For more information about how large to make your VPC, see <a href=\\\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html\\\">Your VPC and Subnets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p> <p>You can optionally request an IPv6 CIDR block for the VPC. You can request an Amazon-provided IPv6 CIDR block from Amazon's pool of IPv6 addresses, or an IPv6 CIDR block from an IPv6 address pool that you provisioned through bring your own IP addresses (<a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html\\\">BYOIP</a>).</p> <p>By default, each instance you launch in the VPC has the default DHCP options, which include only a default DNS server that we provide (AmazonProvidedDNS). For more information, see <a href=\\\"https://docs.aws.amazon.com/vpc/latest/userguide/VPC_DHCP_Options.html\\\">DHCP Options Sets</a> in the <i>Amazon Virtual Private Cloud User Guide</i>.</p> <p>You can specify the instance tenancy value for the VPC when you create it. You can't change this value for the VPC after you create it. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-instance.html\\\">Dedicated Instances</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>\"\
     },\
     \"CreateVpcEndpoint\":{\
       \"name\":\"CreateVpcEndpoint\",\
@@ -1547,7 +1547,7 @@
       },\
       \"input\":{\"shape\":\"DescribeByoipCidrsRequest\"},\
       \"output\":{\"shape\":\"DescribeByoipCidrsResult\"},\
-      \"documentation\":\"<p>Describes the IP address ranges that were specified in calls to <a>ProvisionByoipCidr</a>.</p> <p>To describe the address pools that were created when you provisioned the address ranges, use <a>DescribePublicIpv4Pools</a>.</p>\"\
+      \"documentation\":\"<p>Describes the IP address ranges that were specified in calls to <a>ProvisionByoipCidr</a>.</p> <p>To describe the address pools that were created when you provisioned the address ranges, use <a>DescribePublicIpv4Pools</a> or <a>DescribeIpv6Pools</a>.</p>\"\
     },\
     \"DescribeCapacityReservations\":{\
       \"name\":\"DescribeCapacityReservations\",\
@@ -1938,6 +1938,16 @@
       \"input\":{\"shape\":\"DescribeInternetGatewaysRequest\"},\
       \"output\":{\"shape\":\"DescribeInternetGatewaysResult\"},\
       \"documentation\":\"<p>Describes one or more of your internet gateways.</p>\"\
+    },\
+    \"DescribeIpv6Pools\":{\
+      \"name\":\"DescribeIpv6Pools\",\
+      \"http\":{\
+        \"method\":\"POST\",\
+        \"requestUri\":\"/\"\
+      },\
+      \"input\":{\"shape\":\"DescribeIpv6PoolsRequest\"},\
+      \"output\":{\"shape\":\"DescribeIpv6PoolsResult\"},\
+      \"documentation\":\"<p>Describes your IPv6 address pools.</p>\"\
     },\
     \"DescribeKeyPairs\":{\
       \"name\":\"DescribeKeyPairs\",\
@@ -2891,6 +2901,16 @@
       \"output\":{\"shape\":\"ExportTransitGatewayRoutesResult\"},\
       \"documentation\":\"<p>Exports routes from the specified transit gateway route table to the specified S3 bucket. By default, all routes are exported. Alternatively, you can filter by CIDR range.</p>\"\
     },\
+    \"GetAssociatedIpv6PoolCidrs\":{\
+      \"name\":\"GetAssociatedIpv6PoolCidrs\",\
+      \"http\":{\
+        \"method\":\"POST\",\
+        \"requestUri\":\"/\"\
+      },\
+      \"input\":{\"shape\":\"GetAssociatedIpv6PoolCidrsRequest\"},\
+      \"output\":{\"shape\":\"GetAssociatedIpv6PoolCidrsResult\"},\
+      \"documentation\":\"<p>Gets information about the IPv6 CIDR block associations for a specified IPv6 address pool.</p>\"\
+    },\
     \"GetCapacityReservationUsage\":{\
       \"name\":\"GetCapacityReservationUsage\",\
       \"http\":{\
@@ -3500,7 +3520,7 @@
       },\
       \"input\":{\"shape\":\"ProvisionByoipCidrRequest\"},\
       \"output\":{\"shape\":\"ProvisionByoipCidrResult\"},\
-      \"documentation\":\"<p>Provisions an address range for use with your AWS resources through bring your own IP addresses (BYOIP) and creates a corresponding address pool. After the address range is provisioned, it is ready to be advertised using <a>AdvertiseByoipCidr</a>.</p> <p>AWS verifies that you own the address range and are authorized to advertise it. You must ensure that the address range is registered to you and that you created an RPKI ROA to authorize Amazon ASNs 16509 and 14618 to advertise the address range. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html\\\">Bring Your Own IP Addresses (BYOIP)</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>Provisioning an address range is an asynchronous operation, so the call returns immediately, but the address range is not ready to use until its status changes from <code>pending-provision</code> to <code>provisioned</code>. To monitor the status of an address range, use <a>DescribeByoipCidrs</a>. To allocate an Elastic IP address from your address pool, use <a>AllocateAddress</a> with either the specific address from the address pool or the ID of the address pool.</p>\"\
+      \"documentation\":\"<p>Provisions an IPv4 or IPv6 address range for use with your AWS resources through bring your own IP addresses (BYOIP) and creates a corresponding address pool. After the address range is provisioned, it is ready to be advertised using <a>AdvertiseByoipCidr</a>.</p> <p>AWS verifies that you own the address range and are authorized to advertise it. You must ensure that the address range is registered to you and that you created an RPKI ROA to authorize Amazon ASNs 16509 and 14618 to advertise the address range. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-byoip.html\\\">Bring Your Own IP Addresses (BYOIP)</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>Provisioning an address range is an asynchronous operation, so the call returns immediately, but the address range is not ready to use until its status changes from <code>pending-provision</code> to <code>provisioned</code>. To monitor the status of an address range, use <a>DescribeByoipCidrs</a>. To allocate an Elastic IP address from your IPv4 address pool, use <a>AllocateAddress</a> with either the specific address from the address pool or the ID of the address pool.</p>\"\
     },\
     \"PurchaseHostReservation\":{\
       \"name\":\"PurchaseHostReservation\",\
@@ -3549,7 +3569,7 @@
       },\
       \"input\":{\"shape\":\"RegisterImageRequest\"},\
       \"output\":{\"shape\":\"RegisterImageResult\"},\
-      \"documentation\":\"<p>Registers an AMI. When you're creating an AMI, this is the final step you must complete before you can launch an instance from the AMI. For more information about creating AMIs, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html\\\">Creating Your Own AMIs</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <note> <p>For Amazon EBS-backed instances, <a>CreateImage</a> creates and registers the AMI in a single request, so you don't have to register the AMI yourself.</p> </note> <p>You can also use <code>RegisterImage</code> to create an Amazon EBS-backed Linux AMI from a snapshot of a root device volume. You specify the snapshot using the block device mapping. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-launch-snapshot.html\\\">Launching a Linux Instance from a Backup</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>You can't register an image where a secondary (non-root) snapshot has AWS Marketplace product codes.</p> <p>Windows and some Linux distributions, such as Red Hat Enterprise Linux (RHEL) and SUSE Linux Enterprise Server (SLES), use the EC2 billing product code associated with an AMI to verify the subscription status for package updates. To create a new AMI for operating systems that require a billing product code, do the following:</p> <ol> <li> <p>Launch an instance from an existing AMI with that billing product code.</p> </li> <li> <p>Customize the instance.</p> </li> <li> <p>Create a new AMI from the instance using <a>CreateImage</a> to preserve the billing product code association.</p> </li> </ol> <p>If you purchase a Reserved Instance to apply to an On-Demand Instance that was launched from an AMI with a billing product code, make sure that the Reserved Instance has the matching billing product code. If you purchase a Reserved Instance without the matching billing product code, the Reserved Instance will not be applied to the On-Demand Instance. </p> <p>If needed, you can deregister an AMI at any time. Any modifications you make to an AMI backed by an instance store volume invalidates its registration. If you make changes to an image, deregister the previous image and register the new image.</p>\"\
+      \"documentation\":\"<p>Registers an AMI. When you're creating an AMI, this is the final step you must complete before you can launch an instance from the AMI. For more information about creating AMIs, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami.html\\\">Creating Your Own AMIs</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <note> <p>For Amazon EBS-backed instances, <a>CreateImage</a> creates and registers the AMI in a single request, so you don't have to register the AMI yourself.</p> </note> <p>You can also use <code>RegisterImage</code> to create an Amazon EBS-backed Linux AMI from a snapshot of a root device volume. You specify the snapshot using the block device mapping. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-launch-snapshot.html\\\">Launching a Linux Instance from a Backup</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>You can't register an image where a secondary (non-root) snapshot has AWS Marketplace product codes.</p> <p>Windows and some Linux distributions, such as Red Hat Enterprise Linux (RHEL) and SUSE Linux Enterprise Server (SLES), use the EC2 billing product code associated with an AMI to verify the subscription status for package updates. To create a new AMI for operating systems that require a billing product code, instead of instead of registering the AMI, do the following to preserve the billing product code association:</p> <ol> <li> <p>Launch an instance from an existing AMI with that billing product code.</p> </li> <li> <p>Customize the instance.</p> </li> <li> <p>Create an AMI from the instance using <a>CreateImage</a>.</p> </li> </ol> <p>If you purchase a Reserved Instance to apply to an On-Demand Instance that was launched from an AMI with a billing product code, make sure that the Reserved Instance has the matching billing product code. If you purchase a Reserved Instance without the matching billing product code, the Reserved Instance will not be applied to the On-Demand Instance. </p> <p>If needed, you can deregister an AMI at any time. Any modifications you make to an AMI backed by an instance store volume invalidates its registration. If you make changes to an image, deregister the previous image and register the new image.</p>\"\
     },\
     \"RegisterTransitGatewayMulticastGroupMembers\":{\
       \"name\":\"RegisterTransitGatewayMulticastGroupMembers\",\
@@ -3977,7 +3997,7 @@
       },\
       \"input\":{\"shape\":\"WithdrawByoipCidrRequest\"},\
       \"output\":{\"shape\":\"WithdrawByoipCidrResult\"},\
-      \"documentation\":\"<p>Stops advertising an IPv4 address range that is provisioned as an address pool.</p> <p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p> <p>It can take a few minutes before traffic to the specified addresses stops routing to AWS because of BGP propagation delays.</p>\"\
+      \"documentation\":\"<p>Stops advertising an address range that is provisioned as an address pool.</p> <p>You can perform this operation at most once every 10 seconds, even if you specify different address ranges each time.</p> <p>It can take a few minutes before traffic to the specified addresses stops routing to AWS because of BGP propagation delays.</p>\"\
     }\
   },\
   \"shapes\":{\
@@ -4299,7 +4319,7 @@
       \"members\":{\
         \"Cidr\":{\
           \"shape\":\"String\",\
-          \"documentation\":\"<p>The IPv4 address range, in CIDR notation. This must be the exact range that you provisioned. You can't advertise only a portion of the provisioned range.</p>\"\
+          \"documentation\":\"<p>The address range, in CIDR notation. This must be the exact range that you provisioned. You can't advertise only a portion of the provisioned range.</p>\"\
         },\
         \"DryRun\":{\
           \"shape\":\"Boolean\",\
@@ -4761,7 +4781,7 @@
       ],\
       \"members\":{\
         \"DhcpOptionsId\":{\
-          \"shape\":\"DhcpOptionsId\",\
+          \"shape\":\"DefaultingDhcpOptionsId\",\
           \"documentation\":\"<p>The ID of the DHCP options set, or <code>default</code> to associate no DHCP options with the VPC.</p>\"\
         },\
         \"VpcId\":{\
@@ -4855,7 +4875,7 @@
           \"locationName\":\"ipv6CidrBlock\"\
         },\
         \"SubnetId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"SubnetId\",\
           \"documentation\":\"<p>The ID of your subnet.</p>\",\
           \"locationName\":\"subnetId\"\
         }\
@@ -4955,6 +4975,14 @@
           \"shape\":\"VpcId\",\
           \"documentation\":\"<p>The ID of the VPC.</p>\",\
           \"locationName\":\"vpcId\"\
+        },\
+        \"Ipv6Pool\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.</p>\"\
+        },\
+        \"Ipv6CidrBlock\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>An IPv6 CIDR block from the IPv6 address pool. You must also specify <code>Ipv6Pool</code> in the request.</p> <p>To let Amazon choose the IPv6 CIDR block for you, omit this parameter.</p>\"\
         },\
         \"Ipv6CidrBlockNetworkBorderGroup\":{\
           \"shape\":\"String\",\
@@ -5209,7 +5237,6 @@
       },\
       \"documentation\":\"<p>Contains the output of AttachVpnGateway.</p>\"\
     },\
-    \"AttachmentId\":{\"type\":\"string\"},\
     \"AttachmentStatus\":{\
       \"type\":\"string\",\
       \"enum\":[\
@@ -5633,6 +5660,7 @@
       }\
     },\
     \"Boolean\":{\"type\":\"boolean\"},\
+    \"BundleId\":{\"type\":\"string\"},\
     \"BundleIdStringList\":{\
       \"type\":\"list\",\
       \"member\":{\
@@ -5761,7 +5789,7 @@
       \"members\":{\
         \"Cidr\":{\
           \"shape\":\"String\",\
-          \"documentation\":\"<p>The public IPv4 address range, in CIDR notation.</p>\",\
+          \"documentation\":\"<p>The address range, in CIDR notation.</p>\",\
           \"locationName\":\"cidr\"\
         },\
         \"Description\":{\
@@ -5798,7 +5826,8 @@
         \"failed-provision\",\
         \"pending-deprovision\",\
         \"pending-provision\",\
-        \"provisioned\"\
+        \"provisioned\",\
+        \"provisioned-not-publicly-advertisable\"\
       ]\
     },\
     \"CancelBatchErrorCode\":{\
@@ -5815,7 +5844,7 @@
       \"required\":[\"BundleId\"],\
       \"members\":{\
         \"BundleId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"BundleId\",\
           \"documentation\":\"<p>The ID of the bundle task.</p>\"\
         },\
         \"DryRun\":{\
@@ -6777,6 +6806,11 @@
           \"documentation\":\"<p>The transport protocol used by the Client VPN endpoint.</p>\",\
           \"locationName\":\"transportProtocol\"\
         },\
+        \"VpnPort\":{\
+          \"shape\":\"Integer\",\
+          \"documentation\":\"<p>The port number for the Client VPN endpoint.</p>\",\
+          \"locationName\":\"vpnPort\"\
+        },\
         \"AssociatedTargetNetworks\":{\
           \"shape\":\"AssociatedTargetNetworkSet\",\
           \"documentation\":\"<p>Information about the associated target networks. A target network is a subnet in a VPC.</p>\",\
@@ -7251,7 +7285,7 @@
           \"locationName\":\"encrypted\"\
         },\
         \"KmsKeyId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"KmsKeyId\",\
           \"documentation\":\"<p>An identifier for the symmetric AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the encrypted volume. This parameter is only required if you want to use a non-default CMK; if this parameter is not specified, the default CMK for EBS is used. If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code> flag must also be set. </p> <p>To specify a CMK, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. When using an alias name, prefix it with \\\"alias/\\\". For example:</p> <ul> <li> <p>Key ID: <code>1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li> <li> <p>Key ARN: <code>arn:aws:kms:us-east-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab</code> </p> </li> <li> <p>Alias name: <code>alias/ExampleAlias</code> </p> </li> <li> <p>Alias ARN: <code>arn:aws:kms:us-east-2:111122223333:alias/ExampleAlias</code> </p> </li> </ul> <p>AWS parses <code>KmsKeyId</code> asynchronously, meaning that the action you call may appear to complete even though you provided an invalid identifier. This action will eventually report failure. </p> <p>The specified CMK must exist in the Region that the snapshot is being copied to. </p> <p>Amazon EBS does not support asymmetric CMKs.</p>\",\
           \"locationName\":\"kmsKeyId\"\
         },\
@@ -7504,6 +7538,10 @@
           \"shape\":\"TransportProtocol\",\
           \"documentation\":\"<p>The transport protocol to be used by the VPN session.</p> <p>Default value: <code>udp</code> </p>\"\
         },\
+        \"VpnPort\":{\
+          \"shape\":\"Integer\",\
+          \"documentation\":\"<p>The port number to assign to the Client VPN endpoint for TCP and UDP traffic.</p> <p>Valid Values: <code>443</code> | <code>1194</code> </p> <p>Default Value: <code>443</code> </p>\"\
+        },\
         \"Description\":{\
           \"shape\":\"String\",\
           \"documentation\":\"<p>A brief description of the Client VPN endpoint.</p>\"\
@@ -7565,7 +7603,7 @@
           \"documentation\":\"<p>The IPv4 address range, in CIDR notation, of the route destination. For example:</p> <ul> <li> <p>To add a route for Internet access, enter <code>0.0.0.0/0</code> </p> </li> <li> <p>To add a route for a peered VPC, enter the peered VPC's IPv4 CIDR range</p> </li> <li> <p>To add a route for an on-premises network, enter the AWS Site-to-Site VPN connection's IPv4 CIDR range</p> </li> </ul> <p>Route address ranges cannot overlap with the CIDR range specified for client allocation.</p>\"\
         },\
         \"TargetVpcSubnetId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"SubnetId\",\
           \"documentation\":\"<p>The ID of the subnet through which you want to route traffic. The specified subnet must be an existing target network of the Client VPN endpoint.</p>\"\
         },\
         \"Description\":{\
@@ -7943,6 +7981,10 @@
         \"LogFormat\":{\
           \"shape\":\"String\",\
           \"documentation\":\"<p>The fields to include in the flow log record, in the order in which they should appear. For a list of available fields, see <a href=\\\"https://docs.aws.amazon.com/vpc/latest/userguide/flow-logs.html#flow-log-records\\\">Flow Log Records</a>. If you omit this parameter, the flow log is created using the default format. If you specify this parameter, you must specify at least one field.</p> <p>Specify the fields using the <code>${field-id}</code> format, separated by spaces. For the AWS CLI, use single quotation marks (' ') to surround the parameter value.</p> <p>Only applicable to flow logs that are published to an Amazon S3 bucket.</p>\"\
+        },\
+        \"MaxAggregationInterval\":{\
+          \"shape\":\"Integer\",\
+          \"documentation\":\"<p>The maximum interval of time during which a flow of packets is captured and aggregated into a flow log record. You can specify 60 seconds (1 minute) or 600 seconds (10 minutes).</p> <p>For network interfaces attached to <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances\\\">Nitro-based instances</a>, the aggregation interval is always 60 seconds, regardless of the value that you specify.</p> <p>Default: 600</p>\"\
         }\
       }\
     },\
@@ -8039,7 +8081,7 @@
           \"locationName\":\"dryRun\"\
         },\
         \"InstanceId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"InstanceId\",\
           \"documentation\":\"<p>The ID of the instance.</p>\",\
           \"locationName\":\"instanceId\"\
         },\
@@ -8849,7 +8891,7 @@
           \"documentation\":\"<p>The Amazon Resource Name (ARN) of the Outpost.</p>\"\
         },\
         \"VpcId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"VpcId\",\
           \"documentation\":\"<p>The ID of the VPC.</p>\"\
         },\
         \"DryRun\":{\
@@ -9537,6 +9579,11 @@
         \"PrivateDnsEnabled\":{\
           \"shape\":\"Boolean\",\
           \"documentation\":\"<p>(Interface endpoint) Indicates whether to associate a private hosted zone with the specified VPC. The private hosted zone contains a record set for the default public DNS name for the service for the Region (for example, <code>kinesis.us-east-1.amazonaws.com</code>), which resolves to the private IP addresses of the endpoint network interfaces in the VPC. This enables you to make requests to the default public DNS name for the service instead of the public DNS names that are automatically generated by the VPC endpoint service.</p> <p>To use a private hosted zone, you must set the following VPC attributes to <code>true</code>: <code>enableDnsHostnames</code> and <code>enableDnsSupport</code>. Use <a>ModifyVpcAttribute</a> to set the VPC attributes.</p> <p>Default: <code>true</code> </p>\"\
+        },\
+        \"TagSpecifications\":{\
+          \"shape\":\"TagSpecificationList\",\
+          \"documentation\":\"<p>The tags to associate with the endpoint.</p>\",\
+          \"locationName\":\"TagSpecification\"\
         }\
       },\
       \"documentation\":\"<p>Contains the parameters for CreateVpcEndpoint.</p>\"\
@@ -9581,6 +9628,11 @@
         \"ClientToken\":{\
           \"shape\":\"String\",\
           \"documentation\":\"<p>Unique, case-sensitive identifier that you provide to ensure the idempotency of the request. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html\\\">How to Ensure Idempotency</a>.</p>\"\
+        },\
+        \"TagSpecifications\":{\
+          \"shape\":\"TagSpecificationList\",\
+          \"documentation\":\"<p>The tags to associate with the service.</p>\",\
+          \"locationName\":\"TagSpecification\"\
         }\
       }\
     },\
@@ -9650,6 +9702,14 @@
           \"shape\":\"Boolean\",\
           \"documentation\":\"<p>Requests an Amazon-provided IPv6 CIDR block with a /56 prefix length for the VPC. You cannot specify the range of IP addresses, or the size of the CIDR block.</p>\",\
           \"locationName\":\"amazonProvidedIpv6CidrBlock\"\
+        },\
+        \"Ipv6Pool\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The ID of an IPv6 address pool from which to allocate the IPv6 CIDR block.</p>\"\
+        },\
+        \"Ipv6CidrBlock\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The IPv6 CIDR block from the IPv6 address pool. You must also specify <code>Ipv6Pool</code> in the request.</p> <p>To let Amazon choose the IPv6 CIDR block for you, omit this parameter.</p>\"\
         },\
         \"DryRun\":{\
           \"shape\":\"Boolean\",\
@@ -9906,6 +9966,7 @@
         \"on-demand\"\
       ]\
     },\
+    \"DefaultingDhcpOptionsId\":{\"type\":\"string\"},\
     \"DeleteClientVpnEndpointRequest\":{\
       \"type\":\"structure\",\
       \"required\":[\"ClientVpnEndpointId\"],\
@@ -9942,7 +10003,7 @@
           \"documentation\":\"<p>The ID of the Client VPN endpoint from which the route is to be deleted.</p>\"\
         },\
         \"TargetVpcSubnetId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"SubnetId\",\
           \"documentation\":\"<p>The ID of the target subnet used by the route.</p>\"\
         },\
         \"DestinationCidrBlock\":{\
@@ -10677,7 +10738,7 @@
       \"required\":[\"SubnetId\"],\
       \"members\":{\
         \"SubnetId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"SubnetId\",\
           \"documentation\":\"<p>The ID of the subnet.</p>\"\
         },\
         \"DryRun\":{\
@@ -11144,7 +11205,7 @@
       \"members\":{\
         \"Cidr\":{\
           \"shape\":\"String\",\
-          \"documentation\":\"<p>The public IPv4 address range, in CIDR notation. The prefix must be the same prefix that you specified when you provisioned the address range.</p>\"\
+          \"documentation\":\"<p>The address range, in CIDR notation. The prefix must be the same prefix that you specified when you provisioned the address range.</p>\"\
         },\
         \"DryRun\":{\
           \"shape\":\"Boolean\",\
@@ -11167,7 +11228,7 @@
       \"required\":[\"ImageId\"],\
       \"members\":{\
         \"ImageId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"ImageId\",\
           \"documentation\":\"<p>The ID of the AMI.</p>\"\
         },\
         \"DryRun\":{\
@@ -11551,7 +11612,7 @@
         },\
         \"Filters\":{\
           \"shape\":\"FilterList\",\
-          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p>\",\
+          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p> <ul> <li> <p> <code>description</code> - The description of the authorization rule.</p> </li> <li> <p> <code>destination-cidr</code> - The CIDR of the network to which the authorization rule applies.</p> </li> <li> <p> <code>group-id</code> - The ID of the Active Directory group to which the authorization rule grants access.</p> </li> </ul>\",\
           \"locationName\":\"Filter\"\
         },\
         \"MaxResults\":{\
@@ -11590,7 +11651,7 @@
         },\
         \"Filters\":{\
           \"shape\":\"FilterList\",\
-          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p>\",\
+          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p> <ul> <li> <p> <code>connection-id</code> - The ID of the connection.</p> </li> <li> <p> <code>username</code> - For Active Directory client authentication, the user name of the client who established the client connection.</p> </li> </ul>\",\
           \"locationName\":\"Filter\"\
         },\
         \"NextToken\":{\
@@ -11645,7 +11706,7 @@
         },\
         \"Filters\":{\
           \"shape\":\"FilterList\",\
-          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p>\",\
+          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p> <ul> <li> <p> <code>endpoint-id</code> - The ID of the Client VPN endpoint.</p> </li> <li> <p> <code>transport-protocol</code> - The transport protocol (<code>tcp</code> | <code>udp</code>).</p> </li> </ul>\",\
           \"locationName\":\"Filter\"\
         },\
         \"DryRun\":{\
@@ -11684,7 +11745,7 @@
         },\
         \"Filters\":{\
           \"shape\":\"FilterList\",\
-          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p>\",\
+          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p> <ul> <li> <p> <code>destination-cidr</code> - The CIDR of the route destination.</p> </li> <li> <p> <code>origin</code> - How the route was associated with the Client VPN endpoint (<code>associate</code> | <code>add-route</code>).</p> </li> <li> <p> <code>target-subnet</code> - The ID of the subnet through which traffic is routed.</p> </li> </ul>\",\
           \"locationName\":\"Filter\"\
         },\
         \"MaxResults\":{\
@@ -11743,7 +11804,7 @@
         },\
         \"Filters\":{\
           \"shape\":\"FilterList\",\
-          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p>\",\
+          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p> <ul> <li> <p> <code>association-id</code> - The ID of the association.</p> </li> <li> <p> <code>target-network-id</code> - The ID of the subnet specified as the target network.</p> </li> <li> <p> <code>vpc-id</code> - The ID of the VPC in which the target network is located.</p> </li> </ul>\",\
           \"locationName\":\"Filter\"\
         },\
         \"DryRun\":{\
@@ -12077,6 +12138,7 @@
         },\
         \"Filters\":{\
           \"shape\":\"FilterList\",\
+          \"documentation\":\"<p>the filters for the export tasks.</p>\",\
           \"locationName\":\"Filter\"\
         }\
       }\
@@ -13080,7 +13142,7 @@
         },\
         \"Filters\":{\
           \"shape\":\"FilterList\",\
-          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p> <ul> <li> <p> <code>auto-recovery-supported</code> - Indicates whether auto recovery is supported. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>bare-metal</code> - Indicates whether it is a bare metal instance type. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>burstable-performance-supported</code> - Indicates whether it is a burstable performance instance type. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>current-generation</code> - Indicates whether this instance type is the latest generation instance type of an instance family. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>ebs-info.ebs-optimized-support</code> - Indicates whether the instance type is EBS-optimized. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>ebs-info.encryption-support</code> - Indicates whether EBS encryption is supported. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>free-tier-eligible</code> - Indicates whether the instance type is eligible to use in the free tier. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>hibernation-supported</code> - Indicates whether On-Demand hibernation is supported. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>hypervisor</code> - The hypervisor used. (<code>nitro</code> | <code>xen</code>)</p> </li> <li> <p> <code>instance-storage-info.disk.count</code> - The number of local disks.</p> </li> <li> <p> <code>instance-storage-info.disk.size-in-gb</code> - The storage size of each instance storage disk, in GB.</p> </li> <li> <p> <code>instance-storage-info.disk.type</code> - The storage technology for the local instance storage disks. (<code>hdd</code> | <code>ssd</code>)</p> </li> <li> <p> <code>instance-storage-info.total-size-in-gb</code> - The total amount of storage available from all local instance storage, in GB.</p> </li> <li> <p> <code>instance-storage-supported</code> - Indicates whether the instance type has local instance storage. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>memory-info.size-in-mib</code> - The memory size.</p> </li> <li> <p> <code>network-info.ena-support</code> - Indicates whether Elastic Network Adapter (ENA) is supported or required. (<code>required</code> | <code>supported</code> | <code>unsupported</code>)</p> </li> <li> <p> <code>network-info.ipv4-addresses-per-interface</code> - The maximum number of private IPv4 addresses per network interface.</p> </li> <li> <p> <code>network-info.ipv6-addresses-per-interface</code> - The maximum number of private IPv6 addresses per network interface.</p> </li> <li> <p> <code>network-info.ipv6-supported</code> - Indicates whether the instance type supports IPv6. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>network-info.maximum-network-interfaces</code> - The maximum number of network interfaces per instance.</p> </li> <li> <p> <code>network-info.network-performance</code> - Describes the network performance.</p> </li> <li> <p> <code>processor-info.sustained-clock-speed-in-ghz</code> - The CPU clock speed, in GHz.</p> </li> <li> <p> <code>vcpu-info.default-cores</code> - The default number of cores for the instance type.</p> </li> <li> <p> <code>vcpu-info.default-threads-per-core</code> - The default number of threads per cores for the instance type.</p> </li> <li> <p> <code>vcpu-info.default-vcpus</code> - The default number of vCPUs for the instance type.</p> </li> </ul>\",\
+          \"documentation\":\"<p>One or more filters. Filter names and values are case-sensitive.</p> <ul> <li> <p> <code>auto-recovery-supported</code> - Indicates whether auto recovery is supported. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>bare-metal</code> - Indicates whether it is a bare metal instance type. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>burstable-performance-supported</code> - Indicates whether it is a burstable performance instance type. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>current-generation</code> - Indicates whether this instance type is the latest generation instance type of an instance family. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>ebs-info.ebs-optimized-support</code> - Indicates whether the instance type is EBS-optimized. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>ebs-info.encryption-support</code> - Indicates whether EBS encryption is supported. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>free-tier-eligible</code> - Indicates whether the instance type is eligible to use in the free tier. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>hibernation-supported</code> - Indicates whether On-Demand hibernation is supported. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>hypervisor</code> - The hypervisor used. (<code>nitro</code> | <code>xen</code>)</p> </li> <li> <p> <code>instance-storage-info.disk.count</code> - The number of local disks.</p> </li> <li> <p> <code>instance-storage-info.disk.size-in-gb</code> - The storage size of each instance storage disk, in GB.</p> </li> <li> <p> <code>instance-storage-info.disk.type</code> - The storage technology for the local instance storage disks. (<code>hdd</code> | <code>ssd</code>)</p> </li> <li> <p> <code>instance-storage-info.total-size-in-gb</code> - The total amount of storage available from all local instance storage, in GB.</p> </li> <li> <p> <code>instance-storage-supported</code> - Indicates whether the instance type has local instance storage. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>memory-info.size-in-mib</code> - The memory size.</p> </li> <li> <p> <code>network-info.ena-support</code> - Indicates whether Elastic Network Adapter (ENA) is supported or required. (<code>required</code> | <code>supported</code> | <code>unsupported</code>)</p> </li> <li> <p> <code>network-info.ipv4-addresses-per-interface</code> - The maximum number of private IPv4 addresses per network interface.</p> </li> <li> <p> <code>network-info.ipv6-addresses-per-interface</code> - The maximum number of private IPv6 addresses per network interface.</p> </li> <li> <p> <code>network-info.ipv6-supported</code> - Indicates whether the instance type supports IPv6. (<code>true</code> | <code>false</code>)</p> </li> <li> <p> <code>network-info.maximum-network-interfaces</code> - The maximum number of network interfaces per instance.</p> </li> <li> <p> <code>network-info.network-performance</code> - Describes the network performance.</p> </li> <li> <p> <code>processor-info.sustained-clock-speed-in-ghz</code> - The CPU clock speed, in GHz.</p> </li> <li> <p> <code>vcpu-info.default-cores</code> - The default number of cores for the instance type.</p> </li> <li> <p> <code>vcpu-info.default-threads-per-core</code> - The default number of threads per core for the instance type.</p> </li> <li> <p> <code>vcpu-info.default-vcpus</code> - The default number of vCPUs for the instance type.</p> </li> </ul>\",\
           \"locationName\":\"Filter\"\
         },\
         \"MaxResults\":{\
@@ -13196,6 +13258,48 @@
         },\
         \"NextToken\":{\
           \"shape\":\"String\",\
+          \"documentation\":\"<p>The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more results to return.</p>\",\
+          \"locationName\":\"nextToken\"\
+        }\
+      }\
+    },\
+    \"DescribeIpv6PoolsRequest\":{\
+      \"type\":\"structure\",\
+      \"members\":{\
+        \"PoolIds\":{\
+          \"shape\":\"ValueStringList\",\
+          \"documentation\":\"<p>The IDs of the IPv6 address pools.</p>\",\
+          \"locationName\":\"PoolId\"\
+        },\
+        \"NextToken\":{\
+          \"shape\":\"NextToken\",\
+          \"documentation\":\"<p>The token for the next page of results.</p>\"\
+        },\
+        \"MaxResults\":{\
+          \"shape\":\"Ipv6PoolMaxResults\",\
+          \"documentation\":\"<p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p>\"\
+        },\
+        \"DryRun\":{\
+          \"shape\":\"Boolean\",\
+          \"documentation\":\"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>\"\
+        },\
+        \"Filters\":{\
+          \"shape\":\"FilterList\",\
+          \"documentation\":\"<p>One or more filters.</p> <ul> <li> <p> <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p> </li> </ul>\",\
+          \"locationName\":\"Filter\"\
+        }\
+      }\
+    },\
+    \"DescribeIpv6PoolsResult\":{\
+      \"type\":\"structure\",\
+      \"members\":{\
+        \"Ipv6Pools\":{\
+          \"shape\":\"Ipv6PoolSet\",\
+          \"documentation\":\"<p>Information about the IPv6 address pools.</p>\",\
+          \"locationName\":\"ipv6PoolSet\"\
+        },\
+        \"NextToken\":{\
+          \"shape\":\"NextToken\",\
           \"documentation\":\"<p>The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more results to return.</p>\",\
           \"locationName\":\"nextToken\"\
         }\
@@ -16017,7 +16121,7 @@
       \"members\":{\
         \"Filters\":{\
           \"shape\":\"FilterList\",\
-          \"documentation\":\"<p>One or more filters.</p> <ul> <li> <p> <code>cidr</code> - The primary IPv4 CIDR block of the VPC. The CIDR block you specify must exactly match the VPC's CIDR block for information to be returned for the VPC. Must contain the slash followed by one or two digits (for example, <code>/28</code>).</p> </li> <li> <p> <code>cidr-block-association.cidr-block</code> - An IPv4 CIDR block associated with the VPC.</p> </li> <li> <p> <code>cidr-block-association.association-id</code> - The association ID for an IPv4 CIDR block associated with the VPC.</p> </li> <li> <p> <code>cidr-block-association.state</code> - The state of an IPv4 CIDR block associated with the VPC.</p> </li> <li> <p> <code>dhcp-options-id</code> - The ID of a set of DHCP options.</p> </li> <li> <p> <code>ipv6-cidr-block-association.ipv6-cidr-block</code> - An IPv6 CIDR block associated with the VPC.</p> </li> <li> <p> <code>ipv6-cidr-block-association.association-id</code> - The association ID for an IPv6 CIDR block associated with the VPC.</p> </li> <li> <p> <code>ipv6-cidr-block-association.state</code> - The state of an IPv6 CIDR block associated with the VPC.</p> </li> <li> <p> <code>isDefault</code> - Indicates whether the VPC is the default VPC.</p> </li> <li> <p> <code>owner-id</code> - The ID of the AWS account that owns the VPC.</p> </li> <li> <p> <code>state</code> - The state of the VPC (<code>pending</code> | <code>available</code>).</p> </li> <li> <p> <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p> </li> <li> <p> <code>vpc-id</code> - The ID of the VPC.</p> </li> </ul>\",\
+          \"documentation\":\"<p>One or more filters.</p> <ul> <li> <p> <code>cidr</code> - The primary IPv4 CIDR block of the VPC. The CIDR block you specify must exactly match the VPC's CIDR block for information to be returned for the VPC. Must contain the slash followed by one or two digits (for example, <code>/28</code>).</p> </li> <li> <p> <code>cidr-block-association.cidr-block</code> - An IPv4 CIDR block associated with the VPC.</p> </li> <li> <p> <code>cidr-block-association.association-id</code> - The association ID for an IPv4 CIDR block associated with the VPC.</p> </li> <li> <p> <code>cidr-block-association.state</code> - The state of an IPv4 CIDR block associated with the VPC.</p> </li> <li> <p> <code>dhcp-options-id</code> - The ID of a set of DHCP options.</p> </li> <li> <p> <code>ipv6-cidr-block-association.ipv6-cidr-block</code> - An IPv6 CIDR block associated with the VPC.</p> </li> <li> <p> <code>ipv6-cidr-block-association.ipv6-pool</code> - The ID of the IPv6 address pool from which the IPv6 CIDR block is allocated.</p> </li> <li> <p> <code>ipv6-cidr-block-association.association-id</code> - The association ID for an IPv6 CIDR block associated with the VPC.</p> </li> <li> <p> <code>ipv6-cidr-block-association.state</code> - The state of an IPv6 CIDR block associated with the VPC.</p> </li> <li> <p> <code>isDefault</code> - Indicates whether the VPC is the default VPC.</p> </li> <li> <p> <code>owner-id</code> - The ID of the AWS account that owns the VPC.</p> </li> <li> <p> <code>state</code> - The state of the VPC (<code>pending</code> | <code>available</code>).</p> </li> <li> <p> <code>tag</code>:&lt;key&gt; - The key/value combination of a tag assigned to the resource. Use the tag key in the filter name and the tag value as the filter value. For example, to find all resources that have a tag with the key <code>Owner</code> and the value <code>TeamA</code>, specify <code>tag:Owner</code> for the filter name and <code>TeamA</code> for the filter value.</p> </li> <li> <p> <code>tag-key</code> - The key of a tag assigned to the resource. Use this filter to find all resources assigned a tag with a specific key, regardless of the tag value.</p> </li> <li> <p> <code>vpc-id</code> - The ID of the VPC.</p> </li> </ul>\",\
           \"locationName\":\"Filter\"\
         },\
         \"VpcIds\":{\
@@ -16182,7 +16286,7 @@
       \"required\":[\"AttachmentId\"],\
       \"members\":{\
         \"AttachmentId\":{\
-          \"shape\":\"AttachmentId\",\
+          \"shape\":\"NetworkInterfaceAttachmentId\",\
           \"documentation\":\"<p>The ID of the attachment.</p>\",\
           \"locationName\":\"attachmentId\"\
         },\
@@ -16633,7 +16737,7 @@
       \"type\":\"structure\",\
       \"members\":{\
         \"AssociationId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"ElasticIpAssociationId\",\
           \"documentation\":\"<p>[EC2-VPC] The association ID. Required for EC2-VPC.</p>\"\
         },\
         \"PublicIp\":{\
@@ -16724,7 +16828,7 @@
       \"required\":[\"AssociationId\"],\
       \"members\":{\
         \"AssociationId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"SubnetCidrAssociationId\",\
           \"documentation\":\"<p>The association ID for the CIDR block.</p>\",\
           \"locationName\":\"associationId\"\
         }\
@@ -17061,14 +17165,14 @@
           \"documentation\":\"<p>The volume type. If you set the type to <code>io1</code>, you must also specify the <b>Iops</b> parameter. If you set the type to <code>gp2</code>, <code>st1</code>, <code>sc1</code>, or <code>standard</code>, you must omit the <b>Iops</b> parameter.</p> <p>Default: <code>gp2</code> </p>\",\
           \"locationName\":\"volumeType\"\
         },\
+        \"KmsKeyId\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>Identifier (key ID, key alias, ID ARN, or alias ARN) for a customer managed CMK under which the EBS volume is encrypted.</p> <p>This parameter is only supported on <code>BlockDeviceMapping</code> objects called by <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html\\\">RunInstances</a>, <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotFleet.html\\\">RequestSpotFleet</a>, and <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotInstances.html\\\">RequestSpotInstances</a>.</p>\"\
+        },\
         \"Encrypted\":{\
           \"shape\":\"Boolean\",\
           \"documentation\":\"<p>Indicates whether the encryption state of an EBS volume is changed while being restored from a backing snapshot. The effect of setting the encryption state to <code>true</code> depends on the volume origin (new or from a snapshot), starting encryption state, ownership, and whether encryption by default is enabled. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#encryption-parameters\\\">Amazon EBS Encryption</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p> <p>In no case can you remove encryption from an encrypted volume.</p> <p>Encrypted volumes can only be attached to instances that support Amazon EBS encryption. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html#EBSEncryption_supported_instances\\\">Supported Instance Types</a>.</p>\",\
           \"locationName\":\"encrypted\"\
-        },\
-        \"KmsKeyId\":{\
-          \"shape\":\"String\",\
-          \"documentation\":\"<p>Identifier (key ID, key alias, ID ARN, or alias ARN) for a customer managed CMK under which the EBS volume is encrypted.</p> <p>This parameter is only supported on <code>BlockDeviceMapping</code> objects called by <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html\\\">RunInstances</a>, <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotFleet.html\\\">RequestSpotFleet</a>, and <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RequestSpotInstances.html\\\">RequestSpotInstances</a>.</p>\"\
         }\
       },\
       \"documentation\":\"<p>Describes a block device for an EBS volume.</p>\"\
@@ -17131,7 +17235,7 @@
           \"locationName\":\"deleteOnTermination\"\
         },\
         \"VolumeId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"VolumeId\",\
           \"documentation\":\"<p>The ID of the EBS volume.</p>\",\
           \"locationName\":\"volumeId\"\
         }\
@@ -17394,6 +17498,7 @@
         \"locationName\":\"item\"\
       }\
     },\
+    \"ElasticIpAssociationId\":{\"type\":\"string\"},\
     \"EnaSupport\":{\
       \"type\":\"string\",\
       \"enum\":[\
@@ -18007,6 +18112,7 @@
         },\
         \"Tags\":{\
           \"shape\":\"TagList\",\
+          \"documentation\":\"<p>The tags for the export task.</p>\",\
           \"locationName\":\"tagSet\"\
         }\
       },\
@@ -18620,6 +18726,11 @@
           \"shape\":\"String\",\
           \"documentation\":\"<p>The format of the flow log record.</p>\",\
           \"locationName\":\"logFormat\"\
+        },\
+        \"MaxAggregationInterval\":{\
+          \"shape\":\"Integer\",\
+          \"documentation\":\"<p>The maximum interval of time, in seconds, during which a flow of packets is captured and aggregated into a flow log record.</p> <p>For network interfaces attached to <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances\\\">Nitro-based instances</a>, the aggregation interval is always 60 seconds (1 minute), regardless of the specified value.</p>\",\
+          \"locationName\":\"maxAggregationInterval\"\
         }\
       },\
       \"documentation\":\"<p>Describes a flow log.</p>\"\
@@ -18868,6 +18979,43 @@
     \"GatewayType\":{\
       \"type\":\"string\",\
       \"enum\":[\"ipsec.1\"]\
+    },\
+    \"GetAssociatedIpv6PoolCidrsRequest\":{\
+      \"type\":\"structure\",\
+      \"required\":[\"PoolId\"],\
+      \"members\":{\
+        \"PoolId\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The ID of the IPv6 address pool.</p>\"\
+        },\
+        \"NextToken\":{\
+          \"shape\":\"NextToken\",\
+          \"documentation\":\"<p>The token for the next page of results.</p>\"\
+        },\
+        \"MaxResults\":{\
+          \"shape\":\"Ipv6PoolMaxResults\",\
+          \"documentation\":\"<p>The maximum number of results to return with a single call. To retrieve the remaining results, make another call with the returned <code>nextToken</code> value.</p>\"\
+        },\
+        \"DryRun\":{\
+          \"shape\":\"Boolean\",\
+          \"documentation\":\"<p>Checks whether you have the required permissions for the action, without actually making the request, and provides an error response. If you have the required permissions, the error response is <code>DryRunOperation</code>. Otherwise, it is <code>UnauthorizedOperation</code>.</p>\"\
+        }\
+      }\
+    },\
+    \"GetAssociatedIpv6PoolCidrsResult\":{\
+      \"type\":\"structure\",\
+      \"members\":{\
+        \"Ipv6CidrAssociations\":{\
+          \"shape\":\"Ipv6CidrAssociationSet\",\
+          \"documentation\":\"<p>Information about the IPv6 CIDR block associations.</p>\",\
+          \"locationName\":\"ipv6CidrAssociationSet\"\
+        },\
+        \"NextToken\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The token to use to retrieve the next page of results. This value is <code>null</code> when there are no more results to return.</p>\",\
+          \"locationName\":\"nextToken\"\
+        }\
+      }\
     },\
     \"GetCapacityReservationUsageRequest\":{\
       \"type\":\"structure\",\
@@ -20179,6 +20327,16 @@
           \"documentation\":\"<p>This value is set to <code>windows</code> for Windows AMIs; otherwise, it is blank.</p>\",\
           \"locationName\":\"platform\"\
         },\
+        \"PlatformDetails\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The platform details associated with the billing code of the AMI. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info.html\\\">AMI Billing Information</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>\",\
+          \"locationName\":\"platformDetails\"\
+        },\
+        \"UsageOperation\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The operation of the Amazon EC2 instance and the billing code associated with the AMI. <code>usageOperation</code> corresponds to the <a href=\\\"https://docs.aws.amazon.com/cur/latest/userguide/Lineitem-columns.html#Lineitem-details-O-Operation\\\">lineitem/Operation</a> column on your AWS Cost and Usage Report. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/billing-info.html\\\">AMI Billing Information</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>\",\
+          \"locationName\":\"usageOperation\"\
+        },\
         \"ProductCodes\":{\
           \"shape\":\"ProductCodeList\",\
           \"documentation\":\"<p>Any product codes associated with the AMI.</p>\",\
@@ -20490,7 +20648,7 @@
           \"documentation\":\"<p>The target hypervisor platform.</p> <p>Valid values: <code>xen</code> </p>\"\
         },\
         \"KmsKeyId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"KmsKeyId\",\
           \"documentation\":\"<p>An identifier for the symmetric AWS Key Management Service (AWS KMS) customer master key (CMK) to use when creating the encrypted AMI. This parameter is only required if you want to use a non-default CMK; if this parameter is not specified, the default CMK for EBS is used. If a <code>KmsKeyId</code> is specified, the <code>Encrypted</code> flag must also be set. </p> <p>The CMK identifier may be provided in any of the following formats: </p> <ul> <li> <p>Key ID</p> </li> <li> <p>Key alias. The alias ARN contains the <code>arn:aws:kms</code> namespace, followed by the Region of the CMK, the AWS account ID of the CMK owner, the <code>alias</code> namespace, and then the CMK alias. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:alias/<i>ExampleAlias</i>.</p> </li> <li> <p>ARN using key ID. The ID ARN contains the <code>arn:aws:kms</code> namespace, followed by the Region of the CMK, the AWS account ID of the CMK owner, the <code>key</code> namespace, and then the CMK ID. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:key/<i>abcd1234-a123-456a-a12b-a123b4cd56ef</i>.</p> </li> <li> <p>ARN using key alias. The alias ARN contains the <code>arn:aws:kms</code> namespace, followed by the Region of the CMK, the AWS account ID of the CMK owner, the <code>alias</code> namespace, and then the CMK alias. For example, arn:aws:kms:<i>us-east-1</i>:<i>012345678910</i>:alias/<i>ExampleAlias</i>. </p> </li> </ul> <p>AWS parses <code>KmsKeyId</code> asynchronously, meaning that the action you call may appear to complete even though you provided an invalid identifier. This action will eventually report failure. </p> <p>The specified CMK must exist in the Region that the AMI is being copied to.</p> <p>Amazon EBS does not support asymmetric CMKs.</p>\"\
         },\
         \"LicenseType\":{\
@@ -20656,7 +20814,7 @@
         },\
         \"Tags\":{\
           \"shape\":\"TagList\",\
-          \"documentation\":\"<p>Any tags applied to the import image task.</p>\",\
+          \"documentation\":\"<p>The tags for the import image task.</p>\",\
           \"locationName\":\"tagSet\"\
         },\
         \"LicenseSpecifications\":{\
@@ -20966,7 +21124,7 @@
         },\
         \"Tags\":{\
           \"shape\":\"TagList\",\
-          \"documentation\":\"<p>Any tags applied to the import snapshot task.</p>\",\
+          \"documentation\":\"<p>The tags for the import snapshot task.</p>\",\
           \"locationName\":\"tagSet\"\
         }\
       },\
@@ -22906,6 +23064,29 @@
         \"locationName\":\"item\"\
       }\
     },\
+    \"Ipv6CidrAssociation\":{\
+      \"type\":\"structure\",\
+      \"members\":{\
+        \"Ipv6Cidr\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The IPv6 CIDR block.</p>\",\
+          \"locationName\":\"ipv6Cidr\"\
+        },\
+        \"AssociatedResource\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The resource that's associated with the IPv6 CIDR block.</p>\",\
+          \"locationName\":\"associatedResource\"\
+        }\
+      },\
+      \"documentation\":\"<p>Describes an IPv6 CIDR block association.</p>\"\
+    },\
+    \"Ipv6CidrAssociationSet\":{\
+      \"type\":\"list\",\
+      \"member\":{\
+        \"shape\":\"Ipv6CidrAssociation\",\
+        \"locationName\":\"item\"\
+      }\
+    },\
     \"Ipv6CidrBlock\":{\
       \"type\":\"structure\",\
       \"members\":{\
@@ -22925,6 +23106,44 @@
       }\
     },\
     \"Ipv6Flag\":{\"type\":\"boolean\"},\
+    \"Ipv6Pool\":{\
+      \"type\":\"structure\",\
+      \"members\":{\
+        \"PoolId\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The ID of the address pool.</p>\",\
+          \"locationName\":\"poolId\"\
+        },\
+        \"Description\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The description for the address pool.</p>\",\
+          \"locationName\":\"description\"\
+        },\
+        \"PoolCidrBlocks\":{\
+          \"shape\":\"PoolCidrBlocksSet\",\
+          \"documentation\":\"<p>The CIDR blocks for the address pool.</p>\",\
+          \"locationName\":\"poolCidrBlockSet\"\
+        },\
+        \"Tags\":{\
+          \"shape\":\"TagList\",\
+          \"documentation\":\"<p>Any tags for the address pool.</p>\",\
+          \"locationName\":\"tagSet\"\
+        }\
+      },\
+      \"documentation\":\"<p>Describes an IPv6 address pool.</p>\"\
+    },\
+    \"Ipv6PoolMaxResults\":{\
+      \"type\":\"integer\",\
+      \"max\":1000,\
+      \"min\":1\
+    },\
+    \"Ipv6PoolSet\":{\
+      \"type\":\"list\",\
+      \"member\":{\
+        \"shape\":\"Ipv6Pool\",\
+        \"locationName\":\"item\"\
+      }\
+    },\
     \"Ipv6Range\":{\
       \"type\":\"structure\",\
       \"members\":{\
@@ -22955,6 +23174,7 @@
         \"disable\"\
       ]\
     },\
+    \"KernelId\":{\"type\":\"string\"},\
     \"KeyNameStringList\":{\
       \"type\":\"list\",\
       \"member\":{\
@@ -23528,6 +23748,13 @@
       },\
       \"documentation\":\"<p>Indicates whether the instance is configured for hibernation. This parameter is valid only if the instance meets the <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites\\\">hibernation prerequisites</a>.</p>\"\
     },\
+    \"LaunchTemplateHttpTokensState\":{\
+      \"type\":\"string\",\
+      \"enum\":[\
+        \"optional\",\
+        \"required\"\
+      ]\
+    },\
     \"LaunchTemplateIamInstanceProfileSpecification\":{\
       \"type\":\"structure\",\
       \"members\":{\
@@ -23588,6 +23815,64 @@
         }\
       },\
       \"documentation\":\"<p>The market (purchasing) option for the instances.</p>\"\
+    },\
+    \"LaunchTemplateInstanceMetadataEndpointState\":{\
+      \"type\":\"string\",\
+      \"enum\":[\
+        \"disabled\",\
+        \"enabled\"\
+      ]\
+    },\
+    \"LaunchTemplateInstanceMetadataOptions\":{\
+      \"type\":\"structure\",\
+      \"members\":{\
+        \"State\":{\
+          \"shape\":\"LaunchTemplateInstanceMetadataOptionsState\",\
+          \"documentation\":\"<p>The state of the metadata option changes.</p> <p> <code>pending</code> - The metadata options are being updated and the instance is not ready to process metadata traffic with the new selection.</p> <p> <code>applied</code> - The metadata options have been successfully applied on the instance.</p>\",\
+          \"locationName\":\"state\"\
+        },\
+        \"HttpTokens\":{\
+          \"shape\":\"LaunchTemplateHttpTokensState\",\
+          \"documentation\":\"<p>The state of token usage for your instance metadata requests. If the parameter is not specified in the request, the default state is <code>optional</code>.</p> <p>If the state is <code>optional</code>, you can choose to retrieve instance metadata with or without a signed token header on your request. If you retrieve the IAM role credentials without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role credentials using a valid signed token, the version 2.0 role credentials are returned.</p> <p>If the state is <code>required</code>, you must send a signed token header with any instance metadata retrieval requests. In this state, retrieving the IAM role credentials always returns the version 2.0 credentials; the version 1.0 credentials are not available.</p>\",\
+          \"locationName\":\"httpTokens\"\
+        },\
+        \"HttpPutResponseHopLimit\":{\
+          \"shape\":\"Integer\",\
+          \"documentation\":\"<p>The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel.</p> <p>Default: 1</p> <p>Possible values: Integers from 1 to 64</p>\",\
+          \"locationName\":\"httpPutResponseHopLimit\"\
+        },\
+        \"HttpEndpoint\":{\
+          \"shape\":\"LaunchTemplateInstanceMetadataEndpointState\",\
+          \"documentation\":\"<p>This parameter enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the default state is <code>enabled</code>.</p> <note> <p>If you specify a value of <code>disabled</code>, you will not be able to access your instance metadata. </p> </note>\",\
+          \"locationName\":\"httpEndpoint\"\
+        }\
+      },\
+      \"documentation\":\"<p>The metadata options for the instance. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html\\\">Instance Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>\"\
+    },\
+    \"LaunchTemplateInstanceMetadataOptionsRequest\":{\
+      \"type\":\"structure\",\
+      \"members\":{\
+        \"HttpTokens\":{\
+          \"shape\":\"LaunchTemplateHttpTokensState\",\
+          \"documentation\":\"<p>The state of token usage for your instance metadata requests. If the parameter is not specified in the request, the default state is <code>optional</code>.</p> <p>If the state is <code>optional</code>, you can choose to retrieve instance metadata with or without a signed token header on your request. If you retrieve the IAM role credentials without a token, the version 1.0 role credentials are returned. If you retrieve the IAM role credentials using a valid signed token, the version 2.0 role credentials are returned.</p> <p>If the state is <code>required</code>, you must send a signed token header with any instance metadata retrieval requests. In this state, retrieving the IAM role credentials always returns the version 2.0 credentials; the version 1.0 credentials are not available.</p>\"\
+        },\
+        \"HttpPutResponseHopLimit\":{\
+          \"shape\":\"Integer\",\
+          \"documentation\":\"<p>The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel.</p> <p>Default: 1</p> <p>Possible values: Integers from 1 to 64</p>\"\
+        },\
+        \"HttpEndpoint\":{\
+          \"shape\":\"LaunchTemplateInstanceMetadataEndpointState\",\
+          \"documentation\":\"<p>This parameter enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the default state is <code>enabled</code>.</p> <note> <p>If you specify a value of <code>disabled</code>, you will not be able to access your instance metadata. </p> </note>\"\
+        }\
+      },\
+      \"documentation\":\"<p>The metadata options for the instance. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html\\\">Instance Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>\"\
+    },\
+    \"LaunchTemplateInstanceMetadataOptionsState\":{\
+      \"type\":\"string\",\
+      \"enum\":[\
+        \"pending\",\
+        \"applied\"\
+      ]\
     },\
     \"LaunchTemplateInstanceNetworkInterfaceSpecification\":{\
       \"type\":\"structure\",\
@@ -23859,8 +24144,13 @@
         },\
         \"HostResourceGroupArn\":{\
           \"shape\":\"String\",\
-          \"documentation\":\"<p>The ARN of the host resource group in which to launch the instances.</p>\",\
+          \"documentation\":\"<p>The ARN of the host resource group in which to launch the instances. </p>\",\
           \"locationName\":\"hostResourceGroupArn\"\
+        },\
+        \"PartitionNumber\":{\
+          \"shape\":\"Integer\",\
+          \"documentation\":\"<p>The number of the partition the instance should launch in. Valid only if the placement group strategy is set to <code>partition</code>.</p>\",\
+          \"locationName\":\"partitionNumber\"\
         }\
       },\
       \"documentation\":\"<p>Describes the placement of an instance.</p>\"\
@@ -23895,6 +24185,10 @@
         \"HostResourceGroupArn\":{\
           \"shape\":\"String\",\
           \"documentation\":\"<p>The ARN of the host resource group in which to launch the instances. If you specify a host resource group ARN, omit the <b>Tenancy</b> parameter or set it to <code>host</code>.</p>\"\
+        },\
+        \"PartitionNumber\":{\
+          \"shape\":\"Integer\",\
+          \"documentation\":\"<p>The number of the partition the instance should launch in. Valid only if the placement group strategy is set to <code>partition</code>.</p>\"\
         }\
       },\
       \"documentation\":\"<p>Describes the placement of an instance.</p>\"\
@@ -24678,6 +24972,10 @@
           \"shape\":\"DnsServersOptionsModifyStructure\",\
           \"documentation\":\"<p>Information about the DNS servers to be used by Client VPN connections. A Client VPN endpoint can have up to two DNS servers.</p>\"\
         },\
+        \"VpnPort\":{\
+          \"shape\":\"Integer\",\
+          \"documentation\":\"<p>The port number to assign to the Client VPN endpoint for TCP and UDP traffic.</p> <p>Valid Values: <code>443</code> | <code>1194</code> </p> <p>Default Value: <code>443</code> </p>\"\
+        },\
         \"Description\":{\
           \"shape\":\"String\",\
           \"documentation\":\"<p>A brief description of the Client VPN endpoint.</p>\"\
@@ -24949,7 +25247,7 @@
           \"documentation\":\"<p>A new description for the AMI.</p>\"\
         },\
         \"ImageId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"ImageId\",\
           \"documentation\":\"<p>The ID of the AMI.</p>\"\
         },\
         \"LaunchPermission\":{\
@@ -25457,7 +25755,7 @@
           \"documentation\":\"<p>Specify <code>true</code> to indicate that ENIs attached to instances created in the specified subnet should be assigned a public IPv4 address.</p>\"\
         },\
         \"SubnetId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"SubnetId\",\
           \"documentation\":\"<p>The ID of the subnet.</p>\",\
           \"locationName\":\"subnetId\"\
         }\
@@ -26749,6 +27047,7 @@
       },\
       \"documentation\":\"<p>Describes an attachment change.</p>\"\
     },\
+    \"NetworkInterfaceAttachmentId\":{\"type\":\"string\"},\
     \"NetworkInterfaceAttribute\":{\
       \"type\":\"string\",\
       \"enum\":[\
@@ -27539,6 +27838,24 @@
       \"type\":\"string\",\
       \"enum\":[\"Windows\"]\
     },\
+    \"PoolCidrBlock\":{\
+      \"type\":\"structure\",\
+      \"members\":{\
+        \"Cidr\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The CIDR block.</p>\",\
+          \"locationName\":\"poolCidrBlock\"\
+        }\
+      },\
+      \"documentation\":\"<p>Describes a CIDR block for an address pool.</p>\"\
+    },\
+    \"PoolCidrBlocksSet\":{\
+      \"type\":\"list\",\
+      \"member\":{\
+        \"shape\":\"PoolCidrBlock\",\
+        \"locationName\":\"item\"\
+      }\
+    },\
     \"PoolMaxResults\":{\
       \"type\":\"integer\",\
       \"max\":10,\
@@ -27881,11 +28198,15 @@
       \"members\":{\
         \"Cidr\":{\
           \"shape\":\"String\",\
-          \"documentation\":\"<p>The public IPv4 address range, in CIDR notation. The most specific prefix that you can specify is /24. The address range cannot overlap with another address range that you've brought to this or another Region.</p>\"\
+          \"documentation\":\"<p>The public IPv4 or IPv6 address range, in CIDR notation. The most specific IPv4 prefix that you can specify is /24. The most specific IPv6 prefix you can specify is /56. The address range cannot overlap with another address range that you've brought to this or another Region.</p>\"\
         },\
         \"CidrAuthorizationContext\":{\
           \"shape\":\"CidrAuthorizationContext\",\
           \"documentation\":\"<p>A signed document that proves that you are authorized to bring the specified IP address range to Amazon using BYOIP.</p>\"\
+        },\
+        \"PubliclyAdvertisable\":{\
+          \"shape\":\"Boolean\",\
+          \"documentation\":\"<p>(IPv6 only) Indicate whether the address range will be publicly advertised to the internet.</p> <p>Default: true</p>\"\
         },\
         \"Description\":{\
           \"shape\":\"String\",\
@@ -27902,7 +28223,7 @@
       \"members\":{\
         \"ByoipCidr\":{\
           \"shape\":\"ByoipCidr\",\
-          \"documentation\":\"<p>Information about the address pool.</p>\",\
+          \"documentation\":\"<p>Information about the address range.</p>\",\
           \"locationName\":\"byoipCidr\"\
         }\
       }\
@@ -27950,7 +28271,7 @@
       \"members\":{\
         \"PoolId\":{\
           \"shape\":\"String\",\
-          \"documentation\":\"<p>The ID of the IPv4 address pool.</p>\",\
+          \"documentation\":\"<p>The ID of the address pool.</p>\",\
           \"locationName\":\"poolId\"\
         },\
         \"Description\":{\
@@ -27974,7 +28295,7 @@
           \"locationName\":\"totalAvailableAddressCount\"\
         }\
       },\
-      \"documentation\":\"<p>Describes an address pool.</p>\"\
+      \"documentation\":\"<p>Describes an IPv4 address pool.</p>\"\
     },\
     \"PublicIpv4PoolRange\":{\
       \"type\":\"structure\",\
@@ -28245,6 +28566,7 @@
         \"Windows (Amazon VPC)\"\
       ]\
     },\
+    \"RamdiskId\":{\"type\":\"string\"},\
     \"ReasonCodesList\":{\
       \"type\":\"list\",\
       \"member\":{\
@@ -28364,7 +28686,7 @@
           \"locationName\":\"enaSupport\"\
         },\
         \"KernelId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"KernelId\",\
           \"documentation\":\"<p>The ID of the kernel.</p>\",\
           \"locationName\":\"kernelId\"\
         },\
@@ -28379,7 +28701,7 @@
           \"locationName\":\"BillingProduct\"\
         },\
         \"RamdiskId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"RamdiskId\",\
           \"documentation\":\"<p>The ID of the RAM disk.</p>\",\
           \"locationName\":\"ramdiskId\"\
         },\
@@ -28584,7 +28906,7 @@
       \"type\":\"structure\",\
       \"members\":{\
         \"AllocationId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"AllocationId\",\
           \"documentation\":\"<p>[EC2-VPC] The allocation ID. Required for EC2-VPC.</p>\"\
         },\
         \"PublicIp\":{\
@@ -29000,7 +29322,7 @@
         },\
         \"BlockDeviceMappings\":{\
           \"shape\":\"LaunchTemplateBlockDeviceMappingRequestList\",\
-          \"documentation\":\"<p>The block device mapping.</p> <important> <p>Supplying both a snapshot ID and an encryption value as arguments for block-device mapping results in an error. This is because only blank volumes can be encrypted on start, and these are not created from a snapshot. If a snapshot is the basis for the volume, it contains data by definition and its encryption status cannot be changed using this action.</p> </important>\",\
+          \"documentation\":\"<p>The block device mapping.</p>\",\
           \"locationName\":\"BlockDeviceMapping\"\
         },\
         \"NetworkInterfaces\":{\
@@ -29093,6 +29415,10 @@
         \"HibernationOptions\":{\
           \"shape\":\"LaunchTemplateHibernationOptionsRequest\",\
           \"documentation\":\"<p>Indicates whether an instance is enabled for hibernation. This parameter is valid only if the instance meets the <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html#hibernating-prerequisites\\\">hibernation prerequisites</a>. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html\\\">Hibernate Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>\"\
+        },\
+        \"MetadataOptions\":{\
+          \"shape\":\"LaunchTemplateInstanceMetadataOptionsRequest\",\
+          \"documentation\":\"<p>The metadata options for the instance. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html\\\">Instance Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>\"\
         }\
       },\
       \"documentation\":\"<p>The information to include in the launch template.</p>\"\
@@ -29888,7 +30214,7 @@
           \"documentation\":\"<p>The attribute to reset (currently you can only reset the launch permission attribute).</p>\"\
         },\
         \"ImageId\":{\
-          \"shape\":\"String\",\
+          \"shape\":\"ImageId\",\
           \"documentation\":\"<p>The ID of the AMI.</p>\"\
         },\
         \"DryRun\":{\
@@ -30176,6 +30502,11 @@
           \"shape\":\"LaunchTemplateHibernationOptions\",\
           \"documentation\":\"<p>Indicates whether an instance is configured for hibernation. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Hibernate.html\\\">Hibernate Your Instance</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>\",\
           \"locationName\":\"hibernationOptions\"\
+        },\
+        \"MetadataOptions\":{\
+          \"shape\":\"LaunchTemplateInstanceMetadataOptions\",\
+          \"documentation\":\"<p>The metadata options for the instance. For more information, see <a href=\\\"https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html\\\">Instance Metadata and User Data</a> in the <i>Amazon Elastic Compute Cloud User Guide</i>.</p>\",\
+          \"locationName\":\"metadataOptions\"\
         }\
       },\
       \"documentation\":\"<p>The information for a launch template. </p>\"\
@@ -33152,6 +33483,7 @@
         \"locationName\":\"item\"\
       }\
     },\
+    \"SubnetCidrAssociationId\":{\"type\":\"string\"},\
     \"SubnetCidrBlockState\":{\
       \"type\":\"structure\",\
       \"members\":{\
@@ -36322,6 +36654,11 @@
           \"documentation\":\"<p>Information about the state of the CIDR block.</p>\",\
           \"locationName\":\"ipv6CidrBlockState\"\
         },\
+        \"Ipv6Pool\":{\
+          \"shape\":\"String\",\
+          \"documentation\":\"<p>The ID of the IPv6 address pool from which the IPv6 CIDR block is allocated.</p>\",\
+          \"locationName\":\"ipv6Pool\"\
+        },\
         \"NetworkBorderGroup\":{\
           \"shape\":\"String\",\
           \"documentation\":\"<p>The name of the location from which we advertise the IPV6 CIDR block.</p>\",\
@@ -36803,7 +37140,7 @@
       \"members\":{\
         \"Cidr\":{\
           \"shape\":\"String\",\
-          \"documentation\":\"<p>The public IPv4 address range, in CIDR notation.</p>\"\
+          \"documentation\":\"<p>The address range, in CIDR notation.</p>\"\
         },\
         \"DryRun\":{\
           \"shape\":\"Boolean\",\

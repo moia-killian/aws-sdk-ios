@@ -766,7 +766,9 @@ NSString *const AWSEC2ErrorDomain = @"com.amazonaws.AWSEC2ErrorDomain";
 	return @{
              @"amazonProvidedIpv6CidrBlock" : @"AmazonProvidedIpv6CidrBlock",
              @"cidrBlock" : @"CidrBlock",
+             @"ipv6CidrBlock" : @"Ipv6CidrBlock",
              @"ipv6CidrBlockNetworkBorderGroup" : @"Ipv6CidrBlockNetworkBorderGroup",
+             @"ipv6Pool" : @"Ipv6Pool",
              @"vpcId" : @"VpcId",
              };
 }
@@ -1370,6 +1372,9 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
         if ([value caseInsensitiveCompare:@"provisioned"] == NSOrderedSame) {
             return @(AWSEC2ByoipCidrStateProvisioned);
         }
+        if ([value caseInsensitiveCompare:@"provisioned-not-publicly-advertisable"] == NSOrderedSame) {
+            return @(AWSEC2ByoipCidrStateProvisionedNotPubliclyAdvertisable);
+        }
         return @(AWSEC2ByoipCidrStateUnknown);
     } reverseBlock:^NSString *(NSNumber *value) {
         switch ([value integerValue]) {
@@ -1387,6 +1392,8 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
                 return @"pending-provision";
             case AWSEC2ByoipCidrStateProvisioned:
                 return @"provisioned";
+            case AWSEC2ByoipCidrStateProvisionedNotPubliclyAdvertisable:
+                return @"provisioned-not-publicly-advertisable";
             default:
                 return nil;
         }
@@ -2500,6 +2507,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"status" : @"Status",
              @"tags" : @"Tags",
              @"transportProtocol" : @"TransportProtocol",
+             @"vpnPort" : @"VpnPort",
              @"vpnProtocol" : @"VpnProtocol",
              };
 }
@@ -3160,6 +3168,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"splitTunnel" : @"SplitTunnel",
              @"tagSpecifications" : @"TagSpecifications",
              @"transportProtocol" : @"TransportProtocol",
+             @"vpnPort" : @"VpnPort",
              };
 }
 
@@ -4988,6 +4997,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"logDestinationType" : @"LogDestinationType",
              @"logFormat" : @"LogFormat",
              @"logGroupName" : @"LogGroupName",
+             @"maxAggregationInterval" : @"MaxAggregationInterval",
              @"resourceIds" : @"ResourceIds",
              @"resourceType" : @"ResourceType",
              @"trafficType" : @"TrafficType",
@@ -6448,9 +6458,14 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"securityGroupIds" : @"SecurityGroupIds",
              @"serviceName" : @"ServiceName",
              @"subnetIds" : @"SubnetIds",
+             @"tagSpecifications" : @"TagSpecifications",
              @"vpcEndpointType" : @"VpcEndpointType",
              @"vpcId" : @"VpcId",
              };
+}
+
++ (NSValueTransformer *)tagSpecificationsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2TagSpecification class]];
 }
 
 + (NSValueTransformer *)vpcEndpointTypeJSONTransformer {
@@ -6500,7 +6515,12 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"dryRun" : @"DryRun",
              @"networkLoadBalancerArns" : @"NetworkLoadBalancerArns",
              @"privateDnsName" : @"PrivateDnsName",
+             @"tagSpecifications" : @"TagSpecifications",
              };
+}
+
++ (NSValueTransformer *)tagSpecificationsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2TagSpecification class]];
 }
 
 @end
@@ -6556,7 +6576,9 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"cidrBlock" : @"CidrBlock",
              @"dryRun" : @"DryRun",
              @"instanceTenancy" : @"InstanceTenancy",
+             @"ipv6CidrBlock" : @"Ipv6CidrBlock",
              @"ipv6CidrBlockNetworkBorderGroup" : @"Ipv6CidrBlockNetworkBorderGroup",
+             @"ipv6Pool" : @"Ipv6Pool",
              };
 }
 
@@ -11100,6 +11122,39 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 + (NSValueTransformer *)internetGatewaysJSONTransformer {
     return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2InternetGateway class]];
+}
+
+@end
+
+@implementation AWSEC2DescribeIpv6PoolsRequest
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"dryRun" : @"DryRun",
+             @"filters" : @"Filters",
+             @"maxResults" : @"MaxResults",
+             @"nextToken" : @"NextToken",
+             @"poolIds" : @"PoolIds",
+             };
+}
+
++ (NSValueTransformer *)filtersJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2Filter class]];
+}
+
+@end
+
+@implementation AWSEC2DescribeIpv6PoolsResult
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"ipv6Pools" : @"Ipv6Pools",
+             @"nextToken" : @"NextToken",
+             };
+}
+
++ (NSValueTransformer *)ipv6PoolsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2Ipv6Pool class]];
 }
 
 @end
@@ -19781,6 +19836,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"logDestinationType" : @"LogDestinationType",
              @"logFormat" : @"LogFormat",
              @"logGroupName" : @"LogGroupName",
+             @"maxAggregationInterval" : @"MaxAggregationInterval",
              @"resourceId" : @"ResourceId",
              @"trafficType" : @"TrafficType",
              };
@@ -20001,6 +20057,34 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 + (NSValueTransformer *)fpgasJSONTransformer {
     return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2FpgaDeviceInfo class]];
+}
+
+@end
+
+@implementation AWSEC2GetAssociatedIpv6PoolCidrsRequest
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"dryRun" : @"DryRun",
+             @"maxResults" : @"MaxResults",
+             @"nextToken" : @"NextToken",
+             @"poolId" : @"PoolId",
+             };
+}
+
+@end
+
+@implementation AWSEC2GetAssociatedIpv6PoolCidrsResult
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"ipv6CidrAssociations" : @"Ipv6CidrAssociations",
+             @"nextToken" : @"NextToken",
+             };
+}
+
++ (NSValueTransformer *)ipv6CidrAssociationsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2Ipv6CidrAssociation class]];
 }
 
 @end
@@ -21232,6 +21316,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"name" : @"Name",
              @"ownerId" : @"OwnerId",
              @"platform" : @"Platform",
+             @"platformDetails" : @"PlatformDetails",
              @"productCodes" : @"ProductCodes",
              @"public" : @"Public",
              @"ramdiskId" : @"RamdiskId",
@@ -21241,6 +21326,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"state" : @"State",
              @"stateReason" : @"StateReason",
              @"tags" : @"Tags",
+             @"usageOperation" : @"UsageOperation",
              @"virtualizationType" : @"VirtualizationType",
              };
 }
@@ -28943,12 +29029,44 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 @end
 
+@implementation AWSEC2Ipv6CidrAssociation
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"associatedResource" : @"AssociatedResource",
+             @"ipv6Cidr" : @"Ipv6Cidr",
+             };
+}
+
+@end
+
 @implementation AWSEC2Ipv6CidrBlock
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
              @"ipv6CidrBlock" : @"Ipv6CidrBlock",
              };
+}
+
+@end
+
+@implementation AWSEC2Ipv6Pool
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"detail" : @"Description",
+             @"poolCidrBlocks" : @"PoolCidrBlocks",
+             @"poolId" : @"PoolId",
+             @"tags" : @"Tags",
+             };
+}
+
++ (NSValueTransformer *)poolCidrBlocksJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2PoolCidrBlock class]];
+}
+
++ (NSValueTransformer *)tagsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2Tag class]];
 }
 
 @end
@@ -30889,6 +31007,136 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 @end
 
+@implementation AWSEC2LaunchTemplateInstanceMetadataOptions
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"httpEndpoint" : @"HttpEndpoint",
+             @"httpPutResponseHopLimit" : @"HttpPutResponseHopLimit",
+             @"httpTokens" : @"HttpTokens",
+             @"state" : @"State",
+             };
+}
+
++ (NSValueTransformer *)httpEndpointJSONTransformer {
+    return [AWSMTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(NSString *value) {
+        if ([value caseInsensitiveCompare:@"disabled"] == NSOrderedSame) {
+            return @(AWSEC2LaunchTemplateInstanceMetadataEndpointStateDisabled);
+        }
+        if ([value caseInsensitiveCompare:@"enabled"] == NSOrderedSame) {
+            return @(AWSEC2LaunchTemplateInstanceMetadataEndpointStateEnabled);
+        }
+        return @(AWSEC2LaunchTemplateInstanceMetadataEndpointStateUnknown);
+    } reverseBlock:^NSString *(NSNumber *value) {
+        switch ([value integerValue]) {
+            case AWSEC2LaunchTemplateInstanceMetadataEndpointStateDisabled:
+                return @"disabled";
+            case AWSEC2LaunchTemplateInstanceMetadataEndpointStateEnabled:
+                return @"enabled";
+            default:
+                return nil;
+        }
+    }];
+}
+
++ (NSValueTransformer *)httpTokensJSONTransformer {
+    return [AWSMTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(NSString *value) {
+        if ([value caseInsensitiveCompare:@"optional"] == NSOrderedSame) {
+            return @(AWSEC2LaunchTemplateHttpTokensStateOptional);
+        }
+        if ([value caseInsensitiveCompare:@"required"] == NSOrderedSame) {
+            return @(AWSEC2LaunchTemplateHttpTokensStateRequired);
+        }
+        return @(AWSEC2LaunchTemplateHttpTokensStateUnknown);
+    } reverseBlock:^NSString *(NSNumber *value) {
+        switch ([value integerValue]) {
+            case AWSEC2LaunchTemplateHttpTokensStateOptional:
+                return @"optional";
+            case AWSEC2LaunchTemplateHttpTokensStateRequired:
+                return @"required";
+            default:
+                return nil;
+        }
+    }];
+}
+
++ (NSValueTransformer *)stateJSONTransformer {
+    return [AWSMTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(NSString *value) {
+        if ([value caseInsensitiveCompare:@"pending"] == NSOrderedSame) {
+            return @(AWSEC2LaunchTemplateInstanceMetadataOptionsStatePending);
+        }
+        if ([value caseInsensitiveCompare:@"applied"] == NSOrderedSame) {
+            return @(AWSEC2LaunchTemplateInstanceMetadataOptionsStateApplied);
+        }
+        return @(AWSEC2LaunchTemplateInstanceMetadataOptionsStateUnknown);
+    } reverseBlock:^NSString *(NSNumber *value) {
+        switch ([value integerValue]) {
+            case AWSEC2LaunchTemplateInstanceMetadataOptionsStatePending:
+                return @"pending";
+            case AWSEC2LaunchTemplateInstanceMetadataOptionsStateApplied:
+                return @"applied";
+            default:
+                return nil;
+        }
+    }];
+}
+
+@end
+
+@implementation AWSEC2LaunchTemplateInstanceMetadataOptionsRequest
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"httpEndpoint" : @"HttpEndpoint",
+             @"httpPutResponseHopLimit" : @"HttpPutResponseHopLimit",
+             @"httpTokens" : @"HttpTokens",
+             };
+}
+
++ (NSValueTransformer *)httpEndpointJSONTransformer {
+    return [AWSMTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(NSString *value) {
+        if ([value caseInsensitiveCompare:@"disabled"] == NSOrderedSame) {
+            return @(AWSEC2LaunchTemplateInstanceMetadataEndpointStateDisabled);
+        }
+        if ([value caseInsensitiveCompare:@"enabled"] == NSOrderedSame) {
+            return @(AWSEC2LaunchTemplateInstanceMetadataEndpointStateEnabled);
+        }
+        return @(AWSEC2LaunchTemplateInstanceMetadataEndpointStateUnknown);
+    } reverseBlock:^NSString *(NSNumber *value) {
+        switch ([value integerValue]) {
+            case AWSEC2LaunchTemplateInstanceMetadataEndpointStateDisabled:
+                return @"disabled";
+            case AWSEC2LaunchTemplateInstanceMetadataEndpointStateEnabled:
+                return @"enabled";
+            default:
+                return nil;
+        }
+    }];
+}
+
++ (NSValueTransformer *)httpTokensJSONTransformer {
+    return [AWSMTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(NSString *value) {
+        if ([value caseInsensitiveCompare:@"optional"] == NSOrderedSame) {
+            return @(AWSEC2LaunchTemplateHttpTokensStateOptional);
+        }
+        if ([value caseInsensitiveCompare:@"required"] == NSOrderedSame) {
+            return @(AWSEC2LaunchTemplateHttpTokensStateRequired);
+        }
+        return @(AWSEC2LaunchTemplateHttpTokensStateUnknown);
+    } reverseBlock:^NSString *(NSNumber *value) {
+        switch ([value integerValue]) {
+            case AWSEC2LaunchTemplateHttpTokensStateOptional:
+                return @"optional";
+            case AWSEC2LaunchTemplateHttpTokensStateRequired:
+                return @"required";
+            default:
+                return nil;
+        }
+    }];
+}
+
+@end
+
 @implementation AWSEC2LaunchTemplateInstanceNetworkInterfaceSpecification
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -32359,6 +32607,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"groupName" : @"GroupName",
              @"hostId" : @"HostId",
              @"hostResourceGroupArn" : @"HostResourceGroupArn",
+             @"partitionNumber" : @"PartitionNumber",
              @"spreadDomain" : @"SpreadDomain",
              @"tenancy" : @"Tenancy",
              };
@@ -32401,6 +32650,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"groupName" : @"GroupName",
              @"hostId" : @"HostId",
              @"hostResourceGroupArn" : @"HostResourceGroupArn",
+             @"partitionNumber" : @"PartitionNumber",
              @"spreadDomain" : @"SpreadDomain",
              @"tenancy" : @"Tenancy",
              };
@@ -33414,6 +33664,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"dryRun" : @"DryRun",
              @"serverCertificateArn" : @"ServerCertificateArn",
              @"splitTunnel" : @"SplitTunnel",
+             @"vpnPort" : @"VpnPort",
              };
 }
 
@@ -36112,6 +36363,16 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 @end
 
+@implementation AWSEC2PoolCidrBlock
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"cidr" : @"Cidr",
+             };
+}
+
+@end
+
 @implementation AWSEC2PortRange
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -36340,6 +36601,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"cidrAuthorizationContext" : @"CidrAuthorizationContext",
              @"detail" : @"Description",
              @"dryRun" : @"DryRun",
+             @"publiclyAdvertisable" : @"PubliclyAdvertisable",
              };
 }
 
@@ -37175,6 +37437,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"kernelId" : @"KernelId",
              @"keyName" : @"KeyName",
              @"licenseSpecifications" : @"LicenseSpecifications",
+             @"metadataOptions" : @"MetadataOptions",
              @"monitoring" : @"Monitoring",
              @"networkInterfaces" : @"NetworkInterfaces",
              @"placement" : @"Placement",
@@ -38611,6 +38874,10 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 + (NSValueTransformer *)licenseSpecificationsJSONTransformer {
     return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2LaunchTemplateLicenseConfigurationRequest class]];
+}
+
++ (NSValueTransformer *)metadataOptionsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONDictionaryTransformerWithModelClass:[AWSEC2LaunchTemplateInstanceMetadataOptionsRequest class]];
 }
 
 + (NSValueTransformer *)monitoringJSONTransformer {
@@ -45264,6 +45531,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"kernelId" : @"KernelId",
              @"keyName" : @"KeyName",
              @"licenseSpecifications" : @"LicenseSpecifications",
+             @"metadataOptions" : @"MetadataOptions",
              @"monitoring" : @"Monitoring",
              @"networkInterfaces" : @"NetworkInterfaces",
              @"placement" : @"Placement",
@@ -46700,6 +46968,10 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 + (NSValueTransformer *)licenseSpecificationsJSONTransformer {
     return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2LaunchTemplateLicenseConfiguration class]];
+}
+
++ (NSValueTransformer *)metadataOptionsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONDictionaryTransformerWithModelClass:[AWSEC2LaunchTemplateInstanceMetadataOptions class]];
 }
 
 + (NSValueTransformer *)monitoringJSONTransformer {
@@ -57249,6 +57521,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"associationId" : @"AssociationId",
              @"ipv6CidrBlock" : @"Ipv6CidrBlock",
              @"ipv6CidrBlockState" : @"Ipv6CidrBlockState",
+             @"ipv6Pool" : @"Ipv6Pool",
              @"networkBorderGroup" : @"NetworkBorderGroup",
              };
 }
