@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.author       = { 'Amazon Web Services' => 'amazonwebservices' }
   s.platform     = :ios, '8.0'
   s.source       = { :git => 'git@github.com:moia-killian/aws-sdk-ios.git',
-                     :tag => '2.6.12'}
+                     :tag => '2.12.7'}
   s.requires_arc = true
   s.public_header_files = 'AWSCognitoIdentityProviderASF/*.h'
   s.source_files = 'AWSCognitoIdentityProviderASF/**/*.{h,m,c}'
