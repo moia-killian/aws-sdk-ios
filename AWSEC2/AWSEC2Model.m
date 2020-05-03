@@ -2502,11 +2502,13 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"detail" : @"Description",
              @"dnsName" : @"DnsName",
              @"dnsServers" : @"DnsServers",
+             @"securityGroupIds" : @"SecurityGroupIds",
              @"serverCertificateArn" : @"ServerCertificateArn",
              @"splitTunnel" : @"SplitTunnel",
              @"status" : @"Status",
              @"tags" : @"Tags",
              @"transportProtocol" : @"TransportProtocol",
+             @"vpcId" : @"VpcId",
              @"vpnPort" : @"VpnPort",
              @"vpnProtocol" : @"VpnProtocol",
              };
@@ -3164,10 +3166,12 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"detail" : @"Description",
              @"dnsServers" : @"DnsServers",
              @"dryRun" : @"DryRun",
+             @"securityGroupIds" : @"SecurityGroupIds",
              @"serverCertificateArn" : @"ServerCertificateArn",
              @"splitTunnel" : @"SplitTunnel",
              @"tagSpecifications" : @"TagSpecifications",
              @"transportProtocol" : @"TransportProtocol",
+             @"vpcId" : @"VpcId",
              @"vpnPort" : @"VpnPort",
              };
 }
@@ -5000,6 +5004,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"maxAggregationInterval" : @"MaxAggregationInterval",
              @"resourceIds" : @"ResourceIds",
              @"resourceType" : @"ResourceType",
+             @"tagSpecifications" : @"TagSpecifications",
              @"trafficType" : @"TrafficType",
              };
 }
@@ -5049,6 +5054,10 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
                 return nil;
         }
     }];
+}
+
++ (NSValueTransformer *)tagSpecificationsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2TagSpecification class]];
 }
 
 + (NSValueTransformer *)trafficTypeJSONTransformer {
@@ -5250,7 +5259,12 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 	return @{
              @"dryRun" : @"DryRun",
              @"keyName" : @"KeyName",
+             @"tagSpecifications" : @"TagSpecifications",
              };
+}
+
++ (NSValueTransformer *)tagSpecificationsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2TagSpecification class]];
 }
 
 @end
@@ -5385,8 +5399,14 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 	return @{
              @"allocationId" : @"AllocationId",
              @"clientToken" : @"ClientToken",
+             @"dryRun" : @"DryRun",
              @"subnetId" : @"SubnetId",
+             @"tagSpecifications" : @"TagSpecifications",
              };
+}
+
++ (NSValueTransformer *)tagSpecificationsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2TagSpecification class]];
 }
 
 @end
@@ -5593,6 +5613,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"groupName" : @"GroupName",
              @"partitionCount" : @"PartitionCount",
              @"strategy" : @"Strategy",
+             @"tagSpecifications" : @"TagSpecifications",
              };
 }
 
@@ -5620,6 +5641,24 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
                 return nil;
         }
     }];
+}
+
++ (NSValueTransformer *)tagSpecificationsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2TagSpecification class]];
+}
+
+@end
+
+@implementation AWSEC2CreatePlacementGroupResult
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"placementGroup" : @"PlacementGroup",
+             };
+}
+
++ (NSValueTransformer *)placementGroupJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONDictionaryTransformerWithModelClass:[AWSEC2PlacementGroup class]];
 }
 
 @end
@@ -7103,6 +7142,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 	return @{
              @"dryRun" : @"DryRun",
              @"keyName" : @"KeyName",
+             @"keyPairId" : @"KeyPairId",
              };
 }
 
@@ -7250,6 +7290,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
+             @"dryRun" : @"DryRun",
              @"natGatewayId" : @"NatGatewayId",
              };
 }
@@ -7902,6 +7943,46 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 	return @{
              @"dryRun" : @"DryRun",
              @"imageId" : @"ImageId",
+             };
+}
+
+@end
+
+@implementation AWSEC2DeregisterInstanceEventNotificationAttributesRequest
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"dryRun" : @"DryRun",
+             @"instanceTagAttribute" : @"InstanceTagAttribute",
+             };
+}
+
++ (NSValueTransformer *)instanceTagAttributeJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONDictionaryTransformerWithModelClass:[AWSEC2DeregisterInstanceTagAttributeRequest class]];
+}
+
+@end
+
+@implementation AWSEC2DeregisterInstanceEventNotificationAttributesResult
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"instanceTagAttribute" : @"InstanceTagAttribute",
+             };
+}
+
++ (NSValueTransformer *)instanceTagAttributeJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONDictionaryTransformerWithModelClass:[AWSEC2InstanceTagNotificationAttribute class]];
+}
+
+@end
+
+@implementation AWSEC2DeregisterInstanceTagAttributeRequest
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"includeAllTagsOfInstance" : @"IncludeAllTagsOfInstance",
+             @"instanceTagKeys" : @"InstanceTagKeys",
              };
 }
 
@@ -10935,6 +11016,30 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 @end
 
+@implementation AWSEC2DescribeInstanceEventNotificationAttributesRequest
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"dryRun" : @"DryRun",
+             };
+}
+
+@end
+
+@implementation AWSEC2DescribeInstanceEventNotificationAttributesResult
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"instanceTagAttribute" : @"InstanceTagAttribute",
+             };
+}
+
++ (NSValueTransformer *)instanceTagAttributeJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONDictionaryTransformerWithModelClass:[AWSEC2InstanceTagNotificationAttribute class]];
+}
+
+@end
+
 @implementation AWSEC2DescribeInstanceStatusRequest
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -11497,6 +11602,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
+             @"dryRun" : @"DryRun",
              @"filter" : @"Filter",
              @"maxResults" : @"MaxResults",
              @"natGatewayIds" : @"NatGatewayIds",
@@ -19846,6 +19952,7 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"logGroupName" : @"LogGroupName",
              @"maxAggregationInterval" : @"MaxAggregationInterval",
              @"resourceId" : @"ResourceId",
+             @"tags" : @"Tags",
              @"trafficType" : @"TrafficType",
              };
 }
@@ -19877,6 +19984,10 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
                 return nil;
         }
     }];
+}
+
++ (NSValueTransformer *)tagsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2Tag class]];
 }
 
 + (NSValueTransformer *)trafficTypeJSONTransformer {
@@ -23298,7 +23409,12 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"dryRun" : @"DryRun",
              @"keyName" : @"KeyName",
              @"publicKeyMaterial" : @"PublicKeyMaterial",
+             @"tagSpecifications" : @"TagSpecifications",
              };
+}
+
++ (NSValueTransformer *)tagSpecificationsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2TagSpecification class]];
 }
 
 @end
@@ -23309,7 +23425,13 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 	return @{
              @"keyFingerprint" : @"KeyFingerprint",
              @"keyName" : @"KeyName",
+             @"keyPairId" : @"KeyPairId",
+             @"tags" : @"Tags",
              };
+}
+
++ (NSValueTransformer *)tagsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2Tag class]];
 }
 
 @end
@@ -26054,6 +26176,17 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 + (NSValueTransformer *)disksJSONTransformer {
     return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2DiskInfo class]];
+}
+
+@end
+
+@implementation AWSEC2InstanceTagNotificationAttribute
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"includeAllTagsOfInstance" : @"IncludeAllTagsOfInstance",
+             @"instanceTagKeys" : @"InstanceTagKeys",
+             };
 }
 
 @end
@@ -29098,7 +29231,12 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"keyMaterial" : @"KeyMaterial",
              @"keyName" : @"KeyName",
              @"keyPairId" : @"KeyPairId",
+             @"tags" : @"Tags",
              };
+}
+
++ (NSValueTransformer *)tagsJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONArrayTransformerWithModelClass:[AWSEC2Tag class]];
 }
 
 @end
@@ -32961,6 +33099,9 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
         if ([value caseInsensitiveCompare:@"vpn-gateway"] == NSOrderedSame) {
             return @(AWSEC2ResourceTypeVpnGateway);
         }
+        if ([value caseInsensitiveCompare:@"vpc-flow-log"] == NSOrderedSame) {
+            return @(AWSEC2ResourceTypeVpcFlowLog);
+        }
         return @(AWSEC2ResourceTypeUnknown);
     } reverseBlock:^NSString *(NSNumber *value) {
         switch ([value integerValue]) {
@@ -33036,6 +33177,8 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
                 return @"vpn-connection";
             case AWSEC2ResourceTypeVpnGateway:
                 return @"vpn-gateway";
+            case AWSEC2ResourceTypeVpcFlowLog:
+                return @"vpc-flow-log";
             default:
                 return nil;
         }
@@ -33167,6 +33310,9 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
         if ([value caseInsensitiveCompare:@"vpn-gateway"] == NSOrderedSame) {
             return @(AWSEC2ResourceTypeVpnGateway);
         }
+        if ([value caseInsensitiveCompare:@"vpc-flow-log"] == NSOrderedSame) {
+            return @(AWSEC2ResourceTypeVpcFlowLog);
+        }
         return @(AWSEC2ResourceTypeUnknown);
     } reverseBlock:^NSString *(NSNumber *value) {
         switch ([value integerValue]) {
@@ -33242,6 +33388,8 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
                 return @"vpn-connection";
             case AWSEC2ResourceTypeVpnGateway:
                 return @"vpn-gateway";
+            case AWSEC2ResourceTypeVpcFlowLog:
+                return @"vpc-flow-log";
             default:
                 return nil;
         }
@@ -33608,6 +33756,49 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 
 @end
 
+@implementation AWSEC2ModifyAvailabilityZoneGroupRequest
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"dryRun" : @"DryRun",
+             @"groupName" : @"GroupName",
+             @"optInStatus" : @"OptInStatus",
+             };
+}
+
++ (NSValueTransformer *)optInStatusJSONTransformer {
+    return [AWSMTLValueTransformer reversibleTransformerWithForwardBlock:^NSNumber *(NSString *value) {
+        if ([value caseInsensitiveCompare:@"opted-in"] == NSOrderedSame) {
+            return @(AWSEC2ModifyAvailabilityZoneOptInStatusOptedIn);
+        }
+        if ([value caseInsensitiveCompare:@"not-opted-in"] == NSOrderedSame) {
+            return @(AWSEC2ModifyAvailabilityZoneOptInStatusNotOptedIn);
+        }
+        return @(AWSEC2ModifyAvailabilityZoneOptInStatusUnknown);
+    } reverseBlock:^NSString *(NSNumber *value) {
+        switch ([value integerValue]) {
+            case AWSEC2ModifyAvailabilityZoneOptInStatusOptedIn:
+                return @"opted-in";
+            case AWSEC2ModifyAvailabilityZoneOptInStatusNotOptedIn:
+                return @"not-opted-in";
+            default:
+                return nil;
+        }
+    }];
+}
+
+@end
+
+@implementation AWSEC2ModifyAvailabilityZoneGroupResult
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"returned" : @"Return",
+             };
+}
+
+@end
+
 @implementation AWSEC2ModifyCapacityReservationRequest
 
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
@@ -33670,8 +33861,10 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
              @"detail" : @"Description",
              @"dnsServers" : @"DnsServers",
              @"dryRun" : @"DryRun",
+             @"securityGroupIds" : @"SecurityGroupIds",
              @"serverCertificateArn" : @"ServerCertificateArn",
              @"splitTunnel" : @"SplitTunnel",
+             @"vpcId" : @"VpcId",
              @"vpnPort" : @"VpnPort",
              };
 }
@@ -37006,6 +37199,46 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
 + (NSDictionary *)JSONKeyPathsByPropertyKey {
 	return @{
              @"imageId" : @"ImageId",
+             };
+}
+
+@end
+
+@implementation AWSEC2RegisterInstanceEventNotificationAttributesRequest
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"dryRun" : @"DryRun",
+             @"instanceTagAttribute" : @"InstanceTagAttribute",
+             };
+}
+
++ (NSValueTransformer *)instanceTagAttributeJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONDictionaryTransformerWithModelClass:[AWSEC2RegisterInstanceTagAttributeRequest class]];
+}
+
+@end
+
+@implementation AWSEC2RegisterInstanceEventNotificationAttributesResult
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"instanceTagAttribute" : @"InstanceTagAttribute",
+             };
+}
+
++ (NSValueTransformer *)instanceTagAttributeJSONTransformer {
+    return [NSValueTransformer awsmtl_JSONDictionaryTransformerWithModelClass:[AWSEC2InstanceTagNotificationAttribute class]];
+}
+
+@end
+
+@implementation AWSEC2RegisterInstanceTagAttributeRequest
+
++ (NSDictionary *)JSONKeyPathsByPropertyKey {
+	return @{
+             @"includeAllTagsOfInstance" : @"IncludeAllTagsOfInstance",
+             @"instanceTagKeys" : @"InstanceTagKeys",
              };
 }
 
@@ -51566,6 +51799,9 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
         if ([value caseInsensitiveCompare:@"vpn-gateway"] == NSOrderedSame) {
             return @(AWSEC2ResourceTypeVpnGateway);
         }
+        if ([value caseInsensitiveCompare:@"vpc-flow-log"] == NSOrderedSame) {
+            return @(AWSEC2ResourceTypeVpcFlowLog);
+        }
         return @(AWSEC2ResourceTypeUnknown);
     } reverseBlock:^NSString *(NSNumber *value) {
         switch ([value integerValue]) {
@@ -51641,6 +51877,8 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
                 return @"vpn-connection";
             case AWSEC2ResourceTypeVpnGateway:
                 return @"vpn-gateway";
+            case AWSEC2ResourceTypeVpcFlowLog:
+                return @"vpc-flow-log";
             default:
                 return nil;
         }
@@ -53995,6 +54233,9 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
         if ([value caseInsensitiveCompare:@"vpn-gateway"] == NSOrderedSame) {
             return @(AWSEC2ResourceTypeVpnGateway);
         }
+        if ([value caseInsensitiveCompare:@"vpc-flow-log"] == NSOrderedSame) {
+            return @(AWSEC2ResourceTypeVpcFlowLog);
+        }
         return @(AWSEC2ResourceTypeUnknown);
     } reverseBlock:^NSString *(NSNumber *value) {
         switch ([value integerValue]) {
@@ -54070,6 +54311,8 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
                 return @"vpn-connection";
             case AWSEC2ResourceTypeVpnGateway:
                 return @"vpn-gateway";
+            case AWSEC2ResourceTypeVpcFlowLog:
+                return @"vpc-flow-log";
             default:
                 return nil;
         }
@@ -54197,6 +54440,9 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
         if ([value caseInsensitiveCompare:@"vpn-gateway"] == NSOrderedSame) {
             return @(AWSEC2ResourceTypeVpnGateway);
         }
+        if ([value caseInsensitiveCompare:@"vpc-flow-log"] == NSOrderedSame) {
+            return @(AWSEC2ResourceTypeVpcFlowLog);
+        }
         return @(AWSEC2ResourceTypeUnknown);
     } reverseBlock:^NSString *(NSNumber *value) {
         switch ([value integerValue]) {
@@ -54272,6 +54518,8 @@ return [date aws_stringValue:AWSDateISO8601DateFormat1];
                 return @"vpn-connection";
             case AWSEC2ResourceTypeVpnGateway:
                 return @"vpn-gateway";
+            case AWSEC2ResourceTypeVpcFlowLog:
+                return @"vpc-flow-log";
             default:
                 return nil;
         }
