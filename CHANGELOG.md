@@ -1,5 +1,80 @@
 # AWS Mobile SDK for iOS CHANGELOG
 
+## Unreleased
+-Features for next release
+
+## 2.14.2
+
+### Bug Fixes
+
+- **AWSAuthSDK**
+  - Fix import errors in AWSAppleSignIn, AWSAuth, AWSAuthCore
+
+## 2.14.1
+
+### New features
+- **AWSMobileClient**
+  - Add support for SignIn with Apple in DropInUI. See [PR: #2819](https://github.com/aws-amplify/aws-sdk-ios/pull/2819)
+
+## 2.14.0
+
+### Bug Fixes
+
+- **AWSCognitoIdentityProvider**
+  - **Breaking Change** Added `nullable` modifier to the return instance form the method `CognitoIdentityUserPoolForKey:`. See [PR: #2815](https://github.com/aws-amplify/aws-sdk-ios/pull/2815)
+
+## 2.13.6
+
+### Misc. Updates
+
+- Changed the repo's default branch to 'main'
+- Model updates for the following services:
+  - Amazon Autoscaling
+
+## 2.13.5
+
+### Bug Fixes
+
+- **Amazon Pinpoint**
+  - Fix issue where SDK is not respecting developer set OptOut value. Persist the developer set optOut in user defaults. See [PR: #2552](https://github.com/aws-amplify/aws-sdk-ios/pull/2552)
+
+- **AWSMobileClient**
+  - If the token expired while signed in using HostedUI, AWSMobileClient will now send the event signedOutUserPoolsTokenInvalid and the request that invoked the token fetch will wait till the user signin or signout or invoke release signin wait. In the previous implementation the requested operation will complete with error and user event listener was not invoked.
+    See [PR: #2739](https://github.com/aws-amplify/aws-sdk-ios/pull/2739)
+
+### Misc. Updates
+- Model updates for the following services:
+  - Amazon Autoscaling
+  - Amazon EC2
+  - AWS IoT
+  - AWS KMS
+  - AWS Lambda
+  - Amazon Pinpoint
+  - Amazon Polly
+  - Amazon Rekognition
+  - Amazon SQS
+  - Amazon SageMaker
+
+## 2.13.4
+### New features
+- **Integration tests**
+    - AWS Mobile SDK for iOS integration tests are now provisioned from a CloudFormation stack created by [the new amplify-ci-support package](LINK TBD). See [the README](LINK TBD) for details on how to provision your account to run integration tests.
+
+- **AWSMobileClient**
+    - Added api to fetch userSub for the loggedin user. [PR #2599](https://github.com/aws-amplify/aws-sdk-ios/pull/2599)
+
+### Bug Fixes
+- **AWSMobileClient**
+    - Crash in `releaseSignInWait` api due to over fulfilling a fetchlock. See [Issue #1278](https://github.com/aws-amplify/aws-sdk-ios/issues/1278) and [PR #2571](https://github.com/aws-amplify/aws-sdk-ios/pull/2571)
+    - Fix `releaseSignInWait` for custom Auth to clear the lock correctly. [PR #2571](https://github.com/aws-amplify/aws-sdk-ios/pull/2571)
+
+- **AWSCognitoIdentityProvider**
+    - Removed cyclic retry logic in custom auth delegate. See [Issue #2504](https://github.com/aws-amplify/aws-sdk-ios/issues/2504), [PR #2571](https://github.com/aws-amplify/aws-sdk-ios/pull/2571)
+
+### Misc. Updates
+- Model updates for the following services:
+  - AWS Lambda
+
 ## 2.13.3
 
 ### New features
@@ -249,7 +324,7 @@ This release is deprecated due to errors. Please use 2.12.5 or greater.
 - **Amazon Transcribe Streaming**
   - Amazon Transcribe streaming transcription enables you to send an audio stream and receive a stream of text in real time using WebSockets.
     See [AWS Documentation](https://docs.aws.amazon.com/transcribe/latest/dg/websocket.html) for more information, and the
-    [integration test](https://github.com/aws-amplify/aws-sdk-ios/blob/master/AWSTranscribeStreamingTests/AWSTranscribeStreamingSwiftTests.swift)
+    [integration test](https://github.com/aws-amplify/aws-sdk-ios/blob/main/AWSTranscribeStreamingTests/AWSTranscribeStreamingSwiftTests.swift)
     for an example of usage.
 
 ### Misc. Updates
@@ -1145,7 +1220,7 @@ All documentation is now centralized at [https://aws-amplify.github.io/](https:/
   * Amazon Transcribe is an automatic speech recognition (ASR) service that makes it easy for developers to add speech to text capability to their applications.
 
 * **AWS IoT**
-  * Add new methods for `publish`, `subscribe` and `unsubscribe` which allow `ack` messages callback using `ackCallback` parameter. See [example.](https://github.com/aws/aws-sdk-ios/blob/master/AWSIoTTests/AWSIoTDataManagerTests.swift#L304)
+  * Add new methods for `publish`, `subscribe` and `unsubscribe` which allow `ack` messages callback using `ackCallback` parameter. See [example.](https://github.com/aws/aws-sdk-ios/blob/main/AWSIoTTests/AWSIoTDataManagerTests.swift#L304)
 
 ### Bug Fixes
 
