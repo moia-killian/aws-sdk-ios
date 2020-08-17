@@ -241,7 +241,7 @@ commands:
 jobs:
   build:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     steps:
       - skip_job_unless_required
       - checkout
@@ -255,7 +255,7 @@ jobs:
 
   unittest:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     steps:
       - set_environment_variables
       - override_test_job
@@ -277,7 +277,7 @@ jobs:
 
   pre_integrationtest:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     environment:
       TERM: xterm-256color
     steps:
@@ -320,7 +320,7 @@ jobs:
 
   post_integrationtest:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     steps:
       #TODO need check why multiple key does not work here
       - skip_job_unless_required
@@ -398,7 +398,7 @@ jobs:
         default: stable_testList
         type: string
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     steps:
       - set_environment_variables
       - override_test_job
@@ -437,7 +437,7 @@ jobs:
 
   release_tag:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     steps:
       - skip_job_unless_required
       - checkout
@@ -452,9 +452,31 @@ jobs:
             tagname="AWS SDK for iOS "${CIRCLE_TAG}
             echo "$tagdescription" | github-release release -s ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -t ${CIRCLE_TAG} --name "$tagname" -d -
 
+  build_carthage:
+    macos:
+      xcode: "11.6.0"
+    steps:
+      - skip_job_unless_required
+      - checkout
+      - pre_start_simulator
+      - update_brew
+      - run:
+          name: Upgrade Carthage
+          command: |
+            HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade carthage
+      - run:
+          name: Build Carthage
+          command: |
+            carthage build --no-skip-current | tee buildout.txt
+          no_output_timeout: 100m
+      - save_cache:
+          key: carthage_build_result-{{ .Revision }}
+          paths:
+            - Carthage
+
   release_carthage:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     steps:
       - skip_job_unless_required
       - checkout
@@ -464,22 +486,11 @@ jobs:
           name: Install github-release
           command: HOMEBREW_NO_AUTO_UPDATE=1 brew install github-release
       - run:
-          name: Install AWS CLI
-          command: |
-            HOMEBREW_NO_AUTO_UPDATE=1 brew install awscli
-      - run:
           name: Upgrade Carthage
           command: |
             HOMEBREW_NO_AUTO_UPDATE=1 brew upgrade carthage
-      - run:
-          name: Build SDK for Carthage release
-          command: |
-            xcodebuild -project AWSiOSSDKv2.xcodeproj -scheme AWSCore -sdk iphonesimulator -destination "${destination}" build
-      - run:
-          name: Build Carthage
-          command: |
-            carthage build --no-skip-current | tee buildout.txt
-          no_output_timeout: 100m
+      - restore_cache:
+          key: carthage_build_result-{{ .Revision }}
       - run:
           name: Create Carthage archive
           command: python3 ./CircleciScripts/create_carthage_archive.py
@@ -490,10 +501,17 @@ jobs:
 
   release_cocoapods:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     steps:
       - skip_job_unless_required
       - checkout
+      - run:
+          # Note that this invocation of cocoapods_release requires at least
+          # CocoaPods 1.9.3, and cocoalpods-trunk 1.5.0, since it uses the
+          # `--synchronous` flag. CocoaPods 1.9.3 comes with the 11.6.0 Xcode
+          # image, but just to be safe, we'll manually update cocoapods-trunk
+          name: Update cocoapods-trunk to support --synchronous flag
+          command: gem update cocoapods-trunk
       - run:
           name: Release CocoaPods
           command: python3 ./CircleciScripts/cocoapods_release.py
@@ -501,7 +519,7 @@ jobs:
 
   release_docs:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     steps:
       - skip_job_unless_required
       - checkout
@@ -531,7 +549,7 @@ jobs:
 
   add_doc_tag:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     steps:
       - skip_job_unless_required
       - checkout
@@ -545,7 +563,7 @@ jobs:
 
   bump_ios_sampleapp_version:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     steps:
       - skip_job_unless_required
       - set_environment_variables
@@ -589,7 +607,7 @@ jobs:
 
   bump_ios_amplifydocs_version:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     steps:
       - skip_job_unless_required
       - set_environment_variables
@@ -619,7 +637,7 @@ jobs:
 
   release_ios_s3:
     macos:
-      xcode: "11.4.1"
+      xcode: "11.6.0"
     environment:
       TERM: xterm-256color
     steps:
@@ -628,25 +646,22 @@ jobs:
       - update_brew
       - set_environment_variables
       - configure_aws
+      - restore_cache:
+          key: carthage_build_result-{{ .Revision }}
       - run:
-          name: Build library
+          name: Make directory structure
           command: |
-            bash CircleciScripts/package.sh
-      - run:
-          name: Copy frameworks
-          command: |
-            mkdir -p "$sdkNameWithVersion/frameworks"
-            cp -R builtFramework/framework/* "$sdkNameWithVersion/frameworks"
+            mkdir -p "$sdkNameWithVersion"
+            mv "Carthage/Build/iOS" "$sdkNameWithVersion/frameworks"
+            rm -rf "Carthage/Build"
       - run:
           name: Copy SDK resource files
           command: |
-            mkdir -p "$sdkNameWithVersion"
             python3 CircleciScripts/copy_resourcefiles.py "$(pwd)" "$(pwd)/$sdkNameWithVersion"
       - run:
           name: Zip SDK folder
           command: |
             zip -r "$sdkNameWithVersion.zip" "$sdkNameWithVersion"
-
       - run:
           name: Copy zip file
           command: |
@@ -796,6 +811,7 @@ jobs:
 
 workflows:
   version: 2
+
   bump_sdk_version:
     jobs:
       - bump_sdk_version:
@@ -1504,8 +1520,18 @@ workflows:
               ignore: /.*/
             tags:
               only: /^[0-9]+.[0-9]+.[0-9]+$/
+      - build_carthage:
+          requires:
+            - unittest
+            - post_integrationtest
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^[0-9]+.[0-9]+.[0-9]+$/
       - release_ios_s3:
           requires:
+            - build_carthage
             - unittest
             - post_integrationtest
           filters:
@@ -1559,6 +1585,7 @@ workflows:
               only: /^[0-9]+.[0-9]+.[0-9]+$/
       - release_carthage:
           requires:
+            - build_carthage
             - add_doc_tag
             - bump_ios_amplifydocs_version
           filters:
