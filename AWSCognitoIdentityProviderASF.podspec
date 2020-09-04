@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'AWSCognitoIdentityProviderASF'
-  s.version      = '1.0.2'
+  s.version      = '1.0.1'
   s.summary      = 'Amazon Cognito Identity Provider Advanced Security Features library (Beta)'
 
   s.description  = 'Amazon Cognito Identity Provider ASF provides the information necessary to support adaptive authentication'
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.author       = { 'Amazon Web Services' => 'amazonwebservices' }
   s.platform     = :ios, '9.0'
   s.source       = { :git => 'git@github.com:moia-killian/aws-sdk-ios.git',
-                     :tag => '2.16.0'}
+                     :tag => '2.14.2'}
   s.requires_arc = true
   s.public_header_files = 'AWSCognitoIdentityProviderASF/*.h'
   s.source_files = 'AWSCognitoIdentityProviderASF/**/*.{h,m,c}'
